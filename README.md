@@ -1,7 +1,7 @@
 
 # About
 
-Imagine you have a simple, nice, useful C++ function. How to you make this function available to users?
+Imagine you have a simple, nice, useful C++ function. How do you make it available to users?
 
 # Content
 
@@ -14,6 +14,7 @@ The *full stack* contains:
 * A static library encapsulating this function.
 * A unit test for this static library.
 * A Python based Flask web-app providing a web-interface for the above command line tool.
+* A docker container, containing the above Flask web-app.
 * A Python module, implemented using the Python C API.
 
 ```mermaid
@@ -26,29 +27,34 @@ The *full stack* contains:
     F --> LIB(Static Lib)
     LIB --> LIBTEST[Static Lib Unit Test]
 
-    CLI1 --> SERVER[Flask Web-App]
-    SERVER --> FRONT[Frontend]
-
     F --> PY(Python Module)
 
-    PY --> PYTEST[Python Unit Test]
 
+    subgraph docker container
+    CLI1 --> SERVER[Flask Web-App]
+    end
+
+    SERVER --> FRONT[Frontend]
+    PY --> PYTEST[Python Unit Test]
 
 ```
 
 
 # Requirements
 
-* Web-app requires Python 3.8+
-* Python module requires Python installation with Python C API
+* Local execution of the web-app requires Python 3.8+.
+* Python module creation requires Python installation with Python C API dependencies.
+* docker to containerize the web app.
 
 
 # Build
 
+To build and test everything:
+
 ```
 mkdir build
 cd build
-cmake .. 
+cmake -DADD_PYTHON_MODULE=ON .. 
 cmake --build . --config Release --target compile_tests
 cmake --build . --config Release --target cmdl
 cmake --build . --config Release --target cmdl_interactive
@@ -59,7 +65,10 @@ ctest -C Release  -VV
 cmake --install .
 cd ..
 python -m unittest discover src/test_py
+docker build --tag func_app .
 ```
+
+The collection of deliverables can be found in ```build/product```.
 
 # Use
 
@@ -68,6 +77,20 @@ python -m unittest discover src/test_py
 
 ```
 python web.py C:\web\resources C:\build\product
+```
+
+## Container
+
+Build the image with:
+```
+docker build --tag func_app .
+```
+The multi-stage build process will build the ```cmdl``` tool.
+
+
+Run the container with:
+```
+docker run -it -p 5000:5000 func_app
 ```
 
 # ToDo

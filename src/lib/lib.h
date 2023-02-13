@@ -3,7 +3,6 @@
 
 #include <array>
 #include <string>
-#include <array>
 
 namespace func_lib
 {
