@@ -61,13 +61,8 @@ To build and test everything:
 ```
 mkdir build
 cd build
-cmake -DADD_PYTHON_MODULE=ON .. 
-cmake --build . --config Release --target compile_tests
-cmake --build . --config Release --target cmdl
-cmake --build . --config Release --target cmdl_interactive
-cmake --build . --config Release --target func_lib
-cmake --build . --config Release --target lib_test
-cmake --build . --config Release --target python_module
+cmake -DADD_PYTHON_MODULE=ON ..
+cmake --build . --config Release
 ctest -C Release  -VV
 cmake --install .
 cd ..
