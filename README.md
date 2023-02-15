@@ -8,16 +8,17 @@ Imagine you have a simple, nice, useful C++ function. How do you make it availab
 The *full stack* contains:
 
 * C++ header-only library with ```constexpr``` function.
-* Compile-time unit-tests testing the above function.
+* Compile-time unit tests testing the above function.
 * Command line tool to process command line arguments using the function.
-* Command line tool to process interactive data using the function.
-* A static library encapsulating this function.
+* Command line tool to handle interactive data with the function.
+* A static library encapsulating the function.
 * A unit test for this static library.
 * A *conan* package containing this static library.
-* A Python based Flask web-app providing a web-interface for the above command line tool.
-* A docker container, containing the above Flask web-app.
-* A Python module, implemented using the Python C API.
-* A unit that for this Python module.
+* A test for this *conan* package.
+* A Python-based Flask web application that provides a web interface to the above command line tool.
+* A Docker container containing the above Flask web application.
+* A Python module implemented using the Python C API.
+* A unit test that tests this Python module.
 
 ```mermaid
   flowchart TD;
@@ -29,17 +30,19 @@ The *full stack* contains:
 
     F --> LIB(Static Lib)
 
-    subgraph conan package
     LIB --> LIBTEST[Static Lib Unit Test]
-    end
+
+    LIB --> C(Conan Package)
+
+    C --> CT[Conan Package Test]
 
     F --> PY(Python Module)
 
     subgraph docker container
     CLI1 --> SERVER[Flask Web-App]
-    end
-
     SERVER --> FRONT[Frontend]
+    end
+    
     PY --> PYTEST[Python Unit Test]
 
 ```
@@ -73,6 +76,7 @@ cd ..
 python -m unittest discover src/test_py
 docker build --tag func_app .
 conan export-pkg . func_lib/0.1.0 -s compiler.cppstd=20 -f
+conan test src/test_package/conanfile.py func_lib/0.1.0@func_lib/0.1.0 -s compiler.cppstd=20 
 ```
 
 The collection of deliverables can be found in ```build/product```.
