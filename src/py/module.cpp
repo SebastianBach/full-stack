@@ -1,31 +1,13 @@
+#include "functions.h"
 #include <Python.h>
-#include <cstdlib>
-#include <iostream>
-#include <my_func.h>
-#include <string>
 
 /*
 - https://docs.python.org/3/extending/extending.html
 */
 
-static PyObject* py_convert(PyObject* self, PyObject* args)
-{
-    const char* input_string;
-
-    if (!PyArg_ParseTuple(args, "s", &input_string))
-    {
-        return NULL;
-    }
-
-    std::string data{input_string};
-
-    func::convert2(data);
-
-    return PyUnicode_FromString(data.c_str());
-}
-
 static PyMethodDef module_methods[] = {
     {"convert", py_convert, METH_VARARGS, "Converts Data."},
+    {"get_library_build_date", py_date, METH_NOARGS, "Returns the creation date of the module."},
     {NULL, NULL, 0, NULL}};
 
 // defines MODULE name

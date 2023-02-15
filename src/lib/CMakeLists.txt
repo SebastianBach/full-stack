@@ -1,6 +1,6 @@
 add_library(func_lib STATIC)
 
-target_sources(func_lib PRIVATE lib.cpp info.cpp)
+target_sources(func_lib PRIVATE lib.cpp info.cpp lib.h)
 target_include_directories(func_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(func_lib PRIVATE my_func)
 

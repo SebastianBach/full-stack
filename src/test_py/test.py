@@ -20,5 +20,5 @@ class TestPythonModule(unittest.TestCase):
 
         print(res)
 
-if __name__ == '__main__':
-    print("stuff")
+        print(func.get_library_build_date())
+
