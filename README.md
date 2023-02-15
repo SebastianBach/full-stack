@@ -31,7 +31,6 @@ The *full stack* contains:
     F --> LIB(Static Lib)
 
     LIB --> LIBTEST[Static Lib Unit Test]
-
     LIB --> C(Conan Package)
 
     C --> CT[Conan Package Test]
@@ -42,9 +41,8 @@ The *full stack* contains:
     CLI1 --> SERVER[Flask Web-App]
     SERVER --> FRONT[Frontend]
     end
-    
-    PY --> PYTEST[Python Unit Test]
 
+    PY --> PYTEST[Python Unit Test]
 ```
 
 
@@ -75,8 +73,8 @@ cmake --install .
 cd ..
 python -m unittest discover src/test_py
 docker build --tag func_app .
-conan export-pkg . func_lib/0.1.0 -s compiler.cppstd=20 -f
-conan test src/test_package/conanfile.py func_lib/0.1.0@func_lib/0.1.0 -s compiler.cppstd=20 
+conan export-pkg . func_lib/0.1.0 --profile ./profile -f
+conan test src/test_package/conanfile.py func_lib/0.1.0@func_lib/0.1.0 --profile ./profile
 ```
 
 The collection of deliverables can be found in ```build/product```.
