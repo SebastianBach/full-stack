@@ -7,7 +7,8 @@
 
 static PyMethodDef module_methods[] = {
     {"convert", py_convert, METH_VARARGS, "Converts Data."},
-    {"get_library_build_date", py_date, METH_NOARGS, "Returns the creation date of the module."},
+    {"get_library_build_date", py_date, METH_NOARGS,
+     "Returns the creation date of the module."},
     {NULL, NULL, 0, NULL}};
 
 // defines MODULE name
