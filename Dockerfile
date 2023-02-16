@@ -11,10 +11,12 @@ COPY src/docker/build.sh /project/build.sh
 RUN ./build.sh
 
 
-FROM python:3.8-bullseye
+FROM python:3.8-slim-buster
 
+RUN useradd -ms /bin/bash local_user
+USER local_user
 WORKDIR /app
-COPY requirements.txt requirements.txt
+COPY src/docker/requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
 COPY src/web /app/web
