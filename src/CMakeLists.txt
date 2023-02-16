@@ -1,9 +1,9 @@
 add_subdirectory(header)
-add_subdirectory(tests)
+add_subdirectory(test_header)
 add_subdirectory(cmdl)
 add_subdirectory(cmdl_interactive)
 add_subdirectory(lib)
-add_subdirectory(lib_test)
+add_subdirectory(test_lib)
 
 if(ADD_PYTHON_MODULE)
     add_subdirectory(py)

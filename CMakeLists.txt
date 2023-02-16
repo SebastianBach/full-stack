@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 option(ADD_PYTHON_MODULE "Include the Python Module" OFF)
 
-project(full_stack)
+project(full_stack CXX)
 enable_testing()
 
 
