@@ -1,3 +1,4 @@
 build
+build_gcc
 src/test_package/build
 src/test_py/__pycache__

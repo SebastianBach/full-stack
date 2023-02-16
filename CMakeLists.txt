@@ -10,8 +10,8 @@ project(full_stack CXX)
 enable_testing()
 
 
-if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    message("build for linux")
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    message("build with GCC")
     add_compile_options(-Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -Wold-style-cast -Wunused -Wpedantic -Wconversion)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++")
 endif()
