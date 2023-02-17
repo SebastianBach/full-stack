@@ -3,7 +3,7 @@ import os
 import unittest
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-product_location = os.path.abspath(os.path.join(script_dir, "..", "..", "build", "product"))
+product_location = os.path.abspath(os.path.join(script_dir, "..", "..", "build", "product", "py3_module"))
 sys.path.append(product_location)
 
 import func

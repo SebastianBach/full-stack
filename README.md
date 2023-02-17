@@ -14,6 +14,7 @@ The *full stack* contains:
 * Command line tool to process the content of a given file with the function.
 * A static library encapsulating the function.
 * A unit test for this static library.
+* A C++ QT5 UI app based on the static library.
 * A *conan* package containing this static library.
 * A test for this *conan* package.
 * A Python-based Flask web application that provides a web interface to the above command line tool.
@@ -21,10 +22,11 @@ The *full stack* contains:
 * A Python module implemented using the Python C API.
 * A unit test that tests this Python module.
 
+
 ```mermaid
   flowchart LR;
 
-    F(C++ Header File) --> CUT[Compile Time Unit Tests];
+    F(C++ Function) --> CUT[Compile Time Unit Tests];
 
     F --> CLI1[Command Line Tool A]
     F --> CLI2[Command Line Tool B]
@@ -34,6 +36,8 @@ The *full stack* contains:
 
     LIB --> LIBTEST[Static Lib Unit Test]
     LIB --> C(Conan Package)
+
+    LIB --> QTCPP[UI App]
 
     C --> CT[Conan Package Test]
 
@@ -54,6 +58,7 @@ The *full stack* contains:
 * Python module creation requires Python installation with Python C API dependencies.
 * *docker* to containerize the web app.
 * *conan* to build the *conan* package.
+* *QT5* to build the C++ QT UI app.
 
 
 # Build
@@ -63,7 +68,7 @@ To build and test everything:
 ```
 mkdir build
 cd build
-cmake -DADD_PYTHON_MODULE=ON ..
+cmake -DADD_PYTHON_MODULE=ON  -DADD_QT_APP=ON ..
 cmake --build . --config Release
 ctest -C Release  -VV
 cmake --install .

@@ -21,6 +21,6 @@ target_include_directories(python_module PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 
 
-install(TARGETS python_module RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product)
+install(TARGETS python_module RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product/py3_module)
 
 endif()

@@ -6,4 +6,4 @@ add_subdirectory(cmdl_file)
 add_subdirectory(lib)
 add_subdirectory(test_lib)
 add_subdirectory(py)
-
+add_subdirectory(app_cpp)

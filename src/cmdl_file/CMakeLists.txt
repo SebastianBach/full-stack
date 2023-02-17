@@ -20,6 +20,6 @@ add_test(NAME test_file_compare COMMAND ${CMAKE_COMMAND}
 
 # etc
 
-install(TARGETS cmdl_file RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product)
+install(TARGETS cmdl_file RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product/tools)
 
 set_target_properties(cmdl_file PROPERTIES FOLDER "tools")
