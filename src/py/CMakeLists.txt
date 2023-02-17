@@ -1,3 +1,8 @@
+cmake_minimum_required(VERSION 3.12)
+
+option(ADD_PYTHON_MODULE "Include the Python Module" OFF)
+
+if(ADD_PYTHON_MODULE)
 
 find_package(Python3 COMPONENTS Development)
 
@@ -18,5 +23,4 @@ target_include_directories(python_module PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 install(TARGETS python_module RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product)
 
-
-
+endif()

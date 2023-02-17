@@ -3,9 +3,6 @@ cmake_minimum_required(VERSION 3.10)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-
-option(ADD_PYTHON_MODULE "Include the Python Module" OFF)
-
 project(full_stack CXX)
 enable_testing()
 

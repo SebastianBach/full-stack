@@ -11,6 +11,7 @@ The *full stack* contains:
 * Compile-time unit tests testing the above function.
 * Command line tool to process command line arguments using the function.
 * Command line tool to handle interactive data with the function.
+* Command line tool to process the content of a given file with the function.
 * A static library encapsulating the function.
 * A unit test for this static library.
 * A *conan* package containing this static library.
@@ -21,12 +22,13 @@ The *full stack* contains:
 * A unit test that tests this Python module.
 
 ```mermaid
-  flowchart TD;
+  flowchart LR;
 
     F(C++ Header File) --> CUT[Compile Time Unit Tests];
 
     F --> CLI1[Command Line Tool A]
     F --> CLI2[Command Line Tool B]
+    F --> CLI3[Command Line Tool C]
 
     F --> LIB(Static Lib)
 
