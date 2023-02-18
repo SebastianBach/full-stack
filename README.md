@@ -20,7 +20,8 @@ The *full stack* contains:
 * A Python-based Flask web application that provides a web interface to the above command line tool.
 * A Docker container containing the above Flask web application.
 * A Python module implemented using the Python C API.
-* A unit test that tests this Python module.
+* A unit test that tests this module.
+* A Python UI app using this module.
 
 
 ```mermaid
@@ -37,7 +38,7 @@ The *full stack* contains:
     LIB --> LIBTEST[Static Lib Unit Test]
     LIB --> C(Conan Package)
 
-    LIB --> QTCPP[UI App]
+    LIB --> QTCPP[UI App C++]
 
     C --> CT[Conan Package Test]
 
@@ -49,6 +50,7 @@ The *full stack* contains:
     end
 
     PY --> PYTEST[Python Unit Test]
+    PY --> PYAPP[UI App Python]
 ```
 
 

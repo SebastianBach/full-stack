@@ -17,7 +17,7 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/lib)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/tools)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/app)
-file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/py3_module)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/python)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS TRUE)
 

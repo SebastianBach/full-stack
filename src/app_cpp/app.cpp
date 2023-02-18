@@ -11,7 +11,13 @@ int main(int argc, char* argv[])
     QApplication app(argc, argv);
 
     QWidget window;
-    window.setWindowTitle("Convert");
+
+    QString title{"Convert App - "};
+    title.append(func_lib::version());
+    title.append(" - ");
+    title.append(func_lib::date());
+
+    window.setWindowTitle(title);
 
     auto* input  = new QLineEdit(&window);
     auto* result = new QLineEdit(&window);
@@ -48,6 +54,8 @@ int main(int argc, char* argv[])
     layout->addLayout(row2);
     layout->addLayout(row3);
     window.setLayout(layout);
+
+    window.setMinimumWidth(500);
 
     window.show();
     return app.exec();
