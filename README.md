@@ -9,9 +9,10 @@ The *full stack* contains:
 
 * C++ header-only library with ```constexpr``` function.
 * Compile-time unit tests testing the above function.
-* Command line tool to process command line arguments using the function.
-* Command line tool to handle interactive data with the function.
-* Command line tool to process the content of a given file with the function.
+* A command line tool to process command line arguments using the function.
+* A Python UI app that provides an frontend for that command line tool.
+* A command line tool to handle interactive data with the function.
+* A command line tool to process the content of a given file with the function.
 * A static library encapsulating the function.
 * A unit test for this static library.
 * A C++ QT5 UI app based on the static library.
@@ -32,6 +33,8 @@ The *full stack* contains:
     F --> CLI1[Command Line Tool A]
     F --> CLI2[Command Line Tool B]
     F --> CLI3[Command Line Tool C]
+
+    CLI1 --> PYAPP2[UI App Python]
 
     F --> LIB(Static Lib)
 
