@@ -9,7 +9,8 @@ void convert_string(std::string& data)
     func::convert2(data);
 }
 
-void convert_data(char* data, size_t cnt) {
+void convert_data(char* data, size_t cnt)
+{
     std::span<char> temp(data, cnt);
     func::convert2(temp);
 }

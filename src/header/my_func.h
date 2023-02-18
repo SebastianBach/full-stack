@@ -1,7 +1,7 @@
 #pragma once
 
 #include <array>
-#include <span>
+#include <concepts>
 
 namespace func
 {
@@ -21,10 +21,8 @@ template <auto N> constexpr auto convert(const std::array<char, N>& input)
     return out;
 }
 
-template <typename DATA> constexpr void convert2(DATA& data)
+template <std::ranges::input_range DATA> constexpr void convert2(DATA& data)
 {
-    // const auto size = data.size();
-
     for (auto& letter : data)
         if (letter >= 65 && letter <= 90)
             letter = letter + 32;
