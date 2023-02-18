@@ -3,7 +3,7 @@ import platform
 import subprocess
 import sys
 
-from flask import (Flask, escape, render_template, request, send_file,
+from flask import (Flask, escape, render_template, request, send_file, jsonify,
                    send_from_directory)
 
 resources_folder = sys.argv[1]
@@ -24,6 +24,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/interactive')
+def interactive():
+    return render_template('request.html')
+
+
 @app.route('/style.css')
 def style():
     """Returns the CSS file."""
@@ -39,6 +44,21 @@ def search_image():
     res = subprocess.run([cmdl_path, data], capture_output=True, text=True)
 
     return render_template('result.html', data=data, result=res.stdout)
+
+
+@app.route('/api/convert', methods=['POST'])
+def post_data():
+
+    data = request.get_json()
+
+    res = subprocess.run([cmdl_path, data["text"]],
+                         capture_output=True, text=True)
+
+    res = res.stdout.rstrip()
+    response = {'result': res}
+
+    return jsonify(response)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
