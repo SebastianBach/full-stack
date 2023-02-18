@@ -7,22 +7,23 @@ Imagine you have a simple, nice, useful C++ function. How do you make it availab
 
 The *full stack* contains:
 
-* C++ header-only library with ```constexpr``` function.
-* Compile-time unit tests testing the above function.
+* A C++ header-only library with a ``constexpr`` function.
+* A compile-time unit test that tests the above function.
 * A command line tool to process command line arguments using the function.
-* A Python UI app that provides an frontend for that command line tool.
+* A Python UI application that provides a front-end to this command-line tool.
 * A command line tool to handle interactive data with the function.
-* A command line tool to process the content of a given file with the function.
-* A static library encapsulating the function.
+* A command line tool to process the contents of a given file with the function.
+* A static library that encapsulates the function.
 * A unit test for this static library.
-* A C++ QT5 UI app based on the static library.
-* A *conan* package containing this static library.
+* A C++ QT5 UI application based on the static library.
+* A *conan* package containing the static library.
 * A test for this *conan* package.
-* A Python-based Flask web application that provides a web interface to the above command line tool.
+* A Python-based Flask web application that provides a web interface and REST API to the above command line tool.
+* A HTML/JavaScript front-end querying the above REST API.
 * A Docker container containing the above Flask web application.
 * A Python module implemented using the Python C API.
 * A unit test that tests this module.
-* A Python UI app using this module.
+* A Python UI application that uses this module.
 
 
 ```mermaid
@@ -34,14 +35,14 @@ The *full stack* contains:
     F --> CLI2[Command Line Tool B]
     F --> CLI3[Command Line Tool C]
 
-    CLI1 --> PYAPP2[UI App Python]
+    CLI1 --> PYAPP2[Python UI App]
 
     F --> LIB(Static Lib)
 
     LIB --> LIBTEST[Static Lib Unit Test]
     LIB --> C(Conan Package)
 
-    LIB --> QTCPP[UI App C++]
+    LIB --> QTCPP[C++ UI App]
 
     C --> CT[Conan Package Test]
 
@@ -53,7 +54,7 @@ The *full stack* contains:
     end
 
     PY --> PYTEST[Python Unit Test]
-    PY --> PYAPP[UI App Python]
+    PY --> PYAPP[Python UI App]
 ```
 
 
