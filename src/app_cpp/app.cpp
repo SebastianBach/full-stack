@@ -4,7 +4,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
-#include <lib.h>
+#include <text_conversion.h>
 
 int main(int argc, char* argv[])
 {
@@ -12,10 +12,10 @@ int main(int argc, char* argv[])
 
     QWidget window;
 
-    QString title{"Convert App - "};
-    title.append(func_lib::version());
+    QString title{"Title Case App - "};
+    title.append(text_conversion::version());
     title.append(" - ");
-    title.append(func_lib::date());
+    title.append(text_conversion::date());
 
     window.setWindowTitle(title);
 
@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
                      [&]()
                      {
                          auto text = input->text().toStdString();
-                         func_lib::convert_string(text);
+                         text_conversion::convert_to_title_case(text);
                          result->setText(QString(text.c_str()));
                      });
 
