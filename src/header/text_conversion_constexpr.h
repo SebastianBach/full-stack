@@ -2,7 +2,6 @@
 
 #include <array>
 #include <concepts>
-#include <cstring>
 #include <ranges>
 
 namespace text_conversion_constexpr
@@ -38,7 +37,7 @@ constexpr void convert_to_title_case(DATA& data)
         return len;
     };
 
-    auto comp_str = [](const char* word_a, auto& d, auto length)
+    auto comp_str = [](const char* word_a, const auto& d, auto length)
     {
         for (auto i = 0u; i < length; ++i)
             if (word_a[i] != d[i])
@@ -46,15 +45,14 @@ constexpr void convert_to_title_case(DATA& data)
         return true;
     };
 
-    auto write_word = [&](DATA& data, auto offset, auto& word, auto word_length,
-                          auto to_upper)
+    auto write_word = [&](DATA& data, auto offset, auto to_upper)
     {
         if (to_upper && is_lower(data[offset]))
             make_upper(data[offset]);
     };
 
     auto check_if_short_word =
-        [&](auto& word, auto word_length, const auto& short_words)
+        [&](const auto& word, auto word_length, const auto& short_words)
     {
         for (const auto* short_word : short_words)
         {
@@ -98,9 +96,10 @@ constexpr void convert_to_title_case(DATA& data)
 
         if ((!letter && word_index > 0u) || i == end_index)
         {
-            auto to_upper = !check_if_short_word(word, word_index, short_words);
+            const auto to_upper =
+                !check_if_short_word(word, word_index, short_words);
 
-            write_word(data, start_index, word, word_index, to_upper);
+            write_word(data, start_index, to_upper);
             word_index = 0u;
         }
     }
