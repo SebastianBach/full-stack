@@ -1,6 +1,6 @@
-#include <my_func.h>
 #include <iostream>
 #include <string>
+#include <text_conversion_constexpr.h>
 
 int main()
 {
@@ -13,7 +13,7 @@ int main()
         if (input == "exit")
             break;
 
-        func::convert2(input);
+        text_conversion_constexpr::convert_to_title_case(input);
 
         std::cout << input << std::endl;
     }

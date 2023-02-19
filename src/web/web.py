@@ -12,8 +12,8 @@ app = Flask(__name__, template_folder=templates_folder)
 
 
 executable = {}
-executable["Windows"] = "cmdl.exe"
-executable["Linux"] = "cmdl"
+executable["Windows"] = "title_case.exe"
+executable["Linux"] = "title_case"
 
 cmdl_path = os.path.join(sys.argv[2], executable[platform.system()])
 

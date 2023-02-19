@@ -1,7 +1,7 @@
 add_executable(lib_test)
 
 target_sources(lib_test PRIVATE tests.cpp)
-target_link_libraries(lib_test PRIVATE func_lib)
+target_link_libraries(lib_test PRIVATE text_conversion_lib)
 
 add_test(NAME lib_test COMMAND lib_test)
 

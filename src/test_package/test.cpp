@@ -1,7 +1,7 @@
-#include "lib.h"
+#include "text_conversion.h"
 #include <iostream>
 
 int main() {
-    std::cout << func_lib::version() << "\n" << func_lib::date() << std::endl;
+    std::cout << text_conversion::version() << "\n" << text_conversion::date() << std::endl;
     return 0;
 }

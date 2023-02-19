@@ -1,2 +1,2 @@
-this is some test text!
-this is more test text.
+This Is the Headline!
+Some More TEXT

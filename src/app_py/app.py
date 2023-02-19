@@ -1,6 +1,6 @@
 import sys
 
-import func
+import text_conversion
 from PyQt5.QtWidgets import (QApplication, QLabel, QLineEdit, QPushButton,
                              QVBoxLayout, QWidget)
 
@@ -9,7 +9,7 @@ class MyApp(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle(f"Convert ({func.get_library_build_date()})")
+        self.setWindowTitle(f"Title Case App ({text_conversion.get_library_build_date()})")
 
         self.label_source = QLabel("Source:")
         self.input_field = QLineEdit()
@@ -34,7 +34,7 @@ class MyApp(QWidget):
 
     def convert(self):
         text = self.input_field.text()
-        self.result_field.setText(func.convert(text))
+        self.result_field.setText(text_conversion.title_case(text))
 
     def clear(self):
         self.input_field.setText("")

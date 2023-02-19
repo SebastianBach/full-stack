@@ -5,5 +5,5 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 add_executable(test test.cpp)
-target_link_libraries(test func_lib)
+target_link_libraries(test text_conversion_lib)
 

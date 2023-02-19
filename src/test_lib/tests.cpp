@@ -1,10 +1,10 @@
-#include "lib.h"
+#include "text_conversion.h"
 #include <iostream>
 
 inline auto test(const char* input, const char* expected)
 {
     std::string test{input};
-    func_lib::convert_string(test);
+    text_conversion::convert_to_title_case(test);
     return test == std::string{expected};
 }
 
@@ -12,16 +12,16 @@ inline auto test(const char* input, const char* expected)
 
 int main()
 {
-    std::cout << func_lib::version() << "\n" << func_lib::date() << std::endl;
+    std::cout << text_conversion::version() << "\n"
+              << text_conversion::date() << std::endl;
 
-    STR_EQ("test", "test");
-    STR_EQ("TEST", "test");
-    STR_EQ("TeSt", "test");
+    STR_EQ("test", "Test");
+    STR_EQ("this is the headline", "This Is the Headline");
 
-    std::array                  input    = {'T', 'e', 'S', 't'};
-    static constinit std::array expected = {'t', 'e', 's', 't'};
+    std::array                  input    = {'t', 'e', 's', 't'};
+    static constinit std::array expected = {'T', 'e', 's', 't'};
 
-    func_lib::convert_array(input);
+    text_conversion::convert_to_title_case(input);
 
     if (input != expected)
         return -1;

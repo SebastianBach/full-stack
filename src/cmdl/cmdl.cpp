@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <cstring>
 #include <iostream>
-#include <my_func.h>
+#include <text_conversion_constexpr.h>
 #include <vector>
 
 namespace
@@ -15,7 +15,7 @@ void process(char* input)
 
     std::copy(input, input + size, data.begin());
 
-    func::convert2(data);
+    text_conversion_constexpr::convert_to_title_case(data);
 
     // null terminated string
     data[size] = 0;

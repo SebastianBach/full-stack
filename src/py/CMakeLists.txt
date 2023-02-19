@@ -9,11 +9,11 @@ if(ADD_PYTHON_MODULE)
 
     add_library(python_module SHARED module.cpp functions.cpp functions.h)
 
-    set_target_properties(python_module PROPERTIES OUTPUT_NAME "func") 
+    set_target_properties(python_module PROPERTIES OUTPUT_NAME "text_conversion") 
     set_target_properties(python_module PROPERTIES SUFFIX ".pyd")
     set_target_properties(python_module PROPERTIES FOLDER "python")
 
-    target_link_libraries(python_module PRIVATE my_func)
+    target_link_libraries(python_module PRIVATE text_conversion_header_lib)
     target_link_libraries(python_module PRIVATE Python3::Python)
 
     target_include_directories(python_module PRIVATE ${Python3_INCLUDE_DIRS})

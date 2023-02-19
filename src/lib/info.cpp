@@ -1,6 +1,6 @@
-#include "lib.h"
+#include "text_conversion.h"
 
-namespace func_lib
+namespace text_conversion
 {
 const char* version()
 {

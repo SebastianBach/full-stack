@@ -1,5 +1,5 @@
 #pragma once
-#include "my_func.h"
+#include "text_conversion_constexpr.h"
 
 namespace test
 {
@@ -22,17 +22,11 @@ template <auto N> consteval auto to_array(const char (&a)[N])
     return out;
 }
 
-template <auto N> consteval auto test(const char (&a)[N], const char (&b)[N])
-{
-    const auto arr = to_array(a);
-    const auto res = func::convert(arr);
-    return compare(b, res);
-}
-
-template <auto N> consteval auto test2(const char (&a)[N], const char (&b)[N])
+template <auto N> consteval auto test_title_case(const char (&a)[N], const char (&b)[N])
 {
     auto arr = test::to_array(a);
-    func::convert2(arr);
+    text_conversion_constexpr::convert_to_title_case(arr);
     return test::compare(b, arr);
 }
+
 } // namespace test

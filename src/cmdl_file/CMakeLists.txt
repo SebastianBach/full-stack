@@ -1,8 +1,9 @@
 add_executable(cmdl_file)
 
 target_sources(cmdl_file PRIVATE cmdl_file.cpp)
-target_link_libraries(cmdl_file PRIVATE my_func)
-target_include_directories(cmdl_file PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+set_target_properties(cmdl_file PROPERTIES OUTPUT_NAME "title_case_files") 
+target_link_libraries(cmdl_file PRIVATE text_conversion_header_lib)
+target_include_directories(cmdl_file PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 # testing
 

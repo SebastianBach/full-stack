@@ -3,22 +3,22 @@ import os
 import unittest
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-product_location = os.path.abspath(os.path.join(script_dir, "..", "..", "build", "product", "py3_module"))
+product_location = os.path.abspath(os.path.join(script_dir, "..", "..", "build", "product", "python"))
 sys.path.append(product_location)
 
-import func
+import text_conversion
 
 class TestPythonModule(unittest.TestCase):
 
     def test_base(self):
 
         print("Test module 'func'")
-        print(func)
+        print(text_conversion)
 
-        res = func.convert("This Is SPARTA!")
-        self.assertEqual(res, "this is sparta!")
+        res = text_conversion.title_case("this is the headline")
+        self.assertEqual(res, "This Is the Headline")
 
         print(res)
 
-        print(func.get_library_build_date())
+        print(text_conversion.get_library_build_date())
 

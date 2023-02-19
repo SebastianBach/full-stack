@@ -7,8 +7,8 @@ from PyQt5.QtWidgets import (QApplication, QLabel, QLineEdit, QMessageBox,
                              QPushButton, QVBoxLayout, QWidget)
 
 executable = {}
-executable["Windows"] = "cmdl.exe"
-executable["Linux"] = "cmdl"
+executable["Windows"] = "title_case.exe"
+executable["Linux"] = "title_case"
 
 cmdl_path = executable[platform.system()]
 
@@ -17,7 +17,7 @@ class MyApp(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle(f"Convert")
+        self.setWindowTitle(f"Title Case App")
 
         self.label_source = QLabel("Source:")
         self.input_field = QLineEdit()
@@ -55,12 +55,12 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     if not os.path.exists(cmdl_path):
-        msgBox = QMessageBox()
-        msgBox.setIcon(QMessageBox.Critical)
-        msgBox.setText("Could not find cmdl tool.")
-        msgBox.setWindowTitle("Error")
-        msgBox.setStandardButtons(QMessageBox.Ok)
-        msgBox.exec_()
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Critical)
+        msg_box.setText("Could not find command line tool.")
+        msg_box.setWindowTitle("Error")
+        msg_box.setStandardButtons(QMessageBox.Ok)
+        msg_box.exec_()
 
         exit(-1)
 

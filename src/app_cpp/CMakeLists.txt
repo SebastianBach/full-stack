@@ -14,22 +14,22 @@ if(ADD_QT_APP)
     set(CMAKE_AUTOUIC ON)
 
 
-    add_executable(app WIN32)
-    target_sources(app PRIVATE app.cpp)
-    target_link_libraries(app PRIVATE func_lib)
-    target_link_libraries(app PRIVATE Qt5::Widgets)
-    target_include_directories(app PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+    add_executable(title_case_app WIN32)
+    target_sources(title_case_app PRIVATE app.cpp)
+    target_link_libraries(title_case_app PRIVATE text_conversion_lib)
+    target_link_libraries(title_case_app PRIVATE Qt5::Widgets)
+    target_include_directories(title_case_app PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-    set_property(TARGET app PROPERTY CXX_STANDARD 11)
+    set_property(TARGET title_case_app PROPERTY CXX_STANDARD 11)
 
-    install(TARGETS app RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product/app)
+    install(TARGETS title_case_app RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product/app)
 
     if(WIN32)
         set(WINDEPLOYQT_EXECUTABLE "${Qt5_DIR}/../../../bin/windeployqt${CMAKE_EXECUTABLE_SUFFIX}")
-        set(EXE_PATH "${CMAKE_BINARY_DIR}/product/app/app${CMAKE_EXECUTABLE_SUFFIX}")
+        set(EXE_PATH "${CMAKE_BINARY_DIR}/product/app/title_case_app${CMAKE_EXECUTABLE_SUFFIX}")
         install(CODE "execute_process(COMMAND ${WINDEPLOYQT_EXECUTABLE} \"${EXE_PATH}\")")
     endif()
 
-    set_target_properties(app PROPERTIES FOLDER "app")
+    set_target_properties(title_case_app PROPERTIES FOLDER "app")
 
 endif()

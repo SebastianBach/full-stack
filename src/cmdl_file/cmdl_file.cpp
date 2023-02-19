@@ -1,7 +1,7 @@
 #include <fstream>
 #include <iostream>
-#include <my_func.h>
 #include <string>
+#include <text_conversion_constexpr.h>
 
 namespace
 {
@@ -28,7 +28,7 @@ int process(const char* input, const char* output)
     std::string line;
     while (std::getline(input_file, line))
     {
-        func::convert2(line);
+        text_conversion_constexpr::convert_to_title_case(line);
         output_file << line << std::endl;
     }
 

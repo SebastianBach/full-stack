@@ -1,8 +1,8 @@
 #include "functions.h"
 #include <cstdlib>
 #include <iostream>
-#include <my_func.h>
 #include <string>
+#include <text_conversion_constexpr.h>
 
 PyObject* py_convert(PyObject*, PyObject* args)
 {
@@ -15,7 +15,7 @@ PyObject* py_convert(PyObject*, PyObject* args)
 
     std::string data{input_string};
 
-    func::convert2(data);
+    text_conversion_constexpr::convert_to_title_case(data);
 
     return PyUnicode_FromString(data.c_str());
 }

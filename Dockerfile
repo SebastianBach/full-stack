@@ -20,7 +20,7 @@ COPY src/docker/requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
 COPY src/web /app/web
-COPY --from=builder /project/build/product/cmdl /app/cmdl
+COPY --from=builder /project/build/product/tools/title_case /app/title_case
 
 WORKDIR /app/web/
 

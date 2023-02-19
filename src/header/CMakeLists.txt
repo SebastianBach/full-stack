@@ -1,2 +1,2 @@
-add_library(my_func INTERFACE)
-target_include_directories(my_func INTERFACE .)
+add_library(text_conversion_header_lib INTERFACE)
+target_include_directories(text_conversion_header_lib INTERFACE .)
