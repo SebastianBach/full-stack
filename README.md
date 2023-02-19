@@ -24,6 +24,8 @@ The *full stack* contains:
 * A Python module implemented using the Python C API.
 * A unit test that tests this module.
 * A Python UI application that uses this module.
+* A WebAssembly binary library and associated JavaScript code.
+* A HTML/JavaScript front-end utilizing the above WebAssembly library.
 
 
 ```mermaid
@@ -50,11 +52,15 @@ The *full stack* contains:
 
     subgraph docker container
     CLI1 --> SERVER[Flask Web-App]
-    SERVER --> FRONT[Frontend]
+    SERVER --> FRONT[Front End]
     end
 
     PY --> PYTEST[Python Unit Test]
     PY --> PYAPP[Python UI App]
+
+    F --> WASM(WebAssembly + JavaScript)
+
+    WASM --> WASMF[Front End]
 ```
 
 
@@ -65,6 +71,7 @@ The *full stack* contains:
 * *docker* to containerize the web app.
 * *conan* to build the *conan* package.
 * *QT5* to build the C++ QT UI app.
+* *docker* to build the WebAssembly library.
 
 
 # Build
@@ -111,6 +118,18 @@ docker run --rm -it -p 5000:5000 title-case-web
 ```
 
 Open ```localhost:5000``` for a synchronous web-app. Open ```localhost:5000/interactive``` for an asynchronous web-app.
+
+
+## WebAssembly
+
+
+Start a simple HTTP-server with
+
+```
+python -m http.server
+```
+
+Open ```http://localhost:8000/``` to start the web-app.
 
 # ToDo
 
