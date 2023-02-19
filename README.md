@@ -80,7 +80,7 @@ ctest -C Release  -VV
 cmake --install .
 cd ..
 python -m unittest discover src/test_py
-docker build --tag func_app .
+docker build --tag title-case-web .
 conan export-pkg . func_lib/0.1.0 --profile ./profile -f
 conan test src/test_package/conanfile.py func_lib/0.1.0@func_lib/0.1.0 --profile ./profile
 ```
@@ -100,15 +100,17 @@ python web.py C:\web\resources C:\build\product
 
 Build the image with:
 ```
-docker build --tag func_app .
+docker build --tag title-case-web .
 ```
 The multi-stage build process will build the ```cmdl``` tool.
 
 
 Run the container with:
 ```
-docker run -it -p 5000:5000 func_app
+docker run --rm -it -p 5000:5000 title-case-web
 ```
+
+Open ```localhost:5000``` for a synchronous web-app. Open ```localhost:5000/interactive``` for an asynchronous web-app.
 
 # ToDo
 

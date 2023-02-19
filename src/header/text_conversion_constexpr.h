@@ -45,7 +45,7 @@ constexpr void convert_to_title_case(DATA& data)
         return true;
     };
 
-    auto write_word = [&](DATA& data, auto offset, auto to_upper)
+    auto write_word = [&](auto offset, auto to_upper)
     {
         if (to_upper && is_lower(data[offset]))
             make_upper(data[offset]);
@@ -58,10 +58,8 @@ constexpr void convert_to_title_case(DATA& data)
         {
             const auto len = strlen_constexpr(short_word);
             if (len == word_length)
-            {
                 if (comp_str(short_word, word, word_length))
                     return true;
-            }
         }
         return false;
     };
@@ -72,15 +70,15 @@ constexpr void convert_to_title_case(DATA& data)
                               "on",  "per", "to",  "up",  "via"};
 
     std::array<long int, 50> word;
-    auto                     word_index  = 0u;
-    auto                     start_index = 0u;
+
+    auto word_index  = 0u;
+    auto start_index = 0u;
 
     // first letter
     if (is_lower(data[0]))
         make_upper(data[0]);
 
-    const auto end_index      = size - 1u;
-    auto       prev_separator = false;
+    const auto end_index = size - 1u;
 
     for (auto i = 0u; i < size; ++i)
     {
@@ -99,7 +97,7 @@ constexpr void convert_to_title_case(DATA& data)
             const auto to_upper =
                 !check_if_short_word(word, word_index, short_words);
 
-            write_word(data, start_index, to_upper);
+            write_word(start_index, to_upper);
             word_index = 0u;
         }
     }

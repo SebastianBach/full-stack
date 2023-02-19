@@ -12,7 +12,7 @@ class TestPythonModule(unittest.TestCase):
 
     def test_base(self):
 
-        print("Test module 'func'")
+        print("Test module 'text_conversion'")
         print(text_conversion)
 
         res = text_conversion.title_case("this is the headline")

@@ -18,9 +18,9 @@ if(ADD_QT_APP)
     target_sources(title_case_app PRIVATE app.cpp)
     target_link_libraries(title_case_app PRIVATE text_conversion_lib)
     target_link_libraries(title_case_app PRIVATE Qt5::Widgets)
-    target_include_directories(title_case_app PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+    target_include_directories(title_case_app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
-    set_property(TARGET title_case_app PROPERTY CXX_STANDARD 11)
+    set_target_properties(title_case_app PROPERTIES CXX_STANDARD 11)
 
     install(TARGETS title_case_app RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product/app)
 
