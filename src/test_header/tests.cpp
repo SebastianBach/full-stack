@@ -3,7 +3,11 @@
 
 int main()
 {
+   static_assert(test::test_title_case("test", "Test"));
+
    static_assert(test::test_title_case("test text", "Test Text"));
+
+   static_assert(test::test_title_case(" test ", " Test "));
 
    static_assert(test::test_title_case("test self-report", "Test Self-Report"));
 

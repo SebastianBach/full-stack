@@ -6,6 +6,20 @@
 
 namespace text_conversion_constexpr
 {
+namespace intern
+{
+struct short_word
+{
+    template <auto N>
+    constexpr short_word(const char (&input)[N]) : word(input), length(N - 1)
+    {
+    }
+
+    const char*        word;
+    const unsigned int length;
+};
+} // namespace intern
+
 /*
  * Converts the given text to tilte case style.
  *
@@ -20,27 +34,8 @@ constexpr void convert_to_title_case(DATA& data)
     if (data.empty())
         return;
 
-    auto is_upper = [](const auto& letter)
-    { return letter >= 65 && letter <= 90; };
-
-    auto is_lower = [](const auto& letter)
-    { return letter >= 97 && letter <= 122; };
-
     auto is_letter = [&](const auto& letter)
-    { return is_upper(letter) || is_lower(letter); };
-
-    auto make_upper = [](auto& letter) { letter -= 32; };
-
-    auto strlen_constexpr = [](const char* word)
-    {
-        auto len = 0u;
-        while (*word != '\0')
-        {
-            word = word + 1;
-            len++;
-        }
-        return len;
-    };
+    { return letter >= 65 && letter <= 90 || letter >= 97 && letter <= 122; };
 
     auto comp_str = [](const char* word_a, const auto* d, auto length)
     {
@@ -50,41 +45,40 @@ constexpr void convert_to_title_case(DATA& data)
         return true;
     };
 
-    auto update_word = [&](auto offset)
+    auto make_upper_case = [&](auto offset)
     {
-        if (is_lower(data[offset]))
-            make_upper(data[offset]);
+        auto& letter = data[offset];
+        // check if lower case letter
+        if (letter >= 97 && letter <= 122)
+            letter -= 32;
     };
 
     auto check_if_short_word =
         [&](const auto* word, auto word_length, const auto& short_words)
     {
-        for (const auto* short_word : short_words)
-        {
-            const auto len = strlen_constexpr(short_word);
-            if (len == word_length)
-                if (comp_str(short_word, word, word_length))
+        if (word_length >= 4)
+            return false;
+
+        for (const auto& short_word : short_words)
+            if (short_word.length == word_length)
+                if (comp_str(short_word.word, word, word_length))
                     return true;
-        }
+
         return false;
     };
 
-    const auto short_words = {"a",   "an",  "the", "and", "as", "but",
-                              "for", "if",  "nor", "or",  "so", "yet",
-                              "at",  "by",  "for", "in",  "of", "off",
-                              "on",  "per", "to",  "up",  "via"};
+    const std::array<intern::short_word, 23> short_words{
+        "a",   "an",  "the", "and", "as", "but", "for", "if",
+        "nor", "or",  "so",  "yet", "at", "by",  "for", "in",
+        "of",  "off", "on",  "per", "to", "up",  "via"};
 
-    using data_type = std::ranges::range_value_t<decltype(data)>;
-
-    data_type* word_start  = nullptr;
-    auto       word_length = 0u;
-    auto       start_index = 0u;
+    auto word_length = 0u;
+    auto start_index = 0u;
 
     // first letter
-    update_word(0);
+    make_upper_case(0);
 
-    const auto size      = data.size();
-    const auto end_index = size - 1u;
+    const auto size = data.size();
 
     for (auto i = 0u; i < size; ++i)
     {
@@ -92,21 +86,19 @@ constexpr void convert_to_title_case(DATA& data)
         if (letter)
         {
             if (word_length == 0u)
-            {
                 start_index = i;
-                word_start  = &data[i];
-            }
 
             word_length++;
         }
 
-        if ((!letter && word_length > 0u) || i == end_index)
+        if ((!letter && word_length > 0u) || i == size - 1u)
         {
-            const auto to_upper =
-                !check_if_short_word(word_start, word_length, short_words);
+            const auto to_upper = !check_if_short_word(
+                &data[start_index], word_length, short_words);
 
             if (to_upper)
-                update_word(start_index);
+                make_upper_case(start_index);
+
             word_length = 0u;
         }
     }

@@ -8,7 +8,10 @@ inline auto test(const char* input, const char* expected)
     return test == std::string{expected};
 }
 
-#define STR_EQ(A, B) if (!test(A,B)) return -1;
+#define STR_EQ(A, B)                                                           \
+    std::cout << A << " --> " B << std::endl;                                  \
+    if (!test(A, B))                                                           \
+        return -1;
 
 int main()
 {
