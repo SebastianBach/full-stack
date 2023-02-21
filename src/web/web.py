@@ -26,6 +26,7 @@ def index():
 
 @app.route('/interactive')
 def interactive():
+    """Returns the interactive page."""
     return render_template('request.html')
 
 
@@ -37,7 +38,7 @@ def style():
 
 @app.route('/web-convert', methods=['POST'])
 def search_image():
-    """Performs the operation and returns the result."""
+    """Performs the title case conversion and returns the result HTML document."""
 
     data = request.form['data']
 
@@ -48,6 +49,7 @@ def search_image():
 
 @app.route('/api/convert', methods=['POST'])
 def post_data():
+    """Performs the title case conversion and returns the result."""
 
     data = request.get_json()
 

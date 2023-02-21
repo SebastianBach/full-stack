@@ -9,7 +9,8 @@ class MyApp(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle(f"Title Case App ({text_conversion.get_library_build_date()})")
+        self.setWindowTitle(
+            f"Title Case App ({text_conversion.get_library_build_date()})")
 
         self.label_source = QLabel("Source:")
         self.input_field = QLineEdit()
@@ -33,10 +34,14 @@ class MyApp(QWidget):
         self.setLayout(layout)
 
     def convert(self):
+        """ Converts the text of the input field to title case and
+            writes the result to the result field.
+        """
         text = self.input_field.text()
         self.result_field.setText(text_conversion.title_case(text))
 
     def clear(self):
+        """Clears all line edit fields."""
         self.input_field.setText("")
         self.result_field.setText("")
 

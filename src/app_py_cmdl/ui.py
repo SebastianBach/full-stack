@@ -41,11 +41,15 @@ class MyApp(QWidget):
         self.setLayout(layout)
 
     def convert(self):
+        """ Converts the text of the input field to title case and
+            writes the result to the result field.
+        """
         text = self.input_field.text()
         res = subprocess.run([cmdl_path, text], capture_output=True, text=True)
         self.result_field.setText(res.stdout)
 
     def clear(self):
+        """Clears all line edit fields."""
         self.input_field.setText("")
         self.result_field.setText("")
 
