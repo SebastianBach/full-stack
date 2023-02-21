@@ -8,6 +8,7 @@ int main()
     while (true)
     {
         std::cout << "Enter a text to process or \"exit\" to end the program: ";
+
         std::getline(std::cin, input);
 
         if (input == "exit")

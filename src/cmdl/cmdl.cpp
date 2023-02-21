@@ -6,7 +6,7 @@
 
 namespace
 {
-void process(char* input)
+void process(const char* input)
 {
     const auto size = std::strlen(input);
 

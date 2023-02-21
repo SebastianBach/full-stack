@@ -5,6 +5,13 @@
 
 namespace
 {
+/*
+ * Processes the text of the given intput file.
+ *
+ * @param[in] input    Path to the input text file to read data from.
+ * @param[in] output   Path to the output text file to write results to.
+ * @return             0 if the processing succeeds, otherwise an error code.
+ */
 int process(const char* input, const char* output)
 {
     std::cout << "Input: " << input << "\nOutput: " << output << std::endl;
@@ -22,7 +29,7 @@ int process(const char* input, const char* output)
     if (!output_file.is_open())
     {
         std::cerr << "Failed to open output file" << std::endl;
-        return 1;
+        return 2;
     }
 
     std::string line;
