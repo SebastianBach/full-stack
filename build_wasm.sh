@@ -10,8 +10,13 @@ BUILD_DIR=./build/wasm
 SOURCE_DIR=./src/webassembly
 PRODUCT_DIR=./build/product/webassembly/
 
+
+# copy source files to $BUILD_DIR
 cp $SOURCE_DIR/source.cpp $BUILD_DIR
 cp ./src/header/text_conversion_constexpr.h $BUILD_DIR
+
+
+# compile using container
 
 FULL_PATH=$(pwd -W)/build/wasm/
 
@@ -22,6 +27,8 @@ docker run \
   emscripten/emsdk \
   emcc source.cpp -s -std=c++20 -O2 -o title_case.js
 
+
+# copy results to $PRODUCT_DIR
 
 if [ ! -d "./build/product/webassembly" ]; then
     mkdir ./build/product/webassembly

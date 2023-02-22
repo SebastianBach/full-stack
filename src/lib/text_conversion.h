@@ -11,7 +11,7 @@ namespace text_conversion
  * Modifies the data in-place.
  *
  * @param[in,out] data    Pointer to the text to convert.
- * @param[in,out] cnt     Length of the text.
+ * @param[in]     cnt     Length of the text.
  */
 void convert_to_title_case(char* data, size_t cnt);
 
@@ -32,7 +32,7 @@ void convert_to_title_case(std::string& data);
  */
 template <typename T, auto N> void convert_to_title_case(std::array<T, N>& data)
 {
-    convert_to_title_case(data.data(), data.size());
+    convert_to_title_case(data.data(), N);
 }
 #else
 /*
@@ -43,7 +43,7 @@ template <typename T, auto N> void convert_to_title_case(std::array<T, N>& data)
  */
 template <typename T, int N> void convert_to_title_case(std::array<T, N>& data)
 {
-    convert_to_title_case(data.data(), data.size());
+    convert_to_title_case(data.data(), N);
 }
 #endif
 

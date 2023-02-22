@@ -21,7 +21,7 @@ struct short_word
 } // namespace intern
 
 /*
- * Converts the given text to tilte case style.
+ * Converts the given text to title case style.
  *
  * https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case
  *
