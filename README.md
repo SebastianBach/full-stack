@@ -69,7 +69,7 @@ The *full stack* contains:
 * Python module creation requires Python installation with Python C API dependencies.
 * *docker* to containerize the web app and to build the WebAssembly library.
 * *conan* to build the *conan* package.
-* *QT5* to build the C++ QT UI app.
+* *Qt5* to build the C++ Qt UI app.
 
 
 # Build
@@ -140,7 +140,7 @@ Start the ```web.py``` script by providing the location of the resource files an
 python web.py C:\web\resources C:\build\product
 ```
 
-Open ```localhost:5000``` in your browser to access the web app.
+Open ```localhost:5000``` for a synchronous web app. Open ```localhost:5000/interactive``` for an asynchronous web app.
 
 ## Container
 
