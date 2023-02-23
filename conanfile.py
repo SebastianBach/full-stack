@@ -2,10 +2,10 @@ from conans import ConanFile
 
 # https://docs.conan.io/en/latest/creating_packages/existing_binaries.html
 
-class FuncLibConan(ConanFile):
-    name = "func_lib"
+class TextConversionConan(ConanFile):
+    name = "text_conversion"
     version = "0.1.0"
-    description = "Some Functionality"
+    description = "Text Conversion and Formatting Library"
     settings = "os", "compiler", "build_type", "arch"
 
     def package(self):

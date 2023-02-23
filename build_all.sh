@@ -13,6 +13,6 @@ cmake --install .
 cd ..
 python -m unittest discover src/test_py
 docker build --tag title-case-web .
-conan export-pkg . func_lib/0.1.0 --profile ./profile -f
-conan test src/test_package/conanfile.py func_lib/0.1.0@func_lib/0.1.0 --profile ./profile
+conan export-pkg . text_conversion/0.1.0 --profile ./profile -f
+conan test src/test_package/conanfile.py text_conversion/0.1.0@text_conversion/0.1.0 --profile ./profile
 ./build_wasm.sh
