@@ -1,0 +1,2 @@
+add_library(text_conversion_header_lib INTERFACE)
+target_include_directories(text_conversion_header_lib INTERFACE .)
