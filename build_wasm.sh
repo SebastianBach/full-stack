@@ -37,3 +37,5 @@ fi
 cp $BUILD_DIR/title_case.wasm $PRODUCT_DIR
 cp $BUILD_DIR/title_case.js $PRODUCT_DIR
 cp $SOURCE_DIR/index.html $PRODUCT_DIR
+cp $SOURCE_DIR/styles.css $PRODUCT_DIR
+cp $SOURCE_DIR/main.js $PRODUCT_DIR
