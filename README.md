@@ -93,8 +93,9 @@ python -m unittest discover src/test_py
 docker build --tag title-case-web .
 
 # build and test conan package
-conan export-pkg . text_conversion/0.1.0 --profile ./profile -f
-conan test src/test_package/conanfile.py text_conversion/0.1.0@text_conversion/0.1.0 --profile ./profile
+conan export-pkg . -of ./build/conan
+conan list text_conversion
+conan test ./src/test_package text_conversion/0.1.1
 
 # build WebAssembly library
 ./build_wasm.sh
