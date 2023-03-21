@@ -35,7 +35,7 @@ constexpr void convert_to_title_case(DATA& data)
         return;
 
     auto is_letter = [&](const auto& letter)
-    { return (letter >= 65 && letter <= 90) || (letter >= 97 && letter <= 122); };
+    { return (letter >= 65 && letter <= 90) || (letter >= 97 && letter <= 122) || letter == 39; };
 
     auto comp_str = [](const char* word_a, const auto* d, auto length)
     {
