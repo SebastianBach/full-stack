@@ -35,6 +35,11 @@ def style():
     """Returns the CSS file."""
     return send_from_directory(resources_folder, 'style.css', mimetype='text/css')
 
+@app.route('/script.js')
+def script():
+    """Returns the JS file."""
+    return send_from_directory(resources_folder, 'script.js', mimetype='text/javascript')
+
 
 @app.route('/web-convert', methods=['POST'])
 def search_image():
