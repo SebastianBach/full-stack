@@ -1,5 +1,5 @@
 #include "script.h"
-
+#include <format>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -28,29 +28,23 @@ void parse(const std::string& line, command& command, std::string& operand)
     if (cmd.empty())
         return;
 
-    if (cmd == "TEXT")
+    static std::map<std::string, script::command> map_command_with_operand = {
+        {"text", command::TEXT},
+        {"load", command::LOAD},
+        {"save", command::SAVE}};
+
+    auto res = map_command_with_operand.find(cmd);
+    if (res != map_command_with_operand.end())
     {
-        command = command::TEXT;
-        std::getline(iss >> std::ws, operand);
-        return;
-    }
-    else if (cmd == "LOAD")
-    {
-        command = command::LOAD;
-        std::getline(iss >> std::ws, operand);
-        return;
-    }
-    else if (cmd == "SAVE")
-    {
-        command = command::SAVE;
+        command = res->second;
         std::getline(iss >> std::ws, operand);
         return;
     }
 
     static std::map<std::string, script::command> map = {
-        {"PROCESS", command::PROCESS}, {"PRINT", command::PRINT}};
+        {"process", command::PROCESS}, {"print", command::PRINT}};
 
-    auto res = map.find(cmd);
+    res = map.find(cmd);
     if (res != map.end())
     {
         command = res->second;
@@ -79,6 +73,36 @@ std::string engine::run(command cmd, const std::string& operand)
     case (command::PROCESS):
     {
         text_conversion_constexpr::convert_to_title_case(m_memory);
+        break;
+    }
+    case (command::LOAD):
+    {
+        std::ifstream file{operand};
+
+        if (!file.is_open())
+            return std::format("Could not open file {}", operand);
+
+        m_memory.clear();
+
+        std::string line;
+        while (std::getline(file, line))
+            m_memory += line + "\n";
+
+        file.close();
+
+        break;
+    }
+    case (command::SAVE):
+    {
+        std::ofstream output_file{operand};
+
+        if (!output_file.is_open())
+            return std::format("Could not open file {}", operand);
+
+        output_file << m_memory << std::endl;
+
+        output_file.close();
+
         break;
     }
     }

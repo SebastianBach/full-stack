@@ -8,3 +8,4 @@ target_link_libraries(script_test PRIVATE script_lib)
 add_test(NAME script_test COMMAND script_test)
 
 set_target_properties(script_test PROPERTIES FOLDER "script")
+
