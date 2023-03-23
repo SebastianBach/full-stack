@@ -9,48 +9,8 @@
 
 namespace script
 {
-void parse(const std::string& line, command& command, std::string& operand)
-{
-    command = command::INVALID;
 
-    if (line.starts_with("#"))
-    {
-        command = command::COMMENT;
-        return;
-    }
-
-    std::string cmd;
-    std::string op;
-
-    std::istringstream iss(line);
-    iss >> cmd;
-
-    if (cmd.empty())
-        return;
-
-    static std::map<std::string, script::command> map_command_with_operand = {
-        {"text", command::TEXT},
-        {"load", command::LOAD},
-        {"save", command::SAVE}};
-
-    auto res = map_command_with_operand.find(cmd);
-    if (res != map_command_with_operand.end())
-    {
-        command = res->second;
-        std::getline(iss >> std::ws, operand);
-        return;
-    }
-
-    static std::map<std::string, script::command> map = {
-        {"process", command::PROCESS}, {"print", command::PRINT}};
-
-    res = map.find(cmd);
-    if (res != map.end())
-    {
-        command = res->second;
-        return;
-    }
-}
+engine::engine(std::function<void(const char* msg)> print) : m_print(print) {}
 
 std::string engine::run(command cmd, const std::string& operand)
 {
@@ -67,7 +27,9 @@ std::string engine::run(command cmd, const std::string& operand)
     }
     case (command::PRINT):
     {
-        std::cout << m_memory << std::endl;
+        if (m_print)
+            m_print(m_memory.c_str());
+
         break;
     }
     case (command::PROCESS):
