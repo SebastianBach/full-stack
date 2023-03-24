@@ -1,9 +1,19 @@
 #include "script.h"
+#include <csignal>
 #include <iostream>
 #include <string>
 
+volatile std::sig_atomic_t g_signal_status;
+
+void signal_handler(int signal)
+{
+    g_signal_status = signal;
+}
+
 int main()
 {
+    std::signal(SIGINT, signal_handler);
+
     auto print = [](const char* msg)
     {
         std::cout << "\033[32m";
@@ -20,6 +30,9 @@ int main()
     std::string input;
     while (true)
     {
+        if (g_signal_status != 0)
+            break;
+
         std::getline(std::cin, input);
 
         if (input == "exit")
