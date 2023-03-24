@@ -1,11 +1,12 @@
 #include "text_conversion.h"
+#include "text_conversion_constexpr.h"
 
 namespace text_conversion
 {
 
 const char* version()
 {
-    return "0.1.1";
+    return text_conversion_constexpr::version;
 }
 
 const char* date()

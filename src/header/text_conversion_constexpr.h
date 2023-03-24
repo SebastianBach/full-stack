@@ -6,6 +6,9 @@
 
 namespace text_conversion_constexpr
 {
+
+ static const char* version = "0.1.1";
+
 namespace intern
 {
 struct short_word
