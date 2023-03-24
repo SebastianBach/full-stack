@@ -33,4 +33,7 @@ private:
     std::function<void(const char* msg)> m_print;
 };
 
+std::string compile(const std::vector<std::string>& source,
+                    std::vector<char>&              data);
+
 } // namespace script

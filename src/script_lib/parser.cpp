@@ -6,14 +6,11 @@
 #include <sstream>
 #include <text_conversion_constexpr.h>
 #include <vector>
+#include "tokens.h"
 
 namespace script
 {
-struct token
-{
-    command cmd;
-    bool    has_operand;
-};
+
 
 void parse(const std::string& line, command& command, std::string& operand)
 {
@@ -33,13 +30,6 @@ void parse(const std::string& line, command& command, std::string& operand)
 
     if (cmd.empty())
         return;
-
-    static const std::map<std::string, token> tokens = {
-        {"text", {command::TEXT, true}},
-        {"load", {command::LOAD, true}},
-        {"save", {command::SAVE, true}},
-        {"process", {command::PROCESS, false}},
-        {"print", {command::PRINT, false}}};
 
     const auto res = tokens.find(cmd);
     if (res != tokens.end())

@@ -9,6 +9,7 @@ inline void print_error(const char* msg)
     std::cout << "Error: " << msg << std::endl;
     std::cout << "\033[0m";
 }
+
 inline void print_command(const std::string& msg)
 {
     std::cout << msg << std::endl;
