@@ -1,6 +1,7 @@
 #include "script.h"
 #include "tokens.h"
 #include <format>
+#include <functional>
 #include <map>
 
 namespace script
@@ -11,20 +12,24 @@ std::string compile(const std::vector<std::string>& source,
     if (source.empty())
         return "Empty source";
 
-    data.reserve(1024);
+    std::vector<char> header;
+    header.reserve(5);
 
-    data.push_back('t'); // text
-    data.push_back('c'); // conversion
-    data.push_back('b'); // byte
-    data.push_back('c'); // code
+    std::vector<char> payload;
+    payload.reserve(1024);
 
-    data.push_back(1); // version 1
+    header.push_back('t'); // text
+    header.push_back('c'); // conversion
+    header.push_back('b'); // byte
+    header.push_back('c'); // code
+
+    header.push_back(1); // version 1
 
     command     cmd;
     std::string operand;
 
     auto line_index = 0;
-  
+
     for (const auto& line : source)
     {
         line_index++;
@@ -39,33 +44,53 @@ std::string compile(const std::vector<std::string>& source,
 
         if (cmd == command::INVALID)
         {
-            data.clear();
             return std::format("Invalid command at line {}", line_index);
         }
 
-        const auto& token = codes.at(cmd);
+        language_token t;
+        if (!get_from_ID(cmd, t))
+            return "Unknown command.";
 
-        data.push_back(token.code_value);
+        payload.push_back(t.byte_code);
 
-        if (token.has_operand)
+        if (t.has_operand)
         {
-            auto idx = data.size();
+            auto idx = payload.size();
 
             // limit: only char long strings
-            const auto size = (unsigned int)operand.size();
+            const auto size      = (unsigned int)operand.size();
             const auto data_size = sizeof(unsigned int);
 
-            data.resize(idx + data_size);
+            payload.resize(idx + data_size);
 
-            memcpy(data.data() + idx, &size, data_size);
+            memcpy(payload.data() + idx, &size, data_size);
 
-            idx = data.size();
-            data.resize(idx + size);
+            idx = payload.size();
+            payload.resize(idx + size);
 
-            memcpy(data.data() + idx, operand.data(), size);
-
+            memcpy(payload.data() + idx, operand.data(), size);
         }
     }
+
+    // hash at the end
+
+    auto hash_argument = payload;
+    hash_argument.insert(hash_argument.end(), secret_key.begin(),
+                         secret_key.end());
+
+    vector_hash hasher;
+    const auto  hash_value = hasher(hash_argument);
+
+    // merge
+
+    data.clear();
+
+    data.insert(data.begin(), header.begin(), header.end());
+
+    data.resize(data.size() + sizeof(size_t));
+    memcpy(data.data() + 5, &hash_value, sizeof(size_t));
+
+    data.insert(data.end(), payload.begin(), payload.end());
 
     return "";
 }

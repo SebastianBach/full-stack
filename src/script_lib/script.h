@@ -1,6 +1,7 @@
 #pragma once
-#include <string>
 #include <functional>
+#include <string>
+#include <vector>
 
 namespace script
 {
@@ -20,7 +21,6 @@ void parse(const std::string& line, command& command, std::string& operand);
 class engine
 {
 public:
-
     engine(std::function<void(const char* msg)> print);
 
     std::string run(command cmd, const std::string& operand);
@@ -35,5 +35,7 @@ private:
 
 std::string compile(const std::vector<std::string>& source,
                     std::vector<char>&              data);
+
+std::string runtime(const std::vector<char> & bytecode, std::function<void(const char* msg)> print);
 
 } // namespace script

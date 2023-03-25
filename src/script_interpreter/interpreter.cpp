@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
         if (cmd == script::command::INVALID)
         {
             print_error("invalid command");
-            break;
+            return -1;
         }
 
         const auto res = eng.run(cmd, operand);

@@ -1,0 +1,8 @@
+
+# this is some test script
+text this is some test headline to process bla bla
+process
+print
+text don't believe every headline!
+process
+print

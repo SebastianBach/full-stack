@@ -6,25 +6,31 @@ You have a simple, nice, useful C++ function. How do you make it available to us
 
 The *full stack* contains:
 
-* A C++ header-only library with a ``constexpr`` function.
+* A C++ header-only library with a ``constexpr'' function.
 * A compile-time unit test that tests the above function.
-* A command line tool to process command line arguments using the function.
+* A command-line tool to handle command-line arguments to the function.
 * A Python UI application that provides a front-end to this command-line tool.
 * A command line tool to handle interactive data with the function.
-* A command line tool to process the contents of a given file with the function.
+* A command-line tool to process the contents of a given file with the function.
 * A static library that encapsulates the function.
 * A unit test for this static library.
 * A C++ QT5 UI application based on the static library.
-* A *conan* package containing the static library.
-* A test for this *conan* package.
-* A Python-based Flask web app that provides a web interface and REST API to the above command line tool.
-* A HTML/JavaScript front-end querying the above REST API.
-* A Docker container containing the above Flask web application.
+* A *Conan 2* package containing the static library.
+* A test for this *Conan* package.
+* A Python-based Flask web application that provides a web interface and REST API to the above command line tool.
+* An HTML/JavaScript front end that queries the above REST API.
+* A *Docker* container containing the above Flask web application.
 * A Python module implemented using the Python C API.
 * A unit test that tests this module.
 * A Python UI application that uses this module.
 * A WebAssembly binary library and associated JavaScript code.
-* A HTML/JavaScript front-end utilizing the above WebAssembly library.
+* An HTML/JavaScript front end that uses the above WebAssembly library.
+* A static library implementing a custom scripting language.
+* A unit test for this static library.
+* A console application for this scripting language.
+* An interpreter that executes scripts in the custom scripting language.
+* A compiler that converts scripts in the custom scripting language into bytecode.
+* A runtime that executes that bytecode. 
 
 
 ```mermaid
@@ -60,6 +66,14 @@ The *full stack* contains:
     F --> WASM(WebAssembly + JavaScript)
 
     WASM --> WASMF[Front End]
+
+    F --> SCRIPTLIB[Script Library]
+
+    SCRIPTLIB --> SCRIPT_TEST[Script Unit Test]
+    SCRIPTLIB --> SCRIPT_CONSOLE[Console]
+    SCRIPTLIB --> SCRIPT_INTERPRETER[Interpreter]
+    SCRIPTLIB --> SCRIPT_COMPILER[Compiler]
+    SCRIPTLIB --> SCRIPT_RUNTIME[Runtime]
 ```
 
 

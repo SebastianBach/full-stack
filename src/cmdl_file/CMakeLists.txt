@@ -19,6 +19,10 @@ add_test(NAME test_file_compare COMMAND ${CMAKE_COMMAND}
     -P ${PROJECT_SOURCE_DIR}/src/test_cmdl_file/compare.cmake
 )
 
+
+add_test(NAME cmdl_file_no_args COMMAND cmdl_file)
+set_tests_properties(cmdl_file_no_args PROPERTIES WILL_FAIL TRUE)
+
 # etc
 
 install(TARGETS cmdl_file RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product/tools)

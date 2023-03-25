@@ -1,17 +1,11 @@
 #include "script.h"
-#include <format>
-#include <fstream>
-#include <iostream>
-#include <map>
+#include "tokens.h"
 #include <sstream>
 #include <text_conversion_constexpr.h>
 #include <vector>
-#include "tokens.h"
 
 namespace script
 {
-
-
 void parse(const std::string& line, command& command, std::string& operand)
 {
     command = command::INVALID;
@@ -23,7 +17,6 @@ void parse(const std::string& line, command& command, std::string& operand)
     }
 
     std::string cmd;
-    std::string op;
 
     std::istringstream iss(line);
     iss >> cmd;
@@ -31,13 +24,13 @@ void parse(const std::string& line, command& command, std::string& operand)
     if (cmd.empty())
         return;
 
-    const auto res = tokens.find(cmd);
-    if (res != tokens.end())
-    {
-        command = res->second.cmd;
-        if (res->second.has_operand)
-            std::getline(iss >> std::ws, operand);
+    language_token t;
+    if (!get_from_token(cmd, t))
         return;
-    }
+
+    command = t.ID;
+
+    if (t.has_operand)
+        std::getline(iss >> std::ws, operand);
 }
 } // namespace script

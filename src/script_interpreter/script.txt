@@ -1,8 +1,0 @@
-
-# this is some test script
-text this is some test headline to process
-process
-print
-text this is some other headline
-process
-print
