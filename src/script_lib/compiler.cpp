@@ -12,18 +12,11 @@ std::string compile(const std::vector<std::string>& source,
     if (source.empty())
         return "Empty source";
 
-    std::vector<char> header;
-    header.reserve(5);
+    // text conversion byte code, version 1
+    std::vector<char> header{'t', 'c', 'b', 'c', 1};
 
     std::vector<char> payload;
     payload.reserve(1024);
-
-    header.push_back('t'); // text
-    header.push_back('c'); // conversion
-    header.push_back('b'); // byte
-    header.push_back('c'); // code
-
-    header.push_back(1); // version 1
 
     command     cmd;
     std::string operand;

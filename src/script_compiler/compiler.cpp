@@ -37,7 +37,8 @@ int main(int argc, char* argv[])
 
     std::string line;
     while (std::getline(source, line))
-        lines.push_back(line);
+        if (!line.empty())
+            lines.push_back(line);
 
     if (lines.empty())
         return -1;
