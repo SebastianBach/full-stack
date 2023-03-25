@@ -43,9 +43,7 @@ std::string compile(const std::vector<std::string>& source,
             continue;
 
         if (cmd == command::INVALID)
-        {
             return std::format("Invalid command at line {}", line_index);
-        }
 
         language_token t;
         if (!get_from_ID(cmd, t))
@@ -72,7 +70,7 @@ std::string compile(const std::vector<std::string>& source,
         }
     }
 
-    // hash at the end
+    // hash
 
     auto hash_argument = payload;
     hash_argument.insert(hash_argument.end(), secret_key.begin(),
