@@ -219,7 +219,7 @@ The scripting **console** allows to enter and execute code. The console applicat
 The **interpreter** loads and executes a script stored in the specified source file.
 
 ```
-console.exe C:\scripts\script.txt
+interpreter.exe C:\scripts\script.txt
 ```
 
 ## Command Line Tool *compiler* & *runtime*
