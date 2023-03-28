@@ -8,7 +8,7 @@ WORKDIR /project
 COPY src /project/src
 COPY CMakeLists.txt /project/CMakeLists.txt
 COPY src/docker/build.sh /project/build.sh
-RUN ./build.sh
+RUN /bin/bash /project/build.sh
 
 
 FROM python:3.8-slim-buster

@@ -13,6 +13,8 @@ int main()
 
    static_assert(test::test_title_case(" this is the headline!", " This Is the Headline!"));
 
+   static_assert(test::test_title_case("don't make the T upper case", "Don't Make the T Upper Case"));
+
     // debug code
 
     std::string data("this is the headline");

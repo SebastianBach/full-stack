@@ -1,0 +1,7 @@
+
+# this is some invalid script
+text this is some test headline to process bla bla
+process
+print
+bla bla bla nonsense
+

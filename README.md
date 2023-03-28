@@ -6,25 +6,31 @@ You have a simple, nice, useful C++ function. How do you make it available to us
 
 The *full stack* contains:
 
-* A C++ header-only library with a ``constexpr`` function.
+* A C++ header-only library with a ``constexpr'' function.
 * A compile-time unit test that tests the above function.
-* A command line tool to process command line arguments using the function.
+* A command-line tool to handle command-line arguments to the function.
 * A Python UI application that provides a front-end to this command-line tool.
 * A command line tool to handle interactive data with the function.
-* A command line tool to process the contents of a given file with the function.
+* A command-line tool to process the contents of a given file with the function.
 * A static library that encapsulates the function.
 * A unit test for this static library.
 * A C++ QT5 UI application based on the static library.
-* A *conan* package containing the static library.
-* A test for this *conan* package.
-* A Python-based Flask web app that provides a web interface and REST API to the above command line tool.
-* A HTML/JavaScript front-end querying the above REST API.
-* A Docker container containing the above Flask web application.
+* A *Conan 2* package containing the static library.
+* A test for this *Conan* package.
+* A Python-based Flask web application that provides a web interface and REST API to the above command line tool.
+* An HTML/JavaScript front end that queries the above REST API.
+* A *Docker* container containing the above Flask web application.
 * A Python module implemented using the Python C API.
 * A unit test that tests this module.
 * A Python UI application that uses this module.
 * A WebAssembly binary library and associated JavaScript code.
-* A HTML/JavaScript front-end utilizing the above WebAssembly library.
+* An HTML/JavaScript front end that uses the above WebAssembly library.
+* A static library implementing a custom scripting language.
+* A unit test for this static library.
+* A console application for this scripting language.
+* An interpreter that executes scripts in the custom scripting language.
+* A compiler that converts scripts in the custom scripting language into bytecode.
+* A runtime that executes that bytecode. 
 
 
 ```mermaid
@@ -60,6 +66,14 @@ The *full stack* contains:
     F --> WASM(WebAssembly + JavaScript)
 
     WASM --> WASMF[Front End]
+
+    F --> SCRIPTLIB[Script Library]
+
+    SCRIPTLIB --> SCRIPT_TEST[Script Unit Test]
+    SCRIPTLIB --> SCRIPT_CONSOLE[Console]
+    SCRIPTLIB --> SCRIPT_INTERPRETER[Interpreter]
+    SCRIPTLIB --> SCRIPT_COMPILER[Compiler]
+    SCRIPTLIB --> SCRIPT_RUNTIME[Runtime]
 ```
 
 
@@ -93,8 +107,9 @@ python -m unittest discover src/test_py
 docker build --tag title-case-web .
 
 # build and test conan package
-conan export-pkg . text_conversion/0.1.0 --profile ./profile -f
-conan test src/test_package/conanfile.py text_conversion/0.1.0@text_conversion/0.1.0 --profile ./profile
+conan export-pkg . -of ./build/conan
+conan list text_conversion
+conan test ./src/test_package text_conversion/0.1.1
 
 # build WebAssembly library
 ./build_wasm.sh
@@ -171,3 +186,48 @@ python -m http.server
 ```
 
 Open ```http://localhost:8000/``` to start the WebAssembly app.
+
+
+## Scripting Language
+
+The domain-specific scripting language is a simple language designed to perform basic tasks. The language consists of five commands:
+
+| Command | Operand (optional) | Description |
+| --- | --- | --- |
+| **text** | *text to load store in memory* | Stores the given text in the program's memory. |
+| **process** | none | Processes the text in memory. |
+| **print** | none | Prints the text in memory to the screen. |
+| **load** | *path to text file* | Reads the specified text file and stores the text in memory. |
+| **save** | *path to text file* | Saves the text in memory to the specified text file. |
+
+An example program is:
+
+```
+text this is a headline
+process
+print
+```
+
+This will print ```This Is a Headline```.
+
+## Command Line Tool *console*
+
+The scripting **console** allows to enter and execute code. The console application can be closed by entering ```exit``` or pressing ```CTRL+C```.
+
+## Command Line Tool *interpreter*
+
+The **interpreter** loads and executes a script stored in the specified source file.
+
+```
+interpreter.exe C:\scripts\script.txt
+```
+
+## Command Line Tool *compiler* & *runtime*
+
+The **compiler** loads a source file and generates byte-code, that can be executed by the **runtime**.
+
+```
+compiler.exe C:\scripts\script.txt C:\result\bytecode.code
+
+runtime.exe C:\result\bytecode.code
+```
