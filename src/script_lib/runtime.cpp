@@ -7,26 +7,26 @@ std::string runtime(const std::vector<char>&             bytecode,
                     std::function<void(const char* msg)> print)
 {
     if (bytecode.empty())
-        return "Empty source.";
+        return "Empty source";
 
     const auto size = bytecode.size();
 
     if (size < 5)
-        return "Invalid file (1)";
+        return "Invalid code (1)";
 
     // check ID
     if (bytecode.at(0) != 't')
-        return "Invalid file (2)";
+        return "Invalid code (2)";
     if (bytecode.at(1) != 'c')
-        return "Invalid file (2)";
+        return "Invalid code (2)";
     if (bytecode.at(2) != 'b')
-        return "Invalid file (2)";
+        return "Invalid code (2)";
     if (bytecode.at(3) != 'c')
-        return "Invalid file (2)";
+        return "Invalid code (2)";
 
     // check version
     if (bytecode.at(4) != 1)
-        return "Invalid version.";
+        return "Invalid version";
 
     // validate
 
@@ -51,7 +51,7 @@ std::string runtime(const std::vector<char>&             bytecode,
         const auto  hash_value = hasher(hash_argument);
 
         if (hash_value != stored_hash)
-            return "Invalid file (3).";
+            return "Invalid code (3)";
     }
 
     std::string operand;
