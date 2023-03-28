@@ -186,3 +186,48 @@ python -m http.server
 ```
 
 Open ```http://localhost:8000/``` to start the WebAssembly app.
+
+
+## Scripting Language
+
+The domain-specific scripting language is a simple language designed to perform basic tasks. The language consists of five commands:
+
+| Command | Operand (optional) | Description |
+| --- | --- | --- |
+| **text** | *text to load store in memory* | Stores the given text in the program's memory. |
+| **process** | none | Processes the text in memory. |
+| **print** | none | Prints the text in memory to the screen. |
+| **load** | *path to text file* | Reads the specified text file and stores the text in memory. |
+| **save** | *path to text file* | Saves the text in memory to the specified text file. |
+
+An example program is:
+
+```
+text this is a headline
+process
+print
+```
+
+This will print ```This Is a Headline```.
+
+## Command Line Tool *console*
+
+The scripting **console** allows to enter and execute code. The console application can be closed by entering ```exit``` or pressing ```CTRL+C```.
+
+## Command Line Tool *interpreter*
+
+The **interpreter** loads and executes a script stored in the specified source file.
+
+```
+console.exe C:\scripts\script.txt
+```
+
+## Command Line Tool *compiler* & *runtime*
+
+The **compiler** loads a source file and generates byte-code, that can be executed by the **runtime**.
+
+```
+compiler.exe C:\scripts\script.txt C:\result\bytecode.code
+
+runtime.exe C:\result\bytecode.code
+```
