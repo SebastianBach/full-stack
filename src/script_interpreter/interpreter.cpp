@@ -1,4 +1,5 @@
 #include "script.h"
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -33,7 +34,12 @@ int main(int argc, char* argv[])
     // todo: make option
     std::cout << argv[1] << "\n";
 
-    std::ifstream file{argv[1]};
+    std::filesystem::path path(argv[1]);
+
+    if (!path.is_absolute())
+        path = std::filesystem::absolute(path);
+
+    std::ifstream file{path};
 
     if (!file.is_open())
         return -1;
@@ -45,6 +51,9 @@ int main(int argc, char* argv[])
     std::string line;
     while (std::getline(file, line))
     {
+        if ((line.back() == '\r' || line.back() == '\n'))
+            line.erase(line.size() - 1);
+
         if (line.empty())
             continue;
 

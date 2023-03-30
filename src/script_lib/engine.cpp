@@ -1,5 +1,4 @@
 #include "script.h"
-#include <format>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -9,13 +8,17 @@
 
 namespace script
 {
-
 engine::engine(std::function<void(const char* msg)> print) : m_print(print) {}
 
 std::string engine::run(command cmd, const std::string& operand)
 {
     switch (cmd)
     {
+    case (command::INVALID):
+    {
+        return "invalid command";
+        break;
+    }
     case (command::COMMENT):
     {
         break;
@@ -44,7 +47,7 @@ std::string engine::run(command cmd, const std::string& operand)
         std::ifstream file{operand};
 
         if (!file.is_open())
-            return std::format("Could not open file {}", operand);
+            return std::string{"Could not open file "} + operand;
 
         m_memory.clear();
 
@@ -61,7 +64,7 @@ std::string engine::run(command cmd, const std::string& operand)
         std::ofstream output_file{operand};
 
         if (!output_file.is_open())
-            return std::format("Could not open file {}", operand);
+            return std::string{"Could not open file "} + operand;
 
         output_file << m_memory << std::endl;
 

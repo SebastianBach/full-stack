@@ -6,7 +6,7 @@ namespace text_conversion
 
 const char* version()
 {
-    return text_conversion_constexpr::version;
+    return text_conversion_constexpr::version();
 }
 
 const char* date()

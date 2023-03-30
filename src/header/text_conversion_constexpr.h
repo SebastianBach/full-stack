@@ -6,8 +6,10 @@
 
 namespace text_conversion_constexpr
 {
-
- static const char* version = "0.1.1";
+inline const char* version()
+{
+    return "0.1.1";
+}
 
 namespace intern
 {
@@ -31,14 +33,17 @@ struct short_word
  * @param[in,out] data      The text to convert
  */
 template <typename DATA>
-requires std::ranges::sized_range<DATA>
+    requires std::ranges::sized_range<DATA>
 constexpr void convert_to_title_case(DATA& data)
 {
     if (data.empty())
         return;
 
     auto is_letter = [&](const auto& letter)
-    { return (letter >= 65 && letter <= 90) || (letter >= 97 && letter <= 122) || letter == 39; };
+    {
+        return (letter >= 65 && letter <= 90) ||
+               (letter >= 97 && letter <= 122) || letter == 39;
+    };
 
     auto comp_str = [](const char* word_a, const auto* d, auto length)
     {

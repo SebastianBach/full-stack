@@ -37,14 +37,19 @@ int main(int argc, char* argv[])
 
     std::string line;
     while (std::getline(source, line))
+    {
+        if ((line.back() == '\r' || line.back() == '\n'))
+            line.erase(line.size() - 1);
+
         if (!line.empty())
             lines.push_back(line);
+    }
 
     if (lines.empty())
         return -1;
 
     std::vector<char> bytecode;
-    auto res = script::compile(lines, bytecode);
+    auto              res = script::compile(lines, bytecode);
 
     if (!res.empty())
     {

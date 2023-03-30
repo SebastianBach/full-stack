@@ -1,5 +1,6 @@
 #include "script.h"
 #include "tokens.h"
+#include <cstring>
 
 namespace script
 {
@@ -70,8 +71,8 @@ std::string runtime(const std::vector<char>&             bytecode,
         {
             // todo: add checks
 
-            const auto   type_size    = sizeof(unsigned int);
-            auto operand_size = 0u;
+            const auto type_size    = sizeof(unsigned int);
+            auto       operand_size = 0u;
             i++;
             memcpy(&operand_size, bytecode.data() + i, type_size);
 

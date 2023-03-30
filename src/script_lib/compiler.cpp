@@ -1,6 +1,6 @@
 #include "script.h"
 #include "tokens.h"
-#include <format>
+#include <cstring>
 #include <functional>
 #include <map>
 
@@ -36,7 +36,8 @@ std::string compile(const std::vector<std::string>& source,
             continue;
 
         if (cmd == command::INVALID)
-            return std::format("Invalid command at line {}", line_index);
+            return std::string{"Invalid command at line "} +
+                   std::to_string(line_index);
 
         language_token t;
         if (!get_from_ID(cmd, t))
@@ -49,7 +50,7 @@ std::string compile(const std::vector<std::string>& source,
             auto idx = payload.size();
 
             // limit: only char long strings
-            const auto size      = (unsigned int)operand.size();
+            const auto size      = static_cast<unsigned int>(operand.size());
             const auto data_size = sizeof(unsigned int);
 
             payload.resize(idx + data_size);
