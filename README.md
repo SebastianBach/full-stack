@@ -107,7 +107,7 @@ python -m unittest discover src/test_py
 docker build --tag title-case-web .
 
 # build and test conan package
-conan export-pkg . -of ./build/conan
+conan export-pkg . 
 conan list text_conversion
 conan test ./src/test_package text_conversion/0.1.1
 
@@ -219,7 +219,7 @@ The scripting **console** allows to enter and execute code. The console applicat
 The **interpreter** loads and executes a script stored in the specified source file.
 
 ```
-interpreter.exe C:\scripts\script.txt
+interpreter C:\scripts\script.txt
 ```
 
 ## Command Line Tool *compiler* & *runtime*
@@ -227,7 +227,7 @@ interpreter.exe C:\scripts\script.txt
 The **compiler** loads a source file and generates byte-code, that can be executed by the **runtime**.
 
 ```
-compiler.exe C:\scripts\script.txt C:\result\bytecode.code
+compiler C:\scripts\script.txt C:\result\bytecode.code
 
-runtime.exe C:\result\bytecode.code
+runtime C:\result\bytecode.code
 ```

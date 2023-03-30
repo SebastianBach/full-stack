@@ -15,6 +15,8 @@ endif()
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/lib)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/lib/lib)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/lib/header)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/tools)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/app)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/python)

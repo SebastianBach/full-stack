@@ -16,8 +16,8 @@ class MyLibConan(ConanFile):
         _arch = str(self.settings.arch).lower()
         self.folders.build = os.path.join("build", "product", "lib")
         self.folders.source = self.folders.build
-        self.cpp.source.includedirs = ["."]
-        self.cpp.build.libdirs = ["."]
+        self.cpp.source.includedirs = ["header"]
+        self.cpp.build.libdirs = ["lib"]
 
     def package(self):
         local_include_folder = os.path.join(self.source_folder, self.cpp.source.includedirs[0])
