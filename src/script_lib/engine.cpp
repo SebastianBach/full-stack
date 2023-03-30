@@ -29,6 +29,8 @@ std::string engine::run(command cmd, const std::string& operand)
     {
         if (m_print)
             m_print(m_memory.c_str());
+        else
+            return "print command called, but no print callback provided";
 
         break;
     }
