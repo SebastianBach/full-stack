@@ -1,4 +1,8 @@
 
+# Version 0.1.2
+
+- added DLL version
+
 # Version 0.1.1
 
 - Update to Conan 2

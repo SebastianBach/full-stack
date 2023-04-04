@@ -8,7 +8,7 @@ namespace text_conversion_constexpr
 {
 inline const char* version()
 {
-    return "0.1.1";
+    return "0.1.2";
 }
 
 namespace intern

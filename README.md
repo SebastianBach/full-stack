@@ -17,6 +17,8 @@ The *full stack* contains:
 * A C++ QT5 UI application based on the static library.
 * A *Conan 2* package containing the static library.
 * A test for this *Conan* package.
+* A dynamic library.
+* A Python UI aplication using that dynamic library.
 * A Python-based Flask web application that provides a web interface and REST API to the above command line tool.
 * An HTML/JavaScript front end that queries the above REST API.
 * A *Docker* container containing the above Flask web application.
@@ -44,12 +46,15 @@ The *full stack* contains:
 
     CLI1 --> PYAPP2[Python UI App]
 
-    F --> LIB(Static Lib)
+    F --> LIB(Static Library)
 
     LIB --> LIBTEST[Static Lib Unit Test]
     LIB --> C(Conan Package)
 
     LIB --> QTCPP[C++ UI App]
+
+    F --> DLL(Dynamic Library)
+    DLL --> QTPYDLL[Python UI App]
 
     C --> CT[Conan Package Test]
 

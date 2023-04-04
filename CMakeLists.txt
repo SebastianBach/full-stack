@@ -21,6 +21,7 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/tools)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/app)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/python)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/script)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/product/dynamic_lib)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/wasm)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/script_compiler)
 

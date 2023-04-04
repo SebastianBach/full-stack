@@ -1,0 +1,1 @@
+install(FILES app.py DESTINATION ${CMAKE_BINARY_DIR}/product/dynamic_lib)
