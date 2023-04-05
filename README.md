@@ -18,6 +18,7 @@ The *full stack* contains:
 * A *Conan 2* package containing the static library.
 * A test for this *Conan* package.
 * A dynamic library.
+* A unit test for that dynamic library.
 * A Python UI aplication using that dynamic library.
 * A Python-based Flask web application that provides a web interface and REST API to the above command line tool.
 * An HTML/JavaScript front end that queries the above REST API.
@@ -54,6 +55,7 @@ The *full stack* contains:
     LIB --> QTCPP[C++ UI App]
 
     F --> DLL(Dynamic Library)
+    DLL --> DLLTEST[Dynamic Lib Unit Test]
     DLL --> QTPYDLL[Python UI App]
 
     C --> CT[Conan Package Test]
@@ -199,7 +201,7 @@ The domain-specific scripting language is a simple language designed to perform 
 
 | Command | Operand (optional) | Description |
 | --- | --- | --- |
-| **text** | *text to load store in memory* | Stores the given text in the program's memory. |
+| **text** | *text to load and store in memory* | Stores the given text in the program's memory. |
 | **process** | none | Processes the text in memory. |
 | **print** | none | Prints the text in memory to the screen. |
 | **load** | *path to text file* | Reads the specified text file and stores the text in memory. |

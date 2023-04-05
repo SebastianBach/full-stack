@@ -9,4 +9,4 @@ target_link_libraries(text_conversion_lib PRIVATE text_conversion_header_lib)
 install(TARGETS text_conversion_lib DESTINATION ${CMAKE_BINARY_DIR}/product/lib/lib)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/text_conversion.h DESTINATION ${CMAKE_BINARY_DIR}/product/lib/header)
 
-set_target_properties(text_conversion_lib PROPERTIES FOLDER "lib")
+set_target_properties(text_conversion_lib PROPERTIES FOLDER "static_lib")

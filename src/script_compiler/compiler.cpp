@@ -45,6 +45,8 @@ int main(int argc, char* argv[])
             lines.push_back(line);
     }
 
+    source.close();
+
     if (lines.empty())
         return -1;
 
@@ -60,7 +62,6 @@ int main(int argc, char* argv[])
     dst.write(bytecode.data(), bytecode.size());
 
     // todo: make class
-    source.close();
     dst.close();
 
     return 0;
