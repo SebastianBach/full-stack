@@ -6,7 +6,7 @@
 
 namespace text_conversion
 {
-/*
+/**
  * Converts the given text to title case.
  * Modifies the data in-place.
  *
@@ -15,7 +15,7 @@ namespace text_conversion
  */
 void convert_to_title_case(char* data, size_t cnt);
 
-/*
+/**
  * Converts the given string to title case.
  * Modifies the data in-place.
  *
@@ -24,7 +24,7 @@ void convert_to_title_case(char* data, size_t cnt);
 void convert_to_title_case(std::string& data);
 
 #if __cplusplus >= 201703L
-/*
+/**
  * Converts the given std::array to title case.
  * Modifies the data in-place.
  *
@@ -35,7 +35,7 @@ template <typename T, auto N> void convert_to_title_case(std::array<T, N>& data)
     convert_to_title_case(data.data(), N);
 }
 #else
-/*
+/**
  * Converts the given std::array to title case.
  * Modifies the data in-place.
  *
@@ -47,14 +47,14 @@ template <typename T, int N> void convert_to_title_case(std::array<T, N>& data)
 }
 #endif
 
-/*
+/**
  * Returns the library version.
  *
  * @return  The library version as null-terminated string.
  */
 const char* version();
 
-/*
+/**
  * Returns the library build date.
  *
  * @return  The library build date as null-terminated string.

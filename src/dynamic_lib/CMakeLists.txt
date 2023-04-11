@@ -6,7 +6,6 @@ target_link_libraries(dynamic_lib PRIVATE text_conversion_header_lib)
 target_include_directories(dynamic_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 install(TARGETS dynamic_lib DESTINATION ${CMAKE_BINARY_DIR}/product/dynamic_lib)
-install(TARGETS dynamic_lib DESTINATION ${CMAKE_BINARY_DIR}/product/firefox)
 
 set_target_properties(dynamic_lib PROPERTIES FOLDER "dynamic_lib")
 

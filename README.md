@@ -51,6 +51,7 @@ The *full stack* contains:
 
     LIB --> LIBTEST[Static Lib Unit Test]
     LIB --> C(Conan Package)
+    LIB --> DOXYGEN(Doxygen Documentation)
 
     LIB --> QTCPP[C++ UI App]
 
@@ -106,6 +107,9 @@ cmake --build . --config Release
 ctest -C Release  -VV
 cmake --install .
 cd ..
+
+# static lib documentation
+doxygen build_gcc/doxyfile 
 
 # run Python unit tests
 python -m unittest discover src/test_py

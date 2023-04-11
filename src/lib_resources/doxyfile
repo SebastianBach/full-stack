@@ -1,0 +1,27 @@
+PROJECT_NAME           = "Text Conversion Lib"
+
+OUTPUT_DIRECTORY       = @CMAKE_BINARY_DIR@/product/lib/documentation
+
+OUTPUT_LANGUAGE        = English
+
+STRIP_FROM_PATH        = @CMAKE_BINARY_DIR@/product/lib
+
+INPUT                  = @CMAKE_BINARY_DIR@/product/lib/header
+
+FILE_PATTERNS          = *.h
+
+RECURSIVE              = YES
+
+HAVE_DOT               = NO
+
+GENERATE_TREEVIEW      = YES
+
+SHOW_NAMESPACES        = YES
+
+EXTRACT_ALL            = YES
+
+EXTRACT_PRIVATE        = YES
+
+EXTRACT_STATIC         = YES
+
+GENERATE_LATEX         = NO

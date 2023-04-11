@@ -7,3 +7,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/BUILD.txt
                 @ONLY)
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/README.txt DESTINATION ${CMAKE_BINARY_DIR}/product/lib)
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxyfile
+                ${CMAKE_BINARY_DIR}/doxyfile
+                @ONLY)
