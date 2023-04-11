@@ -13,8 +13,15 @@ static PyMethodDef module_methods[] = {
 
 // defines MODULE name
 static struct PyModuleDef func_module = {
-    PyModuleDef_HEAD_INIT, "text_conversion",
-    "A module providing conversion functionality.", -1, module_methods};
+    PyModuleDef_HEAD_INIT,
+    "text_conversion",
+    "A module providing conversion functionality.",
+    -1,
+    module_methods,
+    NULL,
+    NULL,
+    NULL,
+    NULL};
 
 // has to be named PyInit_MODULE
 PyMODINIT_FUNC PyInit_text_conversion(void)

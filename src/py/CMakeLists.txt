@@ -19,8 +19,6 @@ if(ADD_PYTHON_MODULE)
     target_include_directories(python_module PRIVATE ${Python3_INCLUDE_DIRS})
     target_include_directories(python_module PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
-
-
-    install(TARGETS python_module RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product/python)
+    install(TARGETS python_module LIBRARY DESTINATION ${CMAKE_BINARY_DIR}/product/python)
 
 endif()
