@@ -1,0 +1,12 @@
+/**
+ * @mainpage Text Conversion Library
+ *
+ * A C++ text conversion and formatting library.
+ *
+ * @section example Example
+ *
+ * This is how to use the function:
+ * 
+ * @snippet examples.cpp basic_example
+ *
+ */
