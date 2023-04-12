@@ -26,6 +26,4 @@ EXTRACT_STATIC         = YES
 
 GENERATE_LATEX         = NO
 
-MAIN_PAGE              = frontpage.dox
-
 EXAMPLE_PATH           = @CMAKE_BINARY_DIR@/temp/
