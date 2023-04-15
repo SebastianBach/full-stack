@@ -109,7 +109,7 @@ cmake --install .
 cd ..
 
 # static lib documentation
-doxygen build_gcc/doxyfile 
+doxygen build/doxyfile 
 
 # run Python unit tests
 python -m unittest discover src/test_py
