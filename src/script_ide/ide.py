@@ -88,7 +88,7 @@ class MyApp(QWidget):
 
         # Set window properties
         self.setGeometry(300, 300, 600, 500)
-        self.setWindowTitle('Text Conversion Script IDE')
+        self.setWindowTitle('Script IDE')
         self.show()
 
     def on_execute(self):
