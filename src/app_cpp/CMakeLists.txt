@@ -22,11 +22,11 @@ if(ADD_QT_APP)
 
     set_target_properties(title_case_app PROPERTIES CXX_STANDARD 11)
 
-    install(TARGETS title_case_app RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product/app)
+    install(TARGETS title_case_app RUNTIME DESTINATION product/app)
 
     if(WIN32)
         set(WINDEPLOYQT_EXECUTABLE "${Qt5_DIR}/../../../bin/windeployqt${CMAKE_EXECUTABLE_SUFFIX}")
-        set(EXE_PATH "${CMAKE_BINARY_DIR}/product/app/title_case_app${CMAKE_EXECUTABLE_SUFFIX}")
+        set(EXE_PATH "${CMAKE_INSTALL_PREFIX}/product/app/title_case_app${CMAKE_EXECUTABLE_SUFFIX}")
         install(CODE "execute_process(COMMAND ${WINDEPLOYQT_EXECUTABLE} \"${EXE_PATH}\")")
     endif()
 

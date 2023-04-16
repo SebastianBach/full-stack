@@ -103,7 +103,7 @@ To build and test everything:
 mkdir build
 cd build
 cmake -DADD_PYTHON_MODULE=ON  -DADD_QT_APP=ON ..
-cmake --build . --config Release
+cmake --build . -j --config Release
 ctest -C Release  -VV
 cmake --install .
 cd ..

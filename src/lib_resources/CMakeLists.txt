@@ -3,16 +3,16 @@ string(TIMESTAMP CURRENT_DATE "%Y-%m-%d")
 string(TIMESTAMP CURRENT_TIME "%H:%M:%S")
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/BUILD.txt
-                ${CMAKE_BINARY_DIR}/product/lib/BUILD.txt
+                ${CMAKE_INSTALL_PREFIX}/product/lib/BUILD.txt
                 @ONLY)
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/README.txt DESTINATION ${CMAKE_BINARY_DIR}/product/lib)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/README.txt DESTINATION product/lib)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxyfile
-                ${CMAKE_BINARY_DIR}/doxyfile
+                ${CMAKE_INSTALL_PREFIX}/doxyfile
                 @ONLY)
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/frontpage.dox ${CMAKE_CURRENT_SOURCE_DIR}/examples.cpp DESTINATION ${CMAKE_BINARY_DIR}/temp)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/frontpage.dox ${CMAKE_CURRENT_SOURCE_DIR}/examples.cpp DESTINATION temp)
 
 
 

@@ -4,11 +4,11 @@ target_sources(script_runtime PRIVATE runtime.cpp)
 target_link_libraries(script_runtime PRIVATE script_lib)
 set_target_properties(script_runtime PROPERTIES OUTPUT_NAME "runtime") 
 
-install(TARGETS script_runtime RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product/script)
+install(TARGETS script_runtime RUNTIME DESTINATION product/script)
 
 set_target_properties(script_runtime PROPERTIES FOLDER "script")
 
-set(SOURCE_FILE ${CMAKE_BINARY_DIR}/script_compiler/bytecode.code)
+set(SOURCE_FILE ${CMAKE_INSTALL_PREFIX}/script_compiler/bytecode.code)
 add_test(NAME script_runtime COMMAND script_runtime ${SOURCE_FILE})
 
 

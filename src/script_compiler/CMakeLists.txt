@@ -6,12 +6,12 @@ target_link_libraries(script_compiler PRIVATE script_lib)
 target_include_directories(script_compiler PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 set_target_properties(script_compiler PROPERTIES OUTPUT_NAME "compiler") 
 
-install(TARGETS script_compiler RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product/script)
+install(TARGETS script_compiler RUNTIME DESTINATION product/script)
 
 set_target_properties(script_compiler PROPERTIES FOLDER "script")
 
 
-set(OUTPUT_FILE ${CMAKE_BINARY_DIR}/script_compiler/bytecode.code)
+set(OUTPUT_FILE ${CMAKE_INSTALL_PREFIX}/script_compiler/bytecode.code)
 
 set(SOURCE_FILE_BAD ${PROJECT_SOURCE_DIR}/src/script_resources/bad.txt)
 add_test(NAME script_compiler_bad COMMAND script_compiler ${SOURCE_FILE_BAD} ${OUTPUT_FILE})

@@ -5,6 +5,6 @@ set_target_properties(cmdl_interactive PROPERTIES OUTPUT_NAME "title_case_consol
 target_link_libraries(cmdl_interactive PRIVATE text_conversion_header_lib)
 target_include_directories(cmdl_interactive PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
-install(TARGETS cmdl_interactive RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product/tools)
+install(TARGETS cmdl_interactive RUNTIME DESTINATION product/tools)
 
 set_target_properties(cmdl_interactive PROPERTIES FOLDER "tools")

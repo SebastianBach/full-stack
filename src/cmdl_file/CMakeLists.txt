@@ -25,6 +25,6 @@ set_tests_properties(cmdl_file_no_args PROPERTIES WILL_FAIL TRUE)
 
 # etc
 
-install(TARGETS cmdl_file RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product/tools)
+install(TARGETS cmdl_file RUNTIME DESTINATION product/tools)
 
 set_target_properties(cmdl_file PROPERTIES FOLDER "tools")

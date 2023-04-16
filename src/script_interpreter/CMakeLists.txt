@@ -4,7 +4,7 @@ target_sources(script_interpreter PRIVATE interpreter.cpp)
 target_link_libraries(script_interpreter PRIVATE script_lib)
 set_target_properties(script_interpreter PROPERTIES OUTPUT_NAME "interpreter") 
 
-install(TARGETS script_interpreter RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product/script)
+install(TARGETS script_interpreter RUNTIME DESTINATION product/script)
 
 set_target_properties(script_interpreter PROPERTIES FOLDER "script")
 

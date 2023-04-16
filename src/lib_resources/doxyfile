@@ -1,12 +1,12 @@
 PROJECT_NAME           = "Text Conversion Lib"
 
-OUTPUT_DIRECTORY       = @CMAKE_BINARY_DIR@/product/lib/documentation
+OUTPUT_DIRECTORY       = @CMAKE_INSTALL_PREFIX@/product/lib/documentation
 
 OUTPUT_LANGUAGE        = English
 
-STRIP_FROM_PATH        = @CMAKE_BINARY_DIR@/product/lib
+STRIP_FROM_PATH        = @CMAKE_INSTALL_PREFIX@/product/lib
 
-INPUT                  = @CMAKE_BINARY_DIR@/product/lib/header @CMAKE_BINARY_DIR@/temp/frontpage.dox
+INPUT                  = @CMAKE_INSTALL_PREFIX@/product/lib/header @CMAKE_INSTALL_PREFIX@/temp/frontpage.dox
 
 FILE_PATTERNS          = *.h
 
@@ -26,4 +26,4 @@ EXTRACT_STATIC         = YES
 
 GENERATE_LATEX         = NO
 
-EXAMPLE_PATH           = @CMAKE_BINARY_DIR@/temp/
+EXAMPLE_PATH           = @CMAKE_INSTALL_PREFIX@/temp/
