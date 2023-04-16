@@ -17,11 +17,12 @@ if(ADD_PYTHON_MODULE)
 
     target_include_directories(python_module PRIVATE ${Python3_INCLUDE_DIRS})
     target_include_directories(python_module PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-
+    
     if(WIN32)
         set_target_properties(python_module PROPERTIES SUFFIX ".pyd")
+        install(TARGETS python_module RUNTIME DESTINATION product/python)
+    elseif(UNIX AND NOT APPLE)
+        install(TARGETS python_module LIBRARY DESTINATION product/python)
     endif()
-
-    install(TARGETS python_module RUNTIME DESTINATION product/python)
 
 endif()
