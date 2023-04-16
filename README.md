@@ -14,6 +14,7 @@ The *full stack* contains:
 * A command-line tool to process the contents of a given file with the function.
 * A static library that encapsulates the function.
 * A unit test for this static library.
+* A example project for this static library.
 * A C++ QT5 UI application based on the static library.
 * A *Conan 2* package containing the static library.
 * A test for this *Conan* package.
@@ -52,6 +53,7 @@ The *full stack* contains:
     LIB --> LIBTEST[Static Lib Unit Test]
     LIB --> C(Conan Package)
     LIB --> DOXYGEN(Doxygen Documentation)
+    LIB --> LIBEX[Static Lib Example Project]
 
     LIB --> QTCPP[C++ UI App]
 
