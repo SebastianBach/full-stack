@@ -1,7 +1,16 @@
 import subprocess
 import sys
 import os
+import platform
 from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QPushButton, QVBoxLayout
+
+
+executable = {}
+executable["Windows"] = "interpreter.exe"
+executable["Linux"] = "./interpreter"
+
+cmdl_path = executable[platform.system()]
+
 
 class MyApp(QWidget):
 
@@ -15,6 +24,7 @@ class MyApp(QWidget):
         self.text_edit1.setFontFamily("Courier New")
         self.text_edit2 = QTextEdit(self)
         self.text_edit2.setFontFamily("Courier New")
+        self.text_edit2.setReadOnly(True)
         self.btn_execute = QPushButton('Execute', self)
 
         # Create layout
@@ -28,7 +38,7 @@ class MyApp(QWidget):
         self.btn_execute.clicked.connect(self.on_execute)
 
         # Set window properties
-        self.setGeometry(300, 300, 300, 250)
+        self.setGeometry(300, 300, 600, 500)
         self.setWindowTitle('Text Conversion Script IDE')
         self.show()
 
@@ -51,7 +61,7 @@ class MyApp(QWidget):
         self.text_edit2.clear()
 
         # Call subprocess with file path as argument
-        cmd = [r'interpreter.exe', filename]
+        cmd = [cmdl_path, filename]
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         # Get stdout and stderr output
