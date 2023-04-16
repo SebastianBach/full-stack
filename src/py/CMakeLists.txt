@@ -10,7 +10,11 @@ if(ADD_PYTHON_MODULE)
     add_library(python_module SHARED module.cpp functions.cpp functions.h)
 
     set_target_properties(python_module PROPERTIES OUTPUT_NAME "text_conversion") 
-    set_target_properties(python_module PROPERTIES SUFFIX ".pyd")
+
+    if(WIN32)
+        set_target_properties(python_module PROPERTIES SUFFIX ".pyd")
+    endif()
+
     set_target_properties(python_module PROPERTIES FOLDER "python")
 
     target_link_libraries(python_module PRIVATE text_conversion_header_lib)
