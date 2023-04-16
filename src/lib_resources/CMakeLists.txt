@@ -14,6 +14,8 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxyfile
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/frontpage.dox ${CMAKE_CURRENT_SOURCE_DIR}/examples.cpp DESTINATION temp)
 
+install(DIRECTORY example_project/ DESTINATION product/lib/example FILES_MATCHING PATTERN "*")
+
 
 
 # build and test doxygen examples source

@@ -106,6 +106,13 @@ cmake -DADD_PYTHON_MODULE=ON  -DADD_QT_APP=ON ..
 cmake --build . -j --config Release
 ctest -C Release  -VV
 cmake --install .
+
+# test lib example project
+cd lib_example_build
+cmake  ../product/lib/example
+cmake --build . --config Release
+ctest -C Release  -VV
+cd ..
 cd ..
 
 # static lib documentation
@@ -113,6 +120,7 @@ doxygen build/doxyfile
 
 # run Python unit tests
 python -m unittest discover src/test_py
+
 
 # build web app container
 docker build --tag title-case-web .

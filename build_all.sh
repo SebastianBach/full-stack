@@ -10,6 +10,15 @@ cmake -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON ..
 cmake --build . -j --config Release
 ctest -C Release  -VV
 cmake --install .
+
+# test lib example project
+cd lib_example_build
+cmake  ../product/lib/example
+cmake --build . --config Release
+ctest -C Release  -VV
+cd ..
+cd ..
+
 cd ..
 python -m unittest discover src/test_py
 doxygen build/doxyfile
