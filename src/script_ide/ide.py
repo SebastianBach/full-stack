@@ -2,7 +2,54 @@ import subprocess
 import sys
 import os
 import platform
+from PyQt5.QtGui import QTextCharFormat, QFont
 from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QPushButton, QVBoxLayout
+from PyQt5.QtCore import Qt, QRegularExpression
+from PyQt5.QtGui import QSyntaxHighlighter
+
+
+class MyHighlighter(QSyntaxHighlighter):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.highlight_rules = []
+
+        # create a rule to highlight "text" at the beginning of the line
+        text_format = QTextCharFormat()
+        text_format.setFontWeight(QFont.Bold)
+        text_format.setForeground(Qt.darkBlue)
+        text_rule = HighlightRule(QRegularExpression(r'^text\b'), text_format)
+        self.highlight_rules.append(text_rule)
+
+        # create a rule to highlight "process"
+        process_format = QTextCharFormat()
+        process_format.setFontWeight(QFont.Bold)
+        process_format.setForeground(Qt.darkGreen)
+        process_rule = HighlightRule(
+            QRegularExpression(r'\bprocess\b'), process_format)
+        self.highlight_rules.append(process_rule)
+
+        # create a rule to highlight "print"
+        print_format = QTextCharFormat()
+        print_format.setFontWeight(QFont.Bold)
+        print_format.setForeground(Qt.red)
+        print_rule = HighlightRule(
+            QRegularExpression(r'\bprint\b'), print_format)
+        self.highlight_rules.append(print_rule)
+
+    def highlightBlock(self, text):
+        for rule in self.highlight_rules:
+            iterator = rule.pattern.globalMatch(text)
+            while iterator.hasNext():
+                match = iterator.next()
+                self.setFormat(match.capturedStart(),
+                               match.capturedLength(), rule.format)
+
+
+class HighlightRule():
+    def __init__(self, pattern, format):
+        self.pattern = pattern
+        self.format = format
 
 
 executable = {}
@@ -37,6 +84,8 @@ class MyApp(QWidget):
         # Connect signals to slots
         self.btn_execute.clicked.connect(self.on_execute)
 
+        self.highlighter = MyHighlighter(self.text_edit1.document())
+
         # Set window properties
         self.setGeometry(300, 300, 600, 500)
         self.setWindowTitle('Text Conversion Script IDE')
@@ -47,10 +96,12 @@ class MyApp(QWidget):
         content = self.text_edit1.toPlainText()
 
         # Generate unique file name
-        filename = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'output.txt')
+        filename = os.path.join(os.path.dirname(
+            os.path.realpath(__file__)), 'output.txt')
         counter = 1
         while os.path.exists(filename):
-            filename = os.path.join(os.path.dirname(os.path.realpath(__file__)), f'output_{counter}.txt')
+            filename = os.path.join(os.path.dirname(
+                os.path.realpath(__file__)), f'output_{counter}.txt')
             counter += 1
 
         # Write content to file
@@ -62,7 +113,8 @@ class MyApp(QWidget):
 
         # Call subprocess with file path as argument
         cmd = [cmdl_path, filename]
-        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        proc = subprocess.Popen(
+            cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         # Get stdout and stderr output
         stdout, stderr = proc.communicate()
@@ -72,6 +124,7 @@ class MyApp(QWidget):
 
         # Delete the file that was created
         os.remove(filename)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
