@@ -8,33 +8,34 @@ The *full stack* contains:
 
 * A C++ header-only library with a ``constexpr'' function.
 * A compile-time unit test that tests the above function.
-* A command-line tool to handle command-line arguments to the function.
+* A command line utility to handle command line arguments to the function.
 * A Python UI application that provides a front-end to this command-line tool.
 * A command line tool to handle interactive data with the function.
-* A command-line tool to process the contents of a given file with the function.
-* A static library that encapsulates the function.
+* A command line tool to process the contents of a given file with the function.
+* A static library encapsulating the function.
 * A unit test for this static library.
-* A example project for this static library.
+* A sample project for this static library.
 * A C++ QT5 UI application based on the static library.
 * A *Conan 2* package containing the static library.
 * A test for this *Conan* package.
 * A dynamic library.
-* A unit test for that dynamic library.
-* A Python UI aplication using that dynamic library.
+* A unit test for this dynamic library.
+* A Python UI application that uses this dynamic library.
 * A Python-based Flask web application that provides a web interface and REST API to the above command line tool.
-* An HTML/JavaScript front end that queries the above REST API.
+* An HTML/JavaScript front-end that queries the above REST API.
 * A *Docker* container containing the above Flask web application.
 * A Python module implemented using the Python C API.
 * A unit test that tests this module.
 * A Python UI application that uses this module.
 * A WebAssembly binary library and associated JavaScript code.
-* An HTML/JavaScript front end that uses the above WebAssembly library.
-* A static library implementing a custom scripting language.
+* An HTML/JavaScript frontend that uses the above WebAssembly library.
+* A static library that implements a custom scripting language.
 * A unit test for this static library.
-* A console application for this scripting language.
+* A console application for that scripting language.
 * An interpreter that executes scripts in the custom scripting language.
+* A Python-based IDE front-end for this script interpreter.
 * A compiler that converts scripts in the custom scripting language into bytecode.
-* A runtime that executes that bytecode. 
+* A runtime that executes this bytecode.
 
 
 ```mermaid
@@ -82,6 +83,7 @@ The *full stack* contains:
     SCRIPTLIB --> SCRIPT_TEST[Script Unit Test]
     SCRIPTLIB --> SCRIPT_CONSOLE[Console]
     SCRIPTLIB --> SCRIPT_INTERPRETER[Interpreter]
+    SCRIPT_INTERPRETER --> SCRIPT_IDE[IDE]
     SCRIPTLIB --> SCRIPT_COMPILER[Compiler]
     SCRIPTLIB --> SCRIPT_RUNTIME[Runtime]
 ```
