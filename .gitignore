@@ -4,3 +4,4 @@ test
 src/test_package/build
 src/test_py/__pycache__
 src/test_cmdl_file/dst.txt
+.vscode

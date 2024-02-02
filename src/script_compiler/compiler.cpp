@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <script.h>
@@ -11,12 +12,12 @@ inline void print_error(const char* msg)
     std::cout << "\033[0m";
 }
 
-int main(int argc, char* argv[])
+bool compile(int argc, char* argv[])
 {
     if (argc <= 2)
     {
         print_error("Missing command line argument.");
-        return -1;
+        return false;
     }
 
     // todo: make option
@@ -26,11 +27,11 @@ int main(int argc, char* argv[])
     std::ifstream source{argv[1]};
 
     if (!source.is_open())
-        return -1;
+        return false;
 
     std::ofstream dst{argv[2]};
     if (!dst.is_open())
-        return -1;
+        return false;
 
     std::vector<std::string> lines;
     lines.reserve(16);
@@ -48,7 +49,7 @@ int main(int argc, char* argv[])
     source.close();
 
     if (lines.empty())
-        return -1;
+        return false;
 
     std::vector<char> bytecode;
     auto              res = script::compile(lines, bytecode);
@@ -56,7 +57,7 @@ int main(int argc, char* argv[])
     if (!res.empty())
     {
         print_error(res.c_str());
-        return -1;
+        return false;
     }
 
     dst.write(bytecode.data(), bytecode.size());
@@ -64,5 +65,13 @@ int main(int argc, char* argv[])
     // todo: make class
     dst.close();
 
-    return 0;
+    return true;
+}
+
+int main(int argc, char* argv[])
+{
+    if (!compile(argc, argv))
+        return EXIT_FAILURE;
+
+    return EXIT_FAILURE;
 }

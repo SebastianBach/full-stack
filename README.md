@@ -6,7 +6,7 @@ You have a simple, nice, useful C++ function. How do you make it available to us
 
 The *full stack* contains:
 
-* A C++ header-only library with a ``constexpr'' function.
+* A C++ header-only library with a ```constexpr``` function.
 * A compile-time unit test that tests the above function.
 * A command line utility to handle command line arguments to the function.
 * A Python UI application that provides a front-end to this command-line tool.
@@ -123,7 +123,7 @@ cd ..
 doxygen build/doxyfile 
 
 # run Python unit tests
-python -m unittest discover src/test_py
+python3 -m unittest discover src/test_py
 
 
 # build web app container
