@@ -35,7 +35,7 @@ bool load_file(std::vector<std::string>& lines, const char* src)
 {
     std::ifstream source{src};
 
-    if (source.is_open())
+    if (!source.is_open())
     {
         print_error("Could not open source file.");
         return false;
@@ -57,7 +57,6 @@ bool load_file(std::vector<std::string>& lines, const char* src)
 
 bool make_cpp_file(std::vector<std::string>& lines, const char* dst)
 {
-
     std::ofstream file_stream(dst);
 
     if (!file_stream.is_open())
@@ -73,22 +72,25 @@ bool make_cpp_file(std::vector<std::string>& lines, const char* dst)
 
 bool make_py_file(std::vector<std::string>& lines, const char* dst)
 {
-
     std::ofstream file_stream(dst);
 
     if (!file_stream.is_open())
         return false;
 
     const char* tab = "   ";
+    const char* nl  = "\n";
 
-    file_stream << "import text_conversion\n\n";
+    file_stream << "import text_conversion" << nl << nl;
 
-    file_stream << "if __name__ == '__main__':\n";
+    file_stream << "if __name__ == '__main__':" << nl;
 
     for (const auto& line : lines)
     {
-
-        std::cout << line << "\n";
+        if (line.empty())
+        {
+            file_stream << "\n";
+            continue;
+        }
 
         script::command cmd;
         std::string     operand;
@@ -99,11 +101,26 @@ bool make_py_file(std::vector<std::string>& lines, const char* dst)
 
         if (cmd == script::command::COMMENT)
         {
-            file_stream << tab << line << "\n";
+            file_stream << tab << line << nl;
         }
         else if (cmd == script::command::TEXT)
         {
-            file_stream << tab << "text = \"" << operand << "\"\n";
+            file_stream << tab << "text = \"" << operand << "\"" << nl;
+        }
+        else if (cmd == script::command::PROCESS)
+        {
+            file_stream << tab << "text = text_conversion.title_case(text)"
+                        << nl;
+        }
+        else if (cmd == script::command::PRINT)
+        {
+            file_stream << tab << "print(text)" << nl;
+        }
+        else if (cmd == script::command::SAVE)
+        {
+            file_stream << tab << "with open(\"" << operand
+                        << "\", \"w\") as text_file:" << nl;
+            file_stream << tab << tab << "text_file.write(text)" << nl;
         }
     }
 
