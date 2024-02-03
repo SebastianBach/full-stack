@@ -75,5 +75,5 @@ int main(int argc, char* argv[])
     if (!compile(argc, argv))
         return EXIT_FAILURE;
 
-    return EXIT_FAILURE;
+    return EXIT_SUCCESS;
 }
