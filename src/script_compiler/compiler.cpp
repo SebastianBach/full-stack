@@ -39,11 +39,13 @@ bool compile(int argc, char* argv[])
     std::string line;
     while (std::getline(source, line))
     {
+        if (line.empty())
+            continue;
+
         if ((line.back() == '\r' || line.back() == '\n'))
             line.erase(line.size() - 1);
 
-        if (!line.empty())
-            lines.push_back(line);
+        lines.push_back(line);
     }
 
     source.close();
