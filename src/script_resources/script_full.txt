@@ -1,0 +1,13 @@
+
+# this is some long script
+
+text this is some test headline to process bla bla
+process
+print
+
+load my_data.txt
+print
+process
+print
+save my_data.txt
+

@@ -36,6 +36,7 @@ The *full stack* contains:
 * A Python-based IDE front-end for this script interpreter.
 * A compiler that converts scripts in the custom scripting language into bytecode.
 * A runtime that executes this bytecode.
+* A converter that creates Python or C++ code based on a given script written in the custom scripting language.
 
 
 ```mermaid
@@ -51,7 +52,7 @@ The *full stack* contains:
 
     F --> LIB(Static Library)
 
-    LIB --> LIBTEST[Static Lib Unit Test]
+    LIB --> LIBTEST[Static Library Unit Test]
     LIB --> C(Conan Package)
     LIB --> DOXYGEN(Doxygen Documentation)
     LIB --> LIBEX[Static Lib Example Project]
@@ -59,7 +60,7 @@ The *full stack* contains:
     LIB --> QTCPP[C++ UI App]
 
     F --> DLL(Dynamic Library)
-    DLL --> DLLTEST[Dynamic Lib Unit Test]
+    DLL --> DLLTEST[Dynamic Library Unit Test]
     DLL --> QTPYDLL[Python UI App]
 
     C --> CT[Conan Package Test]
@@ -71,7 +72,7 @@ The *full stack* contains:
     SERVER --> FRONT[Front End]
     end
 
-    PY --> PYTEST[Python Unit Test]
+    PY --> PYTEST[Python Module Unit Test]
     PY --> PYAPP[Python UI App]
 
     F --> WASM(WebAssembly + JavaScript)
@@ -80,12 +81,13 @@ The *full stack* contains:
 
     F --> SCRIPTLIB[Script Library]
 
-    SCRIPTLIB --> SCRIPT_TEST[Script Unit Test]
+    SCRIPTLIB --> SCRIPT_TEST[Script Library Unit Test]
     SCRIPTLIB --> SCRIPT_CONSOLE[Console]
     SCRIPTLIB --> SCRIPT_INTERPRETER[Interpreter]
     SCRIPT_INTERPRETER --> SCRIPT_IDE[IDE]
     SCRIPTLIB --> SCRIPT_COMPILER[Compiler]
     SCRIPTLIB --> SCRIPT_RUNTIME[Runtime]
+    SCRIPTLIB --> SCRIPT_CONVERT[Converter]
 ```
 
 
@@ -218,8 +220,8 @@ The domain-specific scripting language is a simple language designed to perform 
 | Command | Operand (optional) | Description |
 | --- | --- | --- |
 | **text** | *text to load and store in memory* | Stores the given text in the program's memory. |
-| **process** | none | Processes the text in memory. |
-| **print** | none | Prints the text in memory to the screen. |
+| **process** | - | Processes the text in memory. |
+| **print** | - | Prints the text in memory to the screen. |
 | **load** | *path to text file* | Reads the specified text file and stores the text in memory. |
 | **save** | *path to text file* | Saves the text in memory to the specified text file. |
 
@@ -254,3 +256,18 @@ compiler C:\scripts\script.txt C:\result\bytecode.code
 
 runtime C:\result\bytecode.code
 ```
+
+## Command Line Tool *converter*
+
+The **converter** loads a source file and generates equivalent C++ or Python source code.
+In Python the generated code uses the ```text_conversion``` module, in C++ the generated code uses the static library.
+
+```
+converter C:\scripts\script.txt C:\result\python_script.py py
+```
+
+The arguments are:
+
+* Path to the script source file.
+* Path to the target file to create.
+* The target language, either ```py``` for Python or ```cpp``` for C++.

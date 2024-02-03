@@ -1,17 +1,9 @@
+#include "converter.h"
 #include "script.h"
-#include <cstdlib>
 #include <cstring>
 #include <fstream>
-#include <iostream>
 #include <string>
 #include <vector>
-
-inline void print_error(const char* msg)
-{
-    std::cout << "\033[31m";
-    std::cout << "Error: " << msg << std::endl;
-    std::cout << "\033[0m";
-}
 
 enum class TARGET
 {
@@ -59,11 +51,84 @@ bool make_cpp_file(std::vector<std::string>& lines, const char* dst)
 {
     std::ofstream file_stream(dst);
 
-    if (!file_stream.is_open())
-        return false;
+    if (const auto is_open = file_stream.is_open(); !is_open)
+        return is_open;
+
+    const char* tab = "   ";
+    const char* nl  = "\n";
+
+    file_stream << "#include <iostream>" << nl;
+    file_stream << "#include <fstream>" << nl;
+    file_stream << "#include <string>" << nl;
+    file_stream << "#include \"text_conversion.h\"" << nl;
+
+    file_stream << nl;
+
+    file_stream << "int main()" << nl;
+
+    file_stream << "{" << nl;
+
+    auto first_text = true;
 
     for (const auto& line : lines)
-        file_stream << line << "\n";
+    {
+        script::command cmd;
+        std::string     operand;
+        script::parse(line, cmd, operand);
+
+        if (cmd == script::command::INVALID)
+            continue;
+
+        if (cmd == script::command::COMMENT)
+        {
+            file_stream << tab << "// " << line.substr(1) << nl;
+        }
+        else if (cmd == script::command::TEXT)
+        {
+            if (first_text)
+            {
+                first_text = false;
+                file_stream << tab << "std::string text = \"" << operand
+                            << "\";" << nl << nl;
+            }
+            else
+            {
+                file_stream << tab << "text = \"" << operand << "\";" << nl
+                            << nl;
+            }
+        }
+        else if (cmd == script::command::PROCESS)
+        {
+            file_stream << tab
+                        << "text_conversion::convert_to_title_case(text);" << nl
+                        << nl;
+        }
+        else if (cmd == script::command::PRINT)
+        {
+            file_stream << tab << "std::cout << text << std::endl;" << nl << nl;
+        }
+        else if (cmd == script::command::SAVE)
+        {
+            file_stream << tab << "std::ofstream(\"" << operand
+                        << "\") << text;" << nl << nl;
+        }
+        else if (cmd == script::command::LOAD)
+        {
+            file_stream << tab << "{" << nl;
+            file_stream
+                << tab << tab
+                << "const std::string "
+                   "temp((std::istreambuf_iterator<char>(std::ifstream(\""
+                << operand
+                << "\").rdbuf())), std::istreambuf_iterator<char>());" << nl;
+            file_stream << tab << tab << "text = temp;" << nl;
+            file_stream << tab << "}" << nl << nl;
+        }
+    }
+
+    file_stream << tab << "return 0;" << nl;
+    file_stream << "}" << nl;
+    file_stream << nl;
 
     file_stream.close();
 
@@ -86,12 +151,6 @@ bool make_py_file(std::vector<std::string>& lines, const char* dst)
 
     for (const auto& line : lines)
     {
-        if (line.empty())
-        {
-            file_stream << "\n";
-            continue;
-        }
-
         script::command cmd;
         std::string     operand;
         script::parse(line, cmd, operand);
@@ -119,10 +178,18 @@ bool make_py_file(std::vector<std::string>& lines, const char* dst)
         else if (cmd == script::command::SAVE)
         {
             file_stream << tab << "with open(\"" << operand
-                        << "\", \"w\") as text_file:" << nl;
-            file_stream << tab << tab << "text_file.write(text)" << nl;
+                        << "\", \"w\") as file:" << nl;
+            file_stream << tab << tab << "file.write(text)" << nl;
+        }
+        else if (cmd == script::command::LOAD)
+        {
+            file_stream << tab << "with open(\"" << operand
+                        << "\", 'r') as file:" << nl;
+            file_stream << tab << tab << "text = file.read()" << nl;
         }
     }
+
+    file_stream << nl;
 
     file_stream.close();
 
@@ -159,15 +226,4 @@ bool converter(int argc, char* argv[])
         return make_py_file(lines, argv[2]);
 
     return true;
-}
-
-int main(int argc, char* argv[])
-{
-    if (!converter(argc, argv))
-    {
-        print_error("failure.");
-        return EXIT_FAILURE;
-    }
-
-    return EXIT_SUCCESS;
 }
