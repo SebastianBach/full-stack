@@ -8,7 +8,9 @@ extern "C" {
 
 fn main() {
   
-  let initial_str = "Hello World";
+  let initial_str = "this is a headline";
+
+  println!("Input: {}", initial_str);
 
   let c_string = CString::new(initial_str).unwrap();
 

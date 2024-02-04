@@ -147,7 +147,7 @@ conan test ./src/test_package text_conversion/0.1.1
 cd src
 cd rust
 cd test_conversion
-cargo build -vv
+cargo build --release
 ```
 
 The collection of deliverables can be found in ```build/product```.
