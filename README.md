@@ -38,7 +38,8 @@ The *full stack* contains:
 * A runtime that executes this bytecode.
 * A converter that creates Python or C++ code based on a given script written in the custom scripting language.
 * A C-wrapper for the C++ function.
-* A Rust application calling the C-wrapper function.
+* A unit test that tests this C-wrapper.
+* A *Rust* application calling the C-wrapper function.
 
 ```mermaid
   flowchart LR;
@@ -91,6 +92,7 @@ The *full stack* contains:
     SCRIPTLIB --> SCRIPT_CONVERT[Converter]
 
     F --> CWRAPPER[C Wrapper Lib]
+    CWRAPPER --> CWRAPPER_TEST[C Wrapper Unit Test]
     CWRAPPER --> RUST_APP[Rust App]  
 ```
 
@@ -142,12 +144,6 @@ conan test ./src/test_package text_conversion/0.1.1
 
 # build WebAssembly library
 ./build_wasm.sh
-
-# build rust app
-cd src
-cd rust
-cd test_conversion
-cargo build --release
 ```
 
 The collection of deliverables can be found in ```build/product```.

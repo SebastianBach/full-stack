@@ -1,4 +1,3 @@
-
 #include "text_conversion_constexpr.h"
 #include <span>
 
