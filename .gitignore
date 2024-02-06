@@ -7,3 +7,5 @@ src/test_cmdl_file/dst.txt
 .vscode
 src/rust/text_conversion/target
 src/rust/text_conversion/Cargo.lock
+src/rust_cmdl/text_conversion/target
+src/rust_cmdl/text_conversion/Cargo.lock

@@ -39,7 +39,7 @@ The *full stack* contains:
 * A converter that creates Python or C++ code based on a given script written in the custom scripting language.
 * A C-wrapper for the C++ function.
 * A unit test that tests this C-wrapper.
-* A *Rust* application calling the C-wrapper function.
+* A *Rust* command line tool calling the C-wrapper function.
 
 ```mermaid
   flowchart LR;
@@ -93,7 +93,7 @@ The *full stack* contains:
 
     F --> CWRAPPER[C Wrapper Lib]
     CWRAPPER --> CWRAPPER_TEST[C Wrapper Unit Test]
-    CWRAPPER --> RUST_APP[Rust App]  
+    CWRAPPER --> RUST_APP[Rust Command Line Tool]  
 ```
 
 
@@ -104,6 +104,7 @@ The *full stack* contains:
 * *docker* to containerize the web app and to build the WebAssembly library.
 * *conan* to build the *conan* package.
 * *Qt5* to build the C++ Qt UI app.
+* *Rust* to build the Rust app.
 
 
 # Build
@@ -114,7 +115,7 @@ To build and test everything:
 # build all C++ products
 mkdir build
 cd build
-cmake -DADD_PYTHON_MODULE=ON  -DADD_QT_APP=ON ..
+cmake -DADD_PYTHON_MODULE=ON  -DADD_QT_APP=ON -DADD_RUST_APP=ON ..
 cmake --build . -j --config Release
 ctest -C Release  -VV
 cmake --install .
@@ -152,6 +153,7 @@ CMake options are:
 
 - **ADD_PYTHON_MODULE**: To build the Python module (requires Python C API)
 - **ADD_QT_APP**: To build a Qt5 UI app (requires Qt5).
+- **ADD_RUST_APP**: To build the Rust command line tool (requires Rust).
 
 # Usage
 

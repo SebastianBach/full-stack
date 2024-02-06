@@ -13,4 +13,4 @@ endif()
 install(TARGETS text_conversion_lib DESTINATION product/lib/lib)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/text_conversion.h DESTINATION product/lib/header)
 
-set_target_properties(text_conversion_lib PROPERTIES FOLDER "static_lib")
+set_target_properties(text_conversion_lib PROPERTIES FOLDER "static_libs")
