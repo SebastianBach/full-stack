@@ -27,7 +27,7 @@ target_link_libraries(lib_doxygen_examples PRIVATE text_conversion_lib)
 
 add_test(NAME lib_doxygen_examples COMMAND lib_doxygen_examples)
 
-set_target_properties(lib_doxygen_examples PROPERTIES FOLDER "static_lib")
+set_target_properties(lib_doxygen_examples PROPERTIES FOLDER "static_libs")
 
 if (WIN32)
     target_compile_options(lib_doxygen_examples PRIVATE "/Zc:__cplusplus")

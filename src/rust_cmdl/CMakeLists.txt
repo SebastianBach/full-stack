@@ -15,7 +15,6 @@ if(ADD_RUST_APP)
                             folder_path=\$(dirname \"\$full_path\"); \
                             export C_WRAPPER_LIB_LOCATION=\$folder_path; \
                             echo \"Stored folder path in environment variable: \$C_WRAPPER_LIB_LOCATION\"; \
-                            echo \$C_WRAPPER_LIB_LOCATION; \
                             cargo clean; \
                             cargo build --release"
         COMMAND chmod +x "${RUST_EXECUTABLE}"

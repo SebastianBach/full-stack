@@ -10,7 +10,7 @@ elseif(UNIX AND NOT APPLE)
     set_target_properties(lib_c PROPERTIES OUTPUT_NAME "libtext_conversion_c")
 endif()
 
-set_target_properties(lib_c PROPERTIES FOLDER "rust")
+set_target_properties(lib_c PROPERTIES FOLDER "static_libs")
 
 install(TARGETS lib_c DESTINATION product/rust)
 
