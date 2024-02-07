@@ -6,32 +6,40 @@ You have a simple, nice, useful C++ function. How do you make it available to us
 
 The *full stack* contains:
 
-* A C++ header-only library with a ``constexpr'' function.
+* A C++ header-only library with a ```constexpr``` function.
 * A compile-time unit test that tests the above function.
-* A command-line tool to handle command-line arguments to the function.
+* A command line utility to handle command line arguments to the function.
 * A Python UI application that provides a front-end to this command-line tool.
 * A command line tool to handle interactive data with the function.
-* A command-line tool to process the contents of a given file with the function.
-* A static library that encapsulates the function.
+* A command line tool to process the contents of a given file with the function.
+* A static library encapsulating the function.
 * A unit test for this static library.
+* A sample project for this static library.
 * A C++ QT5 UI application based on the static library.
 * A *Conan 2* package containing the static library.
 * A test for this *Conan* package.
+* A dynamic library.
+* A unit test for this dynamic library.
+* A Python UI application that uses this dynamic library.
 * A Python-based Flask web application that provides a web interface and REST API to the above command line tool.
-* An HTML/JavaScript front end that queries the above REST API.
+* An HTML/JavaScript front-end that queries the above REST API.
 * A *Docker* container containing the above Flask web application.
 * A Python module implemented using the Python C API.
 * A unit test that tests this module.
 * A Python UI application that uses this module.
 * A WebAssembly binary library and associated JavaScript code.
-* An HTML/JavaScript front end that uses the above WebAssembly library.
-* A static library implementing a custom scripting language.
+* An HTML/JavaScript frontend that uses the above WebAssembly library.
+* A static library that implements a custom scripting language.
 * A unit test for this static library.
-* A console application for this scripting language.
+* A console application for that scripting language.
 * An interpreter that executes scripts in the custom scripting language.
+* A Python-based IDE front-end for this script interpreter.
 * A compiler that converts scripts in the custom scripting language into bytecode.
-* A runtime that executes that bytecode. 
-
+* A runtime that executes this bytecode.
+* A converter that creates Python or C++ code based on a given script written in the custom scripting language.
+* A C-wrapper for the C++ function.
+* A unit test that tests this C-wrapper.
+* A *Rust* command line tool calling the C-wrapper function.
 
 ```mermaid
   flowchart LR;
@@ -44,12 +52,18 @@ The *full stack* contains:
 
     CLI1 --> PYAPP2[Python UI App]
 
-    F --> LIB(Static Lib)
+    F --> LIB(Static Library)
 
-    LIB --> LIBTEST[Static Lib Unit Test]
+    LIB --> LIBTEST[Static Library Unit Test]
     LIB --> C(Conan Package)
+    LIB --> DOXYGEN(Doxygen Documentation)
+    LIB --> LIBEX[Static Lib Example Project]
 
     LIB --> QTCPP[C++ UI App]
+
+    F --> DLL(Dynamic Library)
+    DLL --> DLLTEST[Dynamic Library Unit Test]
+    DLL --> QTPYDLL[Python UI App]
 
     C --> CT[Conan Package Test]
 
@@ -60,7 +74,7 @@ The *full stack* contains:
     SERVER --> FRONT[Front End]
     end
 
-    PY --> PYTEST[Python Unit Test]
+    PY --> PYTEST[Python Module Unit Test]
     PY --> PYAPP[Python UI App]
 
     F --> WASM(WebAssembly + JavaScript)
@@ -69,11 +83,17 @@ The *full stack* contains:
 
     F --> SCRIPTLIB[Script Library]
 
-    SCRIPTLIB --> SCRIPT_TEST[Script Unit Test]
+    SCRIPTLIB --> SCRIPT_TEST[Script Library Unit Test]
     SCRIPTLIB --> SCRIPT_CONSOLE[Console]
     SCRIPTLIB --> SCRIPT_INTERPRETER[Interpreter]
+    SCRIPT_INTERPRETER --> SCRIPT_IDE[IDE]
     SCRIPTLIB --> SCRIPT_COMPILER[Compiler]
     SCRIPTLIB --> SCRIPT_RUNTIME[Runtime]
+    SCRIPTLIB --> SCRIPT_CONVERT[Converter]
+
+    F --> CWRAPPER[C Wrapper Lib]
+    CWRAPPER --> CWRAPPER_TEST[C Wrapper Unit Test]
+    CWRAPPER --> RUST_APP[Rust Command Line Tool]  
 ```
 
 
@@ -84,6 +104,7 @@ The *full stack* contains:
 * *docker* to containerize the web app and to build the WebAssembly library.
 * *conan* to build the *conan* package.
 * *Qt5* to build the C++ Qt UI app.
+* *Rust* to build the Rust app.
 
 
 # Build
@@ -94,20 +115,31 @@ To build and test everything:
 # build all C++ products
 mkdir build
 cd build
-cmake -DADD_PYTHON_MODULE=ON  -DADD_QT_APP=ON ..
-cmake --build . --config Release
+cmake -DADD_PYTHON_MODULE=ON  -DADD_QT_APP=ON -DADD_RUST_APP=ON ..
+cmake --build . -j --config Release
 ctest -C Release  -VV
 cmake --install .
+
+# test lib example project
+cd lib_example_build
+cmake  ../product/lib/example
+cmake --build . --config Release
+ctest -C Release  -VV
+cd ..
 cd ..
 
+# static lib documentation
+doxygen build/doxyfile 
+
 # run Python unit tests
-python -m unittest discover src/test_py
+python3 -m unittest discover src/test_py
+
 
 # build web app container
 docker build --tag title-case-web .
 
 # build and test conan package
-conan export-pkg . -of ./build/conan
+conan export-pkg . 
 conan list text_conversion
 conan test ./src/test_package text_conversion/0.1.1
 
@@ -121,6 +153,7 @@ CMake options are:
 
 - **ADD_PYTHON_MODULE**: To build the Python module (requires Python C API)
 - **ADD_QT_APP**: To build a Qt5 UI app (requires Qt5).
+- **ADD_RUST_APP**: To build the Rust command line tool (requires Rust).
 
 # Usage
 
@@ -194,9 +227,9 @@ The domain-specific scripting language is a simple language designed to perform 
 
 | Command | Operand (optional) | Description |
 | --- | --- | --- |
-| **text** | *text to load store in memory* | Stores the given text in the program's memory. |
-| **process** | none | Processes the text in memory. |
-| **print** | none | Prints the text in memory to the screen. |
+| **text** | *text to load and store in memory* | Stores the given text in the program's memory. |
+| **process** | - | Processes the text in memory. |
+| **print** | - | Prints the text in memory to the screen. |
 | **load** | *path to text file* | Reads the specified text file and stores the text in memory. |
 | **save** | *path to text file* | Saves the text in memory to the specified text file. |
 
@@ -219,7 +252,7 @@ The scripting **console** allows to enter and execute code. The console applicat
 The **interpreter** loads and executes a script stored in the specified source file.
 
 ```
-interpreter.exe C:\scripts\script.txt
+interpreter C:\scripts\script.txt
 ```
 
 ## Command Line Tool *compiler* & *runtime*
@@ -227,7 +260,22 @@ interpreter.exe C:\scripts\script.txt
 The **compiler** loads a source file and generates byte-code, that can be executed by the **runtime**.
 
 ```
-compiler.exe C:\scripts\script.txt C:\result\bytecode.code
+compiler C:\scripts\script.txt C:\result\bytecode.code
 
-runtime.exe C:\result\bytecode.code
+runtime C:\result\bytecode.code
 ```
+
+## Command Line Tool *converter*
+
+The **converter** loads a source file and generates equivalent C++ or Python source code.
+In Python the generated code uses the ```text_conversion``` module, in C++ the generated code uses the static library.
+
+```
+converter C:\scripts\script.txt C:\result\python_script.py py
+```
+
+The arguments are:
+
+* Path to the script source file.
+* Path to the target file to create.
+* The target language, either ```py``` for Python or ```cpp``` for C++.

@@ -1,0 +1,1 @@
+install(FILES app.py DESTINATION product/dynamic_lib)

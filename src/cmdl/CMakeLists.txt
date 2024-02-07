@@ -7,6 +7,6 @@ target_include_directories(cmdl PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_test(NAME cmdl COMMAND cmdl "this is the headline")
 
-install(TARGETS cmdl RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/product/tools)
+install(TARGETS cmdl RUNTIME DESTINATION product/tools)
 
 set_target_properties(cmdl PROPERTIES FOLDER "tools")

@@ -1,5 +1,6 @@
 #include "script.h"
 #include "tokens.h"
+#include <cstring>
 
 namespace script
 {
@@ -66,14 +67,12 @@ std::string runtime(const std::vector<char>&             bytecode,
         if (!get_from_byte_code(value, t))
             return "Invalid byte code";
 
-        const auto cmd = t.ID;
-
         if (t.has_operand)
         {
             // todo: add checks
 
-            const auto   type_size    = sizeof(unsigned int);
-            unsigned int operand_size = 0;
+            const auto type_size    = sizeof(unsigned int);
+            auto       operand_size = 0u;
             i++;
             memcpy(&operand_size, bytecode.data() + i, type_size);
 
@@ -85,7 +84,7 @@ std::string runtime(const std::vector<char>&             bytecode,
             i = i + operand_size - 1;
         }
 
-        const auto res = eng.run(cmd, operand);
+        const auto res = eng.run(t.ID, operand);
 
         if (!res.empty())
             return res;
