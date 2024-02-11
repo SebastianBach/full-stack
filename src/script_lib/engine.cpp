@@ -1,5 +1,6 @@
 #include "script.h"
 #include <fstream>
+#include <functional>
 #include <iostream>
 #include <map>
 #include <sstream>
@@ -9,60 +10,124 @@
 namespace script
 {
 
+struct cmd_args
+{
+    std::string&                         memory;
+    std::string&                         error;
+    const std::string&                   operand;
+    std::function<void(const char* msg)> print;
+};
+
+struct engine_command
+{
+    std::function<void(cmd_args& args)> func;
+    const command                       cmd;
+};
+
+template <typename F>
+void add_command(std::vector<engine_command>& cmds, command cmd, F&& f)
+{
+    cmds.emplace_back(engine_command{f, cmd});
+}
+
+void set_commands(std::vector<engine_command>& cmds)
+{
+    add_command(
+        cmds, command::PROCESS,
+        [](cmd_args& args)
+        { text_conversion_constexpr::convert_to_title_case(args.memory); });
+
+    add_command(cmds, command::INVALID,
+                [](cmd_args& args) { args.error = "Invalid command"; });
+
+    add_command(cmds, command::TEXT,
+                [](cmd_args& args) { args.memory = args.operand; });
+
+    add_command(cmds, command::PRINT,
+                [](cmd_args& args)
+                {
+                    if (args.print)
+                    {
+                        args.print(args.memory.c_str());
+                        return;
+                    }
+
+                    args.error =
+                        "print command called, but no print callback provided";
+                });
+
+    add_command(cmds, command::LOAD,
+                [](cmd_args& args)
+                {
+                    std::ifstream file{args.operand};
+
+                    if (!file.is_open())
+                    {
+                        args.error =
+                            std::string{"Could not open file "} + args.operand;
+                        return;
+                    }
+
+                    args.memory.clear();
+
+                    std::string line;
+                    while (std::getline(file, line))
+                        args.memory += line + "\n";
+
+                    file.close();
+                });
+
+    add_command(cmds, command::SAVE,
+                [](cmd_args& args)
+                {
+                    std::ofstream output_file{args.operand};
+
+                    if (!output_file.is_open())
+                    {
+                        args.error =
+                            std::string{"Could not open file "} + args.operand;
+                        return;
+                    }
+
+                    output_file << args.memory << std::endl;
+
+                    output_file.close();
+                });
+}
+
 class engine::engine_impl
 {
 public:
-    engine_impl(std::function<void(const char* msg)> print) : m_print(print) {}
+    engine_impl(std::function<void(const char* msg)> print) : m_print(print)
+    {
+        m_commands.reserve(6);
+        set_commands(m_commands);
+    }
 
-    std::string m_memory = {};
+    std::string run_command(command cmd_id, const std::string& operand)
+    {
+        if (cmd_id == command::COMMENT)
+            return "";
 
+        for (auto& cmd : m_commands)
+            if (cmd.cmd == cmd_id)
+            {
+                cmd_args args{m_memory, m_error, operand, m_print};
+                cmd.func(args);
+
+                if (!m_error.empty())
+                    return m_error;
+
+                return "";
+            }
+
+        return "Command not found";
+    }
+
+    std::string                          m_memory = {};
+    std::string                          m_error  = {};
     std::function<void(const char* msg)> m_print;
-
-    std::string print() const
-    {
-        if (m_print)
-            m_print(m_memory.c_str());
-        else
-            return "print command called, but no print callback provided";
-
-        return "";
-    }
-
-    void process()
-    {
-        text_conversion_constexpr::convert_to_title_case(m_memory);
-    }
-
-    std::string load(const std::string& operand)
-    {
-        std::ifstream file{operand};
-
-        if (!file.is_open())
-            return std::string{"Could not open file "} + operand;
-
-        m_memory.clear();
-
-        std::string line;
-        while (std::getline(file, line))
-            m_memory += line + "\n";
-
-        file.close();
-        return "";
-    }
-
-    std::string save(const std::string& operand)
-    {
-        std::ofstream output_file{operand};
-
-        if (!output_file.is_open())
-            return std::string{"Could not open file "} + operand;
-
-        output_file << m_memory << std::endl;
-
-        output_file.close();
-
-        return "";
-    }
+    std::vector<engine_command>          m_commands;
 };
 
 engine::engine(std::function<void(const char* msg)> print)
@@ -74,45 +139,7 @@ engine::~engine() {}
 
 std::string engine::run(command cmd, const std::string& operand)
 {
-    switch (cmd)
-    {
-    case (command::INVALID):
-    {
-        return "invalid command";
-        break;
-    }
-    case (command::COMMENT):
-    {
-        break;
-    }
-    case (command::TEXT):
-    {
-        m_impl->m_memory = operand;
-        break;
-    }
-    case (command::PRINT):
-    {
-        return m_impl->print();
-        break;
-    }
-    case (command::PROCESS):
-    {
-        m_impl->process();
-        break;
-    }
-    case (command::LOAD):
-    {
-        return m_impl->load(operand);
-        break;
-    }
-    case (command::SAVE):
-    {
-        return m_impl->save(operand);
-        break;
-    }
-    }
-
-    return "";
+    return m_impl->run_command(cmd, operand);
 }
 
 std::string engine::get_memory() const
