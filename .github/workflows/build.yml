@@ -1,0 +1,32 @@
+name: builds
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      name: Check out the repository code
+
+    - name: dependencies
+      run: sudo apt-get update && sudo apt-get install -y build-essential cmake
+
+    - name: build directory
+      run: mkdir build
+
+    - name: CMake
+      run: cmake -DADD_RUST_APP=ON ..
+      working-directory: ./build
+
+    - name: build 
+      run: cmake --build . --config Release
+      working-directory: ./build
+
+    - name: tests
+      run: ctest -C Release  -VV
+      working-directory: ./build
+
+    - name: collect
+      run: cmake --install .
+      working-directory: ./build
