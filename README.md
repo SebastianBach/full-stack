@@ -51,13 +51,14 @@ The *full stack* contains:
     F --> CLI3[Command Line Tool C]
 
     CLI1 --> PYAPP2[Python UI App]
-
+    subgraph SDK
     F --> LIB(Static Library)
+    LIB --> DOXYGEN(Doxygen Documentation)
+    LIB --> LIBEX[Static Lib Example Project]
+    end
 
     LIB --> LIBTEST[Static Library Unit Test]
     LIB --> C(Conan Package)
-    LIB --> DOXYGEN(Doxygen Documentation)
-    LIB --> LIBEX[Static Lib Example Project]
 
     LIB --> QTCPP[C++ UI App]
 
@@ -81,7 +82,7 @@ The *full stack* contains:
 
     WASM --> WASMF[Front End]
 
-    F --> SCRIPTLIB[Script Library]
+    F --> SCRIPTLIB(Script Library)
 
     SCRIPTLIB --> SCRIPT_TEST[Script Library Unit Test]
     SCRIPTLIB --> SCRIPT_CONSOLE[Console]
@@ -91,7 +92,7 @@ The *full stack* contains:
     SCRIPTLIB --> SCRIPT_RUNTIME[Runtime]
     SCRIPTLIB --> SCRIPT_CONVERT[Converter]
 
-    F --> CWRAPPER[C Wrapper Lib]
+    F --> CWRAPPER(C Wrapper Lib)
     CWRAPPER --> CWRAPPER_TEST[C Wrapper Unit Test]
     CWRAPPER --> RUST_APP[Rust Command Line Tool]  
 ```
