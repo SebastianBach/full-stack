@@ -10,7 +10,7 @@ jobs:
       name: Check out the repository code
 
     - name: dependencies
-      run: sudo apt-get update && sudo apt-get install -y build-essential cmake
+      run: sudo apt-get update && sudo apt-get install -y build-essential cmake doxygen
 
     - name: build directory
       run: mkdir build
@@ -30,3 +30,16 @@ jobs:
     - name: collect
       run: cmake --install .
       working-directory: ./build
+
+    - name: lib docs
+      run: doxygen build/doxyfile 
+
+    - name: build lib examples
+      run: |
+        cmake  ../product/lib/example
+        cmake --build . --config Release
+        ctest -C Release  -VV
+      working-directory: ./build/lib_example_build
+
+    - name: docker
+      run: docker build --tag title-case-web .
