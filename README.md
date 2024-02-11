@@ -1,3 +1,5 @@
+[![builds](https://github.com/SebastianBach/full-stack/actions/workflows/build.yml/badge.svg)](https://github.com/SebastianBach/full-stack/actions/workflows/build.yml)
+
 # About
 
 You have a simple, nice, useful C++ function. How do you make it available to users?
@@ -51,8 +53,10 @@ The *full stack* contains:
     F --> CLI3[Command Line Tool C]
 
     CLI1 --> PYAPP2[Python UI App]
-    subgraph SDK
+
     F --> LIB(Static Library)
+    
+    subgraph SDK
     LIB --> DOXYGEN(Doxygen Documentation)
     LIB --> LIBEX[Static Lib Example Project]
     end
