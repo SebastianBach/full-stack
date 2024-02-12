@@ -49,3 +49,9 @@ jobs:
       
     - name: docker
       run: docker build --tag title-case-web .
+
+    - name: store results
+      uses: actions/upload-artifact@v2
+      with:
+        name: products
+        path: build/product
