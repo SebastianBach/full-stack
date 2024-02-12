@@ -28,6 +28,7 @@ The *full stack* contains:
 * A *Docker* container containing the above Flask web application.
 * A Python module implemented using the Python C API.
 * A unit test that tests this module.
+* A *Sphinx* documentation for this module.
 * A Python UI application that uses this module.
 * A WebAssembly binary library and associated JavaScript code.
 * An HTML/JavaScript frontend that uses the above WebAssembly library.
@@ -80,6 +81,7 @@ The *full stack* contains:
     end
 
     PY --> PYTEST[Python Module Unit Test]
+    PY --> SPHINX(Sphinx Documentation)
     PY --> PYAPP[Python UI App]
 
     F --> WASM(WebAssembly + JavaScript)
@@ -139,6 +141,13 @@ doxygen build/doxyfile
 # run Python unit tests
 python3 -m unittest discover src/test_py
 
+# python documentation
+cd src
+cd py_doc
+sphinx-build -b html source ../../build/product/python/documentation
+
+cd ..
+cd ..
 
 # build web app container
 docker build --tag title-case-web .
@@ -234,11 +243,11 @@ The domain-specific scripting language is a simple language designed to perform 
 
 | Command | Operand (optional) | Description |
 | --- | --- | --- |
-| **text** | *text to load and store in memory* | Stores the given text in the program's memory. |
-| **process** | - | Processes the text in memory. |
-| **print** | - | Prints the text in memory to the screen. |
-| **load** | *path to text file* | Reads the specified text file and stores the text in memory. |
-| **save** | *path to text file* | Saves the text in memory to the specified text file. |
+| ```text``` | *text to load and store in memory* | Stores the given text in the program's memory. |
+| ```process``` | - | Processes the text in memory. |
+| ```print``` | - | Prints the text in memory to the screen. |
+| ```load``` | *path to text file* | Reads the specified text file and stores the text in memory. |
+| ```save``` | *path to text file* | Saves the text in memory to the specified text file. |
 
 An example program is:
 

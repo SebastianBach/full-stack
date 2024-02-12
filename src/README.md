@@ -15,6 +15,7 @@
 - ```lib_c```: Static C library.
 - ```lib_resources```: Documentation and example project for the C++ library.
 - ```py```: Python module.
+- ```py_doc```: Python Shpinx documentation.
 - ```rust_cmdl```: A Rust command line tool.
 - ```script_compiler```: Compiler that converts a script written in the custom language to bytecode that can be executed by the runtime.
 - ```script_console```: Interactive console that allows users to enter and execute scripts in the custom language.
