@@ -50,9 +50,6 @@ jobs:
     - name: docker
       run: docker build --tag title-case-web .
 
-    - name: wasm
-      run: ./build_wasm.sh
-
     - name: store results
       uses: actions/upload-artifact@v2
       with:
