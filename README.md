@@ -160,6 +160,8 @@ CMake options are:
 - **ADD_QT_APP**: To build a Qt5 UI app (requires Qt5).
 - **ADD_RUST_APP**: To build the Rust command line tool (requires Rust).
 
+See also ```.github/workflows/build.yml```.
+
 # Usage
 
 ## Command Line Tool *title_case*

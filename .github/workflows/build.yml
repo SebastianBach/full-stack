@@ -10,7 +10,7 @@ jobs:
       name: Check out the repository code
 
     - name: dependencies
-      run: sudo apt-get update && sudo apt-get install -y build-essential cmake doxygen
+      run: sudo apt-get update && sudo apt-get install -y build-essential cmake doxygen qtcreator qtbase5-dev qt5-qmake
 
     - name: py dev tools    
       run: python3 -m pip install python-dev-tools
@@ -19,7 +19,7 @@ jobs:
       run: mkdir build
 
     - name: CMake
-      run: cmake -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON ..
+      run: cmake -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON ..
       working-directory: ./build
 
     - name: build 
