@@ -62,6 +62,20 @@ int main()
         eng.run(script::command::PROCESS, "");
 
         CHECK(eng.get_memory() == "Test Text");
+
+        eng.run(script::command::SAVE, "_current_content.txt");
+
+        eng.run(script::command::TEXT, "nothing");
+
+        CHECK(eng.get_memory() == "nothing");
+
+        eng.run(script::command::LOAD, "_current_content.txt");
+
+        CHECK(eng.get_memory() == "Test Text");
+
+        const auto res = eng.run(script::command::LOAD, "_invalid_file.txt");
+
+        CHECK(!res.empty());
     }
 
     {

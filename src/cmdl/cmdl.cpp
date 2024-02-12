@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     if (argc == 1)
     {
         std::cout << "Missing arguments." << std::endl;
-        return 0;
+        return 1;
     }
 
     process(argv[1]);

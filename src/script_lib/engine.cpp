@@ -72,7 +72,7 @@ void set_commands(std::vector<engine_command>& cmds)
 
                     std::string line;
                     while (std::getline(file, line))
-                        args.memory += line + "\n";
+                        args.memory += line;
 
                     file.close();
                 });
