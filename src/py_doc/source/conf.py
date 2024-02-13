@@ -21,12 +21,6 @@
 import sys
 import os
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
-product_location = os.path.abspath(os.path.join(script_dir, "..", "..", "..", "build", "product", "python"))
-sys.path.append(product_location)
-
-import text_conversion
-
 project = 'Text Conversion'
 copyright = '2024, Sebastian Bach'
 author = 'Sebastian Bach'

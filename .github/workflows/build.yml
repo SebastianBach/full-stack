@@ -19,7 +19,7 @@ jobs:
       run: mkdir build
 
     - name: CMake
-      run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON ..
+      run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON -DADD_PY_DOCS=ON ..
       working-directory: ./build
 
     - name: cppcheck
@@ -40,10 +40,6 @@ jobs:
 
     - name: lib docs
       run: doxygen build/doxyfile
-
-    - name: python module docs
-      run: sphinx-build -b html source ../../build/product/python/documentation 
-      working-directory: ./src/py_doc
 
     - name: build lib examples
       run: |

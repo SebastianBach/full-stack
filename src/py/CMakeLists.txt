@@ -4,6 +4,8 @@ option(ADD_PYTHON_MODULE "Include the Python Module" OFF)
 
 if(ADD_PYTHON_MODULE)
 
+    message(STATUS "Building Python module.")
+
     find_package(Python3 COMPONENTS Development)
 
 
