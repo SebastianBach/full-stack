@@ -8,7 +8,7 @@ enable_testing()
 
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    message("build with GCC")
+    message(STATUS "build with GCC")
     set(CMAKE_STATIC_LIBRARY_PREFIX "")
     set(CMAKE_IMPORT_LIBRARY_PREFIX "")
     set(CMAKE_SHARED_MODULE_PREFIX "")
@@ -34,6 +34,7 @@ file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/dynamic_lib)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/rust)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/wasm)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/temp)
+file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/temp/cppcheck)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib_example_build)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/script_compiler)
 

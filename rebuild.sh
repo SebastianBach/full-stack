@@ -1,7 +1,8 @@
 
 
 cd build
-cmake -DADD_PYTHON_MODULE=ON  -DADD_QT_APP=ON -DADD_RUST_APP=ON ..
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_PYTHON_MODULE=ON  -DADD_QT_APP=ON -DADD_RUST_APP=ON ..
+cppcheck --project=compile_commands.json --cppcheck-build-dir=./temp/cppcheck
 cmake --build . --target clean
 cmake --build . -j --config Release
 ctest -C Release  -VV

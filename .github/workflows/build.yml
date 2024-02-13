@@ -10,7 +10,7 @@ jobs:
       name: Check out the repository code
 
     - name: dependencies
-      run: sudo apt-get update && sudo apt-get install -y build-essential cmake doxygen qtcreator qtbase5-dev qt5-qmake python3-sphinx
+      run: sudo apt-get update && sudo apt-get install -y build-essential cmake doxygen qtcreator qtbase5-dev qt5-qmake python3-sphinx cppcheck
 
     - name: py dev tools    
       run: python3 -m pip install python-dev-tools
@@ -19,7 +19,11 @@ jobs:
       run: mkdir build
 
     - name: CMake
-      run: cmake -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON ..
+      run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON ..
+      working-directory: ./build
+
+    - name: cppcheck
+      run: cppcheck --project=compile_commands.json --cppcheck-build-dir=./temp/cppcheck
       working-directory: ./build
 
     - name: build 
