@@ -22,12 +22,12 @@ jobs:
       run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON -DADD_PY_DOCS=ON ..
       working-directory: ./build
 
-    - name: cppcheck
-      run: cppcheck --project=compile_commands.json --cppcheck-build-dir=./temp/cppcheck
-      working-directory: ./build
-
     - name: build 
       run: cmake --build . --config Release
+      working-directory: ./build
+
+    - name: cppcheck
+      run: cppcheck --project=compile_commands.json --cppcheck-build-dir=./temp/cppcheck
       working-directory: ./build
 
     - name: tests
