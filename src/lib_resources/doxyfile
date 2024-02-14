@@ -6,7 +6,7 @@ OUTPUT_LANGUAGE        = English
 
 STRIP_FROM_PATH        = @CMAKE_INSTALL_PREFIX@/product/lib
 
-INPUT                  = @CMAKE_INSTALL_PREFIX@/product/lib/header @CMAKE_INSTALL_PREFIX@/temp/frontpage.dox
+INPUT                  = @PROJECT_SOURCE_DIR@/src/lib/ @CMAKE_CURRENT_SOURCE_DIR@/frontpage.dox
 
 FILE_PATTERNS          = *.h
 
@@ -26,4 +26,4 @@ EXTRACT_STATIC         = YES
 
 GENERATE_LATEX         = NO
 
-EXAMPLE_PATH           = @CMAKE_INSTALL_PREFIX@/temp/
+EXAMPLE_PATH           = @CMAKE_CURRENT_SOURCE_DIR@/doc_examples/

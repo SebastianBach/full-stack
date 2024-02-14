@@ -122,7 +122,7 @@ To build and test everything:
 # build all C++ products
 mkdir build
 cd build
-cmake -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON -DADD_RUST_APP=ON -DADD_PY_DOCS=ON ..
+cmake -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON -DADD_RUST_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON ..
 cmake --build . -j --config Release
 ctest -C Release  -VV
 cmake --install .
@@ -134,9 +134,6 @@ cmake --build . --config Release
 ctest -C Release  -VV
 cd ..
 cd ..
-
-# static lib documentation
-doxygen build/doxyfile 
 
 # run Python unit tests
 python3 -m unittest discover src/test_py
@@ -160,8 +157,9 @@ The collection of deliverables can be found in ```build/product```.
 
 CMake options are:
 
-- **ADD_PYTHON_MODULE**: To build the Python module (requires Python C API)
-- **ADD_PY_DOCS=ON**: To build the Python documentation (requires Sphinx)
+- **ADD_PYTHON_MODULE**: To build the Python module (requires Python C API).
+- **ADD_PY_DOCS**: To build the Python documentation (requires Sphinx).
+- **ADD_LIB_DOCS**: To build the C++ library documentation (requires doxygen).
 - **ADD_QT_APP**: To build a Qt5 UI app (requires Qt5).
 - **ADD_RUST_APP**: To build the Rust command line tool (requires Rust).
 

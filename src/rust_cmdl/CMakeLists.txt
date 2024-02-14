@@ -2,6 +2,8 @@ option(ADD_RUST_APP "Include the Rust cmdl app." OFF)
 
 if(ADD_RUST_APP)
 
+    message(STATUS "Build Rust command line tool.")
+
     set(RUST_PROJECT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/text_conversion")
 
     set(RUST_EXECUTABLE "${CMAKE_CURRENT_SOURCE_DIR}/text_conversion/target/release/text_conversion")

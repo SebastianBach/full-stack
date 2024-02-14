@@ -19,7 +19,7 @@ jobs:
       run: mkdir build
 
     - name: CMake
-      run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON -DADD_PY_DOCS=ON ..
+      run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON ..
       working-directory: ./build
 
     - name: build 
@@ -37,9 +37,6 @@ jobs:
     - name: collect
       run: cmake --install .
       working-directory: ./build
-
-    - name: lib docs
-      run: doxygen build/doxyfile
 
     - name: build lib examples
       run: |
