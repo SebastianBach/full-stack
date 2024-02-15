@@ -138,9 +138,6 @@ cd ..
 # run Python unit tests
 python3 -m unittest discover src/test_py
 
-cd ..
-cd ..
-
 # build web app container
 docker build --tag title-case-web .
 
