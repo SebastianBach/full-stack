@@ -1,6 +1,4 @@
 
-message(STATUS "add java stuff")
-
 add_custom_target(java_cli ALL COMMAND bash -c  "javac -d ${CMAKE_BINARY_DIR}/temp/java ${CMAKE_CURRENT_SOURCE_DIR}/TextConversionTool.java; \
                                                 cd '${CMAKE_BINARY_DIR}/temp/java'; \
                                                 jar cmvf ${CMAKE_CURRENT_SOURCE_DIR}/META-INF/MANIFEST.MF text_conversion.jar TextConversionTool.class "

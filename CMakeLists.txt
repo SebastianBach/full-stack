@@ -8,6 +8,7 @@ option(ADD_PY_DOCS "Include Python module documentation." OFF)
 option(ADD_RUST_APP "Include the Rust cmdl app." OFF)
 option(ADD_JAVA_APP "Include the Java command line app." OFF)
 option(ADD_LIB_DOCS "Include C++ library documentation." OFF)
+option(ADD_QT_APP "Include the Qt UI App." OFF)
 
 project(full_stack CXX)
 enable_testing()
@@ -31,7 +32,6 @@ file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/lib/lib)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/lib/header)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/lib/example)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/tools)
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/app)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/script)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/dynamic_lib)
 
@@ -44,6 +44,10 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp/doxygen)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/lib_example_build)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/script_compiler)
 
+
+if(ADD_QT_APP)
+    file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/app)
+endif()
 
 if(ADD_LIB_DOCS)
     file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/lib/documentation)

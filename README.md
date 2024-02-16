@@ -44,7 +44,7 @@ The *full stack* contains:
 * A unit test that tests this C-wrapper.
 * A *Rust* command line tool calling the C-wrapper function.
 * A Java Native Interface Library to extend Java.
-* A *Java* command line tool using that shared library.
+* A *Java* command line tool using that library.
 
 ```mermaid
   flowchart LR;
@@ -117,6 +117,7 @@ The *full stack* contains:
 * *conan* to build the *conan* package.
 * *Qt5* to build the C++ Qt UI app.
 * *Rust* to build the Rust app.
+* *Java* to build Java command line tool.
 
 
 # Build
@@ -189,7 +190,7 @@ Interactive command line tool. Enter the text to convert or "exit" to end the pr
 
 The first command line argument is the file to read the data from, the second is the file to save the result to.
 
-```
+```sh
 title_case_file source_file.txt target_file.txt
 ```
 
@@ -197,7 +198,7 @@ title_case_file source_file.txt target_file.txt
 
 Start the ```web.py``` script by providing the location of the resource files and the folder containing the ```title_case``` tool.
 
-```
+```sh
 python web.py C:\web\resources C:\build\product
 ```
 
@@ -207,7 +208,7 @@ Open ```localhost:5000``` for a synchronous web app. Open ```localhost:5000/inte
 
 Build the *docker* image with:
 
-```
+```sh
 docker build --tag title-case-web .
 ```
 
@@ -216,7 +217,7 @@ The multi-stage build process will build the ```title_case``` tool and copy all 
 
 To start the container, run:
 
-```
+```sh
 docker run --rm -it -p 5000:5000 title-case-web
 ```
 
@@ -227,7 +228,7 @@ Open ```localhost:5000``` for a synchronous web app. Open ```localhost:5000/inte
 
 WebAssembly requires to access the HTML document via a web server. A simple server can be started with Python:
 
-```
+```sh
 python -m http.server
 ```
 
@@ -264,18 +265,18 @@ The scripting **console** allows to enter and execute code. The console applicat
 
 The **interpreter** loads and executes a script stored in the specified source file.
 
-```
-interpreter C:\scripts\script.txt
+```sh
+interpreter script.txt
 ```
 
 ### Command Line Tool *compiler* & *runtime*
 
 The **compiler** loads a source file and generates byte-code, that can be executed by the **runtime**.
 
-```
-compiler C:\scripts\script.txt C:\result\bytecode.code
+```sh
+compiler script.txt bytecode.code
 
-runtime C:\result\bytecode.code
+runtime bytecode.code
 ```
 
 ### Command Line Tool *converter*
@@ -283,8 +284,8 @@ runtime C:\result\bytecode.code
 The **converter** loads a source file and generates equivalent C++ or Python source code.
 In Python the generated code uses the ```text_conversion``` module, in C++ the generated code uses the static library.
 
-```
-converter C:\scripts\script.txt C:\result\python_script.py py
+```sh
+converter script.txt python_script.py py
 ```
 
 The arguments are:

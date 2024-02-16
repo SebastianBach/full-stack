@@ -16,7 +16,10 @@ if(ADD_PY_DOCS)
     add_subdirectory(py_doc)
 endif()
 
-add_subdirectory(app_cpp)
+if(ADD_QT_APP)
+    add_subdirectory(app_cpp)
+endif()
+
 add_subdirectory(app_py)
 add_subdirectory(script_lib)
 add_subdirectory(test_script)
