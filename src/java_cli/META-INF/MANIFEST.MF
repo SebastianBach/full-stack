@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: TextConversionTool
+Implementation-Title: Text Conversion App
+Implementation-Version: 1.0.0
+Implementation-Vendor: TestCompany

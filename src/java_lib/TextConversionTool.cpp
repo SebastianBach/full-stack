@@ -1,9 +1,7 @@
 #include "TextConversionTool.h"
 #include "text_conversion_constexpr.h"
-#include <iostream>
 #include <jni.h>
 #include <span>
-#include <stdio.h>
 
 JNIEXPORT void JNICALL Java_TextConversionTool_textConversionC(JNIEnv* env,
                                                                jobject,

@@ -3,6 +3,14 @@ cmake_minimum_required(VERSION 3.10)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+
+option(ADD_PYTHON_MODULE "Include the Python Module" OFF)
+option(ADD_PY_DOCS "Include Python module documentation." OFF)
+option(ADD_RUST_APP "Include the Rust cmdl app." OFF)
+option(ADD_JAVA_APP "Include the Java command line app." OFF)
+option(ADD_LIB_DOCS "Include C++ library documentation." OFF)
+
+
 project(full_stack CXX)
 enable_testing()
 
@@ -23,22 +31,42 @@ file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/lib)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/lib/lib)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/lib/header)
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/lib/documentation)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/lib/example)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/tools)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/app)
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/python)
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/python/documentation)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/script)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/dynamic_lib)
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/rust)
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/wasm)
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/temp)
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/temp/cppcheck)
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/temp/coverage)
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/temp/doxygen)
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib_example_build)
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/script_compiler)
+
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/wasm)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp/cppcheck)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp/coverage)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp/doxygen)
+
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/lib_example_build)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/script_compiler)
+
+
+if(ADD_LIB_DOCS)
+    file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/lib/documentation)
+endif()
+
+if(ADD_PYTHON_MODULE)
+    file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/python)
+endif()
+
+if(ADD_PY_DOCS)
+    file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/python/documentation)
+endif()
+
+if(ADD_RUST_APP)
+    file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/rust)
+endif()
+
+if(ADD_JAVA_APP)
+    file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/java)
+    file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp/java)
+endif()
 
 set_property(GLOBAL PROPERTY USE_FOLDERS TRUE)
 

@@ -43,6 +43,8 @@ The *full stack* contains:
 * A C-wrapper for the C++ function.
 * A unit test that tests this C-wrapper.
 * A *Rust* command line tool calling the C-wrapper function.
+* A Java Native Interface Library to extend Java.
+* A *Java* command line tool using that shared library.
 
 ```mermaid
   flowchart LR;
@@ -101,6 +103,9 @@ The *full stack* contains:
     F --> CWRAPPER(C Wrapper Lib)
     CWRAPPER --> CWRAPPER_TEST[C Wrapper Unit Test]
     CWRAPPER --> RUST_APP[Rust Command Line Tool]  
+
+    F --> JAVA_LIB(Java Native Interface Library)
+    JAVA_LIB --> JAVA_APP[Java JAR] 
 ```
 
 
@@ -122,7 +127,7 @@ To build and test everything:
 # build all C++ products
 mkdir build
 cd build
-cmake -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON -DADD_RUST_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON ..
+cmake -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON -DADD_RUST_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_JAVA_APP=ON ..
 cmake --build . -j --config Release
 ctest -C Release  -VV
 cmake --install .
@@ -159,6 +164,7 @@ CMake options are:
 - **ADD_LIB_DOCS**: To build the C++ library documentation (requires doxygen).
 - **ADD_QT_APP**: To build a Qt5 UI app (requires Qt5).
 - **ADD_RUST_APP**: To build the Rust command line tool (requires Rust).
+- **ADD_JAVA_APP**: To build the Java command line tool (requires Java).
 
 See also ```.github/workflows/build.yml```.
 
@@ -250,11 +256,11 @@ print
 
 This will print ```This Is a Headline```.
 
-## Command Line Tool *console*
+### Command Line Tool *console*
 
 The scripting **console** allows to enter and execute code. The console application can be closed by entering ```exit``` or pressing ```CTRL+C```.
 
-## Command Line Tool *interpreter*
+### Command Line Tool *interpreter*
 
 The **interpreter** loads and executes a script stored in the specified source file.
 
@@ -262,7 +268,7 @@ The **interpreter** loads and executes a script stored in the specified source f
 interpreter C:\scripts\script.txt
 ```
 
-## Command Line Tool *compiler* & *runtime*
+### Command Line Tool *compiler* & *runtime*
 
 The **compiler** loads a source file and generates byte-code, that can be executed by the **runtime**.
 
@@ -272,7 +278,7 @@ compiler C:\scripts\script.txt C:\result\bytecode.code
 runtime C:\result\bytecode.code
 ```
 
-## Command Line Tool *converter*
+### Command Line Tool *converter*
 
 The **converter** loads a source file and generates equivalent C++ or Python source code.
 In Python the generated code uses the ```text_conversion``` module, in C++ the generated code uses the static library.
@@ -286,3 +292,14 @@ The arguments are:
 * Path to the script source file.
 * Path to the target file to create.
 * The target language, either ```py``` for Python or ```cpp``` for C++.
+
+
+## Java Command Line Tool
+
+Execute the command line tool (JAR) like this:
+
+```sh
+java -jar text_conversion.jar "this is a headline"
+```
+
+Make sure the ```libjava_text_conversion``` shared library can be found by Java. Set the command line argument ```java.library.path``` if needed.

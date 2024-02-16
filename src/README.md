@@ -11,6 +11,8 @@
 - ```dynamic_lib```: A dynamic library. 
 - ```dynamic_lib_app_py```: A Python UI app using the dynamic library.
 - ```header```: C++ ```constexpr``` header file containing the basic functionality.
+- ```java_cli```: Java command line tool.
+- ```java_lib```: Java Native Interface Library.
 - ```lib```: Static C++ library.
 - ```lib_c```: Static C library.
 - ```lib_resources```: Documentation and example project for the C++ library.

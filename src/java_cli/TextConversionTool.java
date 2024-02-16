@@ -1,6 +1,6 @@
 public class TextConversionTool {
 
-     static {
+    static {
         System.loadLibrary("java_text_conversion");
     }
 
@@ -10,6 +10,7 @@ public class TextConversionTool {
 
         if (args.length < 1) {
             System.out.println("Missing command line argument.");
+            System.exit(1);
             return;
         }
 
@@ -24,5 +25,7 @@ public class TextConversionTool {
         String result = new String(data);
 
         System.out.println("Output: " + result);
+
+        System.exit(0);
     }
 }
