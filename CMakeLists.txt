@@ -3,13 +3,11 @@ cmake_minimum_required(VERSION 3.10)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-
 option(ADD_PYTHON_MODULE "Include the Python Module" OFF)
 option(ADD_PY_DOCS "Include Python module documentation." OFF)
 option(ADD_RUST_APP "Include the Rust cmdl app." OFF)
 option(ADD_JAVA_APP "Include the Java command line app." OFF)
 option(ADD_LIB_DOCS "Include C++ library documentation." OFF)
-
 
 project(full_stack CXX)
 enable_testing()
