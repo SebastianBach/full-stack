@@ -1,9 +1,5 @@
 public class TextConversionTool {
 
-    static {
-        System.loadLibrary("java_text_conversion");
-    }
-
     public static void main(String[] args) {
 
         if (args.length < 1) {

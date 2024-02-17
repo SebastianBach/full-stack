@@ -1,9 +1,5 @@
 public class UnitTest {
 
-    static {
-        System.loadLibrary("java_text_conversion");
-    }
-
     public static void main(String[] args) {
 
         TextConversion conversion = new TextConversion();

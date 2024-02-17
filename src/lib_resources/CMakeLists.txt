@@ -29,8 +29,6 @@ endif()
 
 # doxygen documentation
 
-option(ADD_LIB_DOCS "Include C++ library documentation." OFF)
-
 if(ADD_LIB_DOCS)
 
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxyfile
