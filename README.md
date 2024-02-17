@@ -44,6 +44,7 @@ The *full stack* contains:
 * A unit test that tests this C-wrapper.
 * A *Rust* command line tool calling the C-wrapper function.
 * A Java Native Interface Library to extend Java.
+* A unit test for that library.
 * A *Java* command line tool using that library.
 
 ```mermaid
@@ -105,7 +106,8 @@ The *full stack* contains:
     CWRAPPER --> RUST_APP[Rust Command Line Tool]  
 
     F --> JAVA_LIB(Java Native Interface Library)
-    JAVA_LIB --> JAVA_APP[Java JAR] 
+    JAVA_LIB --> JAVA_UNIT_TEST[Java Unit Test]  
+    JAVA_LIB --> JAVA_APP[Java CLI Tool] 
 ```
 
 

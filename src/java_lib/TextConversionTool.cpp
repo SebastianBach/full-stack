@@ -3,7 +3,7 @@
 #include <jni.h>
 #include <span>
 
-JNIEXPORT void JNICALL Java_TextConversionTool_textConversionC(JNIEnv* env,
+JNIEXPORT void JNICALL Java_TextConversion_textConversionC(JNIEnv* env,
                                                                jobject,
                                                                jbyteArray buf,
                                                                jint       size)

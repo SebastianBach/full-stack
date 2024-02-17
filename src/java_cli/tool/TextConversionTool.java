@@ -4,8 +4,6 @@ public class TextConversionTool {
         System.loadLibrary("java_text_conversion");
     }
 
-    public native void textConversionC(byte[] buf, int size);
-
     public static void main(String[] args) {
 
         if (args.length < 1) {
@@ -14,15 +12,12 @@ public class TextConversionTool {
             return;
         }
 
-        TextConversionTool tool = new TextConversionTool();
+        TextConversion conversion = new TextConversion();
 
         String input = args[0];
         System.out.println("Input: " + input);
 
-        byte[] data = input.getBytes();
-        tool.textConversionC(data, data.length);
-
-        String result = new String(data);
+        String result = conversion.titleCase(input);
 
         System.out.println("Output: " + result);
 
