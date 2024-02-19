@@ -36,3 +36,10 @@ add_test(NAME test_rust_app COMMAND "${RUST_EXECUTABLE}" "this is a test")
 
 add_test(NAME test_rust_app_no_args COMMAND "${RUST_EXECUTABLE}")
 set_tests_properties(test_rust_app_no_args PROPERTIES WILL_FAIL TRUE)
+
+# test
+
+add_test(NAME integration_test_rust_code
+         COMMAND bash -c "folder_path='$<TARGET_FILE_DIR:lib_c>/' && export C_WRAPPER_LIB_LOCATION=\$folder_path && echo $C_WRAPPER_LIB_LOCATION && cargo test -- --nocapture"
+         WORKING_DIRECTORY ${RUST_PROJECT_DIR})
+
