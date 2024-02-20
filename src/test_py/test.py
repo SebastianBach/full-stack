@@ -2,7 +2,10 @@ import sys
 import os
 import unittest
 
-module_location = os.getenv('PYTHON_MODULE_PATH', '')
+module_location = os.getenv('PYTHON_MODULE_PATH')
+if not module_location:
+    print("could not read PYTHON_MODULE_PATH")
+    exit(1)
 
 print(f"module location is {module_location}")
 

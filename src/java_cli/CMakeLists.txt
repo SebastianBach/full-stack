@@ -1,6 +1,4 @@
 
-# todo: replace with https://cmake.org/cmake/help/latest/module/UseJava.html add_jar()
-
 # unit test
 
 find_package(Java REQUIRED)
@@ -34,4 +32,3 @@ add_dependencies(java_cli java_shared_lib)
 add_test(NAME test_java_cli COMMAND "java" "-Djava.library.path=$<TARGET_FILE_DIR:java_shared_lib>/" "-jar" "${CMAKE_BINARY_DIR}/temp/java/text_conversion.jar" "this is a headline")
 
 install(FILES ${CMAKE_BINARY_DIR}/temp/java/text_conversion.jar DESTINATION product/java)
-

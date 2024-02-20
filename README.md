@@ -1,5 +1,7 @@
 [![builds](https://github.com/SebastianBach/full-stack/actions/workflows/build.yml/badge.svg)](https://github.com/SebastianBach/full-stack/actions/workflows/build.yml)
 
+Coverage: https://sebastianbach.github.io/full-stack/coverage.html
+
 # About
 
 You have a simple, nice, useful C++ function. How do you make it available to users?
