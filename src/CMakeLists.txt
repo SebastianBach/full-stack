@@ -43,3 +43,5 @@ if(ADD_JAVA_APP)
     add_subdirectory(java_lib)
     add_subdirectory(java_cli)
 endif()
+
+add_subdirectory(web)
