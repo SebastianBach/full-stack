@@ -11,7 +11,7 @@ jobs:
         name: Check out the repository code
 
       - name: dependencies
-        run: sudo apt-get update && sudo apt-get install -y build-essential cmake doxygen qtcreator qtbase5-dev qt5-qmake python3-sphinx cppcheck
+        run: sudo apt-get update && sudo apt-get install -y build-essential cmake  
 
       - name: py dev tools    
         run: python3 -m pip install python-dev-tools
@@ -20,11 +20,11 @@ jobs:
         run: mkdir build
 
       - name: CMake
-        run: cmake -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DBUILD_COVERAGE=ON ..
+        run: cmake -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DBUILD_COVERAGE=ON ..
         working-directory: ./build
 
       - name: build 
-        run: cmake --build . --config Release
+        run: cmake --build .
         working-directory: ./build
 
       - name: tests
