@@ -20,7 +20,7 @@ jobs:
         run: mkdir build
 
       - name: CMake
-        run: cmake -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DBUILD_COVERAGE=ON ..
+        run: cmake -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON  -DBUILD_COVERAGE=ON ..
         working-directory: ./build
 
       - name: build 
@@ -28,7 +28,7 @@ jobs:
         working-directory: ./build
 
       - name: tests
-        run: ctest -C Release  -VV
+        run: ctest
         working-directory: ./build
 
       - name: create report
