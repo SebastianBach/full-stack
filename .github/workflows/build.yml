@@ -3,6 +3,45 @@ name: builds
 on: [push]
 
 jobs:
+
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Check out the repository code
+
+      - name: dependencies
+        run: sudo apt-get update && sudo apt-get install -y build-essential cmake doxygen qtcreator qtbase5-dev qt5-qmake python3-sphinx cppcheck
+
+      - name: py dev tools    
+        run: python3 -m pip install python-dev-tools
+
+      - name: build directory
+        run: mkdir build
+
+      - name: CMake
+        run: cmake -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DBUILD_COVERAGE=ON ..
+        working-directory: ./build
+
+      - name: build 
+        run: cmake --build . --config Release
+        working-directory: ./build
+
+      - name: tests
+        run: ctest -C Release  -VV
+        working-directory: ./build
+
+      - name: create report
+        run: gcovr -r . --html --html-details -o build/temp/coverage/coverage.html
+
+      - name: store results
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: build/temp/coverage
+
+
+
   build:
     runs-on: ubuntu-latest
     steps:
