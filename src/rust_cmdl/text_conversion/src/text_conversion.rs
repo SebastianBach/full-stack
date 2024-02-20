@@ -16,7 +16,7 @@ pub fn title_case(input: &str) -> String {
         text_conversion_c(buffer.as_mut_ptr() as *mut c_char, buffer.len());
     }
 
-    // kill null terminated string
+    // remove null terminator
     if buffer[buffer.len() - 1] == 0 {
         buffer.pop();
     }
