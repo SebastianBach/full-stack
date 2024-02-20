@@ -44,9 +44,6 @@ jobs:
         cmake --build . --config Release
         ctest -C Release  -VV
       working-directory: ./build/lib_example_build
-
-    - name: test python
-      run: python3 -m unittest discover src/test_py
       
     - name: docker
       run: docker build --tag title-case-web .

@@ -143,9 +143,6 @@ ctest -C Release  -VV
 cd ..
 cd ..
 
-# run Python unit tests
-python3 -m unittest discover src/test_py
-
 # build web app container
 docker build --tag title-case-web .
 

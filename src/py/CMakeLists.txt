@@ -21,3 +21,8 @@ if(WIN32)
 elseif(UNIX AND NOT APPLE)
     install(TARGETS python_module LIBRARY DESTINATION product/python)
 endif()
+
+# test module
+
+add_test(NAME py_module_test    COMMAND bash -c "folder_path='$<TARGET_FILE_DIR:python_module>/' && export PYTHON_MODULE_PATH=\$folder_path && echo $PYTHON_MODULE_PATH && python3 -m unittest discover src/test_py"
+                                WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} )

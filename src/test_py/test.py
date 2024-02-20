@@ -2,9 +2,11 @@ import sys
 import os
 import unittest
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
-product_location = os.path.abspath(os.path.join(script_dir, "..", "..", "build", "product", "python"))
-sys.path.append(product_location)
+module_location = os.getenv('PYTHON_MODULE_PATH', '')
+
+print(f"module location is {module_location}")
+
+sys.path.append(module_location)
 
 import text_conversion
 
@@ -15,10 +17,12 @@ class TestPythonModule(unittest.TestCase):
         print("Test module 'text_conversion'")
         print(text_conversion)
 
-        res = text_conversion.title_case("this is the headline")
-        self.assertEqual(res, "This Is the Headline")
+        input = "this is the headline"
+        expected = "This Is the Headline"
+
+        res = text_conversion.title_case(input)
+        self.assertEqual(res, expected)
 
         print(res)
 
         print(text_conversion.get_library_build_date())
-
