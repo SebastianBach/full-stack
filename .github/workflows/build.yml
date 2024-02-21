@@ -33,7 +33,7 @@ jobs:
         run: mkdir build
 
       - name: CMake
-        run: cmake -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON  -DBUILD_COVERAGE=ON ..
+        run: cmake -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON  -DBUILD_COVERAGE=ON -DADD_SCRIPT_TOOLS=ON ..
         working-directory: ./build
 
       - name: build 
@@ -82,7 +82,7 @@ jobs:
       run: mkdir build
 
     - name: CMake
-      run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON ..
+      run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_SCRIPT_TOOLS=ON ..
       working-directory: ./build
 
     - name: build 

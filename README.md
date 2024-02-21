@@ -132,7 +132,7 @@ To build and test everything:
 # build all C++ products
 mkdir build
 cd build
-cmake -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON -DADD_RUST_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_JAVA_APP=ON ..
+cmake -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON -DADD_RUST_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_JAVA_APP=ON -DADD_SCRIPT_TOOLS=ON ..
 cmake --build . -j --config Release
 ctest -C Release  -VV
 cmake --install .
@@ -167,6 +167,7 @@ CMake options are:
 - **ADD_QT_APP**: To build a Qt5 UI app (requires Qt5).
 - **ADD_RUST_APP**: To build the Rust command line tool (requires Rust).
 - **ADD_JAVA_APP**: To build the Java command line tool (requires Java).
+- **ADD_SCRIPT_TOOLS**: To build the script tools.
 
 See also ```.github/workflows/build.yml```.
 
