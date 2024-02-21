@@ -28,4 +28,12 @@ class TestPythonModule(unittest.TestCase):
 
         print(res)
 
+        # test invalid arg
+
+        with self.assertRaises(TypeError):
+            text_conversion.title_case(123)
+
+        with self.assertRaises(TypeError):
+            text_conversion.title_case("hello", "world")
+
         print(text_conversion.get_library_build_date())

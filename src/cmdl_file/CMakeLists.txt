@@ -23,6 +23,9 @@ add_test(NAME test_file_compare COMMAND ${CMAKE_COMMAND}
 add_test(NAME cmdl_file_no_args COMMAND cmdl_file)
 set_tests_properties(cmdl_file_no_args PROPERTIES WILL_FAIL TRUE)
 
+add_test(NAME cmdl_file_invalid_arg COMMAND cmdl_file "__invalid_file.txt")
+set_tests_properties(cmdl_file_invalid_arg PROPERTIES WILL_FAIL TRUE)
+
 # etc
 
 install(TARGETS cmdl_file RUNTIME DESTINATION product/tools)
