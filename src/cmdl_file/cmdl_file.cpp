@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -10,9 +11,9 @@ namespace
  *
  * @param[in] input    Path to the input text file to read data from.
  * @param[in] output   Path to the output text file to write results to.
- * @return             0 if the processing succeeds, otherwise an error code.
+ * @return             true if the process succeeded, otherwise false.
  */
-int process(const char* input, const char* output)
+auto process(const char* input, const char* output)
 {
     std::cout << "Input: " << input << "\nOutput: " << output << std::endl;
 
@@ -21,7 +22,7 @@ int process(const char* input, const char* output)
     if (!input_file.is_open())
     {
         std::cerr << "Failed to open input file." << std::endl;
-        return 1;
+        return false;
     }
 
     std::ofstream output_file{output};
@@ -29,7 +30,7 @@ int process(const char* input, const char* output)
     if (!output_file.is_open())
     {
         std::cerr << "Failed to open output file" << std::endl;
-        return 2;
+        return false;
     }
 
     std::string line;
@@ -42,7 +43,7 @@ int process(const char* input, const char* output)
     input_file.close();
     output_file.close();
 
-    return 0;
+    return true;
 }
 } // namespace
 
@@ -50,9 +51,12 @@ int main(int argc, char* argv[])
 {
     if (argc != 3)
     {
-        std::cerr << "Missing arguments." << std::endl;
-        return -1;
+        std::cerr << "Invalid command line arguments." << std::endl;
+        return EXIT_FAILURE;
     }
 
-    return process(argv[1], argv[2]);
+    if (!process(argv[1], argv[2]))
+        return EXIT_FAILURE;
+
+    return EXIT_SUCCESS;
 }

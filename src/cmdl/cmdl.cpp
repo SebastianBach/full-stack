@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cstdlib>
 #include <cstring>
 #include <iostream>
 #include <text_conversion_constexpr.h>
@@ -26,13 +27,13 @@ void process(const char* input)
 
 int main(int argc, char* argv[])
 {
-    if (argc == 1)
+    if (argc != 2)
     {
-        std::cout << "Missing arguments." << std::endl;
-        return 1;
+        std::cout << "Invalid command line arguments." << std::endl;
+        return EXIT_FAILURE;
     }
 
     process(argv[1]);
 
-    return 0;
+    return EXIT_SUCCESS;
 }

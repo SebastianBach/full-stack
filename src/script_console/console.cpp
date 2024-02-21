@@ -1,5 +1,6 @@
 #include "script.h"
 #include <csignal>
+#include <cstdlib>
 #include <iostream>
 #include <string>
 
@@ -71,5 +72,5 @@ int main()
         print_success();
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }

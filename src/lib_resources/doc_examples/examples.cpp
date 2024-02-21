@@ -1,7 +1,8 @@
 #include "text_conversion.h"
+#include <cstdlib>
 #include <iostream>
 
-int main()
+auto base_example()
 {
     // [basic_example]
 
@@ -12,4 +13,14 @@ int main()
     std::cout << text << std::endl;
 
     // [basic_example]
+
+    return text == std::string{"This Is a Headline"};
+}
+
+int main()
+{
+    if (!base_example())
+        return EXIT_FAILURE;
+
+    return EXIT_SUCCESS;
 }
