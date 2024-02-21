@@ -2,6 +2,7 @@
 #include <iostream>
 #include <script.h>
 #include <source_location>
+#include <cstdlib>
 
 inline void print_error(const char* msg, const std::source_location& location)
 {
@@ -12,13 +13,13 @@ inline void print_error(const char* msg, const std::source_location& location)
     std::cout << "\033[0m";
 }
 
-static int s_returnValue = 0;
+static int s_returnValue = EXIT_SUCCESS;
 
 #define CHECK(ARG)                                                             \
     if (!(ARG))                                                                \
     {                                                                          \
         print_error(#ARG, std::source_location::current());                    \
-        s_returnValue = -1;                                                    \
+        s_returnValue = EXIT_FAILURE;                                                    \
     }
 
 void print(const char* msg)

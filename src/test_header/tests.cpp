@@ -1,5 +1,6 @@
 #include "test_utilities.h"
 #include <string>
+#include <cstdlib>
 
 int main()
 {
@@ -20,5 +21,5 @@ int main()
     std::string data("this is the headline");
     text_conversion_constexpr::convert_to_title_case(data);
 
-    return 0;
+    return EXIT_SUCCESS;
 }

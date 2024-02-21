@@ -1,4 +1,5 @@
 #include "text_conversion.h"
+#include <cstdlib>
 #include <iostream>
 
 inline auto test(const char* input, const char* expected)
@@ -11,7 +12,7 @@ inline auto test(const char* input, const char* expected)
 #define STR_EQ(A, B)                                                           \
     std::cout << A << " --> " B << std::endl;                                  \
     if (!test(A, B))                                                           \
-        return -1;
+        return EXIT_FAILURE;
 
 int main()
 {
@@ -27,7 +28,7 @@ int main()
     text_conversion::convert_to_title_case(input);
 
     if (input != expected)
-        return -1;
+        return EXIT_FAILURE;
 
-    return 0;
+    return EXIT_SUCCESS;
 }
