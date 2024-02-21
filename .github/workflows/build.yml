@@ -116,3 +116,30 @@ jobs:
       with:
         name: products
         path: build/product
+
+  build_asan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      name: Check out the repository code
+
+    - name: dependencies
+      run: sudo apt-get update && sudo apt-get install -y build-essential cmake cppcheck
+
+    - name: py dev tools    
+      run: python3 -m pip install python-dev-tools
+
+    - name: build directory
+      run: mkdir build
+
+    - name: CMake
+      run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_PYTHON_MODULE=ON -DADD_SCRIPT_TOOLS=ON -DBUILD_ASAN=ON ..
+      working-directory: ./build
+
+    - name: build 
+      run: cmake --build . 
+      working-directory: ./build
+
+    - name: tests
+      run: ctest
+      working-directory: ./build
