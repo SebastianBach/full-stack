@@ -107,9 +107,6 @@ jobs:
         cmake --build . --config Release
         ctest -C Release  -VV
       working-directory: ./build/lib_example_build
-      
-    - name: docker
-      run: docker build --tag title-case-web .
 
     - name: store results
       uses: actions/upload-artifact@v2
@@ -143,3 +140,13 @@ jobs:
     - name: tests
       run: ctest --output-on-failure
       working-directory: ./build
+
+
+  build_container:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      name: Check out the repository code
+
+    - name: docker
+      run: docker build --tag title-case-web .
