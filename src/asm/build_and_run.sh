@@ -9,6 +9,13 @@ RUN=$3
 
 echo $LIB_C
 
+if [ -d "temp" ]; then
+    echo "temp folder exists."
+else
+    mkdir "temp"
+    echo "Folder temp created."
+fi
+
 # Check the value of X and print "A" or "B" accordingly
 if [ "$TARGET" = "release" ]; then
 
