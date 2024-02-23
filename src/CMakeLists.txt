@@ -12,7 +12,9 @@ add_subdirectory(lib_resources)
 add_subdirectory(test_lib)
 add_subdirectory(lib_c)
 
-add_subdirectory(asm)
+if(ADD_ASM_PROGRAM)
+    add_subdirectory(asm)
+endif()
 
 if(ADD_PYTHON_MODULE)
     add_subdirectory(py)

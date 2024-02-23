@@ -10,6 +10,7 @@ option(ADD_JAVA_APP "Include the Java command line app." OFF)
 option(ADD_LIB_DOCS "Include C++ library documentation." OFF)
 option(ADD_QT_APP "Include the Qt UI App." OFF)
 option(ADD_SCRIPT_TOOLS "Include script tools." OFF)
+option(ADD_ASM_PROGRAM "Include ASM program." OFF)
 
 project(full_stack CXX)
 enable_testing()
@@ -35,15 +36,20 @@ file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/lib/example)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/tools)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/dynamic_lib)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/web)
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/asm)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/wasm)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp/cppcheck)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp/coverage)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp/doxygen)
 
+
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/lib_example_build)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/script_compiler)
+
+if(ADD_ASM_PROGRAM)
+    file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/asm)
+    file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp/asm)
+endif()
 
 
 if(ADD_SCRIPT_TOOLS)

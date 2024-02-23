@@ -1,6 +1,6 @@
 mkdir build
 cd build
-cmake .. 
+cmake .. -DCMAKE_BUILD_TYPE=Release
 cmake --build . --config Release
 cmake --install .
 
