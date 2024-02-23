@@ -21,7 +21,7 @@ if [ "$TARGET" = "release" ]; then
 
     echo "build release"
 
-    gcc -nostdlib -o temp/program program.s $LIB_C -nostartfiles -no-pie -lc
+    gcc -o temp/program program.s $LIB_C -nostartfiles -no-pie -lc -lstdc++
 
     if [ "$RUN" = "run" ]; then
         ./temp/program
@@ -31,7 +31,7 @@ elif [ "$TARGET" = "debug" ]; then
 
     echo "build debug and run gdb"
 
-    gcc -nostdlib -o temp/program program.s $LIB_C -nostartfiles -no-pie  -g -lc
+    gcc -o temp/program program.s $LIB_C -nostartfiles -no-pie  -g -lc -lstdc++
 
     # r
     # n
