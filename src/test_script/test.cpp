@@ -1,8 +1,8 @@
 
+#include <cstdlib>
 #include <iostream>
 #include <script.h>
 #include <source_location>
-#include <cstdlib>
 
 inline void print_error(const char* msg, const std::source_location& location)
 {
@@ -19,7 +19,7 @@ static int s_returnValue = EXIT_SUCCESS;
     if (!(ARG))                                                                \
     {                                                                          \
         print_error(#ARG, std::source_location::current());                    \
-        s_returnValue = EXIT_FAILURE;                                                    \
+        s_returnValue = EXIT_FAILURE;                                          \
     }
 
 void print(const char* msg)
@@ -80,23 +80,27 @@ int main()
     }
 
     {
-        std::vector<std::string> lines;
-        lines.push_back("text this is a test headline");
-        lines.push_back("process");
-        lines.push_back("print");
-
         std::vector<char> data;
-        const auto        res = script::compile(lines, data);
 
-        CHECK(res.empty());
+        {
+            std::vector<std::string> lines;
+            lines.push_back("text this is a test headline");
+            lines.push_back("process");
+            lines.push_back("print");
 
-        CHECK(!data.empty());
+            const auto res = script::compile(lines, data);
 
-        CHECK(data.size() == 43);
+            CHECK(res.empty());
 
-        const auto res_runtime = script::runtime(data, print);
+            CHECK(!data.empty());
 
-        CHECK(res_runtime.empty());
+            CHECK(data.size() == 43);
+        }
+        {
+            const auto res_runtime = script::runtime(data, print);
+
+            CHECK(res_runtime.empty());
+        }
     }
 
     return s_returnValue;
