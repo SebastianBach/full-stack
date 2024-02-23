@@ -30,7 +30,7 @@ add_custom_target(
 add_dependencies(rust_app lib_c)
 
 
-install(CODE " file(INSTALL \"${RUST_EXECUTABLE}\" DESTINATION \"${CMAKE_BINARY_DIR}/product/rust/\")" )
+install(CODE " file(INSTALL \"${RUST_EXECUTABLE}\" DESTINATION \"${CMAKE_INSTALL_PREFIX}/product/rust/\")" )
 
 add_test(NAME test_rust_app COMMAND "${RUST_EXECUTABLE}" "this is a test")
 

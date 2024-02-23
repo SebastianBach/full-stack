@@ -8,3 +8,6 @@ src/test_cmdl_file/dst.txt
 src/rust_cmdl/text_conversion/target
 src/rust_cmdl/text_conversion/Cargo.lock
 src/py_doc/build
+src/py_ipynb/.ipynb_checkpoints
+src/asm/temp
+

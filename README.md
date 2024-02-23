@@ -43,9 +43,10 @@ The *full stack* contains:
 * A compiler that converts scripts in the custom scripting language into bytecode.
 * A runtime that executes this bytecode.
 * A converter that creates Python or C++ code based on a given script written in the custom scripting language.
-* A C-wrapper for the C++ function.
-* A unit test that tests this C-wrapper.
-* A *Rust* command line tool calling the C-wrapper function.
+* A C-wrapper library for the C++ function.
+* A unit test that tests this C-wrapper library.
+* A program written in Assembly language that utilizes this C-wrapper library.
+* A *Rust* command line tool calling the C-wrapper library function.
 * A Java Native Interface Library to extend Java.
 * A unit test for that library.
 * A *Java* command line tool using that library.
@@ -108,6 +109,7 @@ The *full stack* contains:
     F --> CWRAPPER(C Wrapper Lib)
     CWRAPPER --> CWRAPPER_TEST[C Wrapper Unit Test]
     CWRAPPER --> RUST_APP[Rust Command Line Tool]  
+    CWRAPPER --> ASM[Assembly Program] 
 
     F --> JAVA_LIB(Java Native Interface Library)
     JAVA_LIB --> JAVA_UNIT_TEST[Java Unit Test]  

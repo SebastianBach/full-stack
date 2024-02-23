@@ -10,6 +10,9 @@ add_subdirectory(app_py_cmdl)
 add_subdirectory(lib)
 add_subdirectory(lib_resources)
 add_subdirectory(test_lib)
+add_subdirectory(lib_c)
+
+add_subdirectory(asm)
 
 if(ADD_PYTHON_MODULE)
     add_subdirectory(py)
@@ -41,7 +44,6 @@ if(ADD_SCRIPT_TOOLS)
 endif()
 
 if(ADD_RUST_APP)
-    add_subdirectory(lib_c)
     add_subdirectory(test_lib_c)
     add_subdirectory(rust_cmdl)
 endif()
