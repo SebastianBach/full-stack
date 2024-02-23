@@ -31,6 +31,7 @@ The *full stack* contains:
 * A Python module implemented using the Python C API.
 * A unit test that tests this module.
 * A *Sphinx* documentation for this module.
+* A *Jupyter Notebook* showing how to use this module.
 * A Python UI application that uses this module.
 * A WebAssembly binary library and associated JavaScript code.
 * An HTML/JavaScript frontend that uses the above WebAssembly library.
@@ -87,6 +88,7 @@ The *full stack* contains:
 
     PY --> PYTEST[Python Module Unit Test]
     PY --> SPHINX(Sphinx Documentation)
+    PY --> NOTEBOOK[Jupyter Notebook] 
     PY --> PYAPP[Python UI App]
 
     F --> WASM(WebAssembly + JavaScript)
@@ -306,3 +308,8 @@ java -jar text_conversion.jar "this is a headline"
 ```
 
 Make sure the ```libjava_text_conversion``` shared library can be found by Java. Set the command line argument ```java.library.path``` if needed.
+
+## Jupyter Notebook
+
+Start the Jupyter Notebook by simply running the ```start_notebook.sh``` script. It will start the notebook server with the notebook selected.
+
