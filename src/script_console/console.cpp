@@ -14,7 +14,7 @@ void signal_handler(int signal)
 inline void print_data(const char* msg)
 {
     std::cout << "\033[32m";
-    std::cout << msg << std::endl;
+    std::cout << msg;
     std::cout << "\033[0m";
 }
 
@@ -28,8 +28,8 @@ inline void print_error(const char* msg)
 inline void print_success()
 {
     std::cout << "\033[34m";
-    std::cout << "success" << std::endl;
-    std::cout << "\033[0m";
+    std::cout << " (success)";
+    std::cout << "\033[0m\n";
 }
 
 int main()
