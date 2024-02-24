@@ -33,7 +33,7 @@ jobs:
         run: mkdir build
 
       - name: CMake
-        run: cmake -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON  -DBUILD_COVERAGE=ON -DADD_SCRIPT_TOOLS=ON ..
+        run: cmake -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DBUILD_COVERAGE=ON -DADD_SCRIPT_TOOLS=ON ..
         working-directory: ./build
 
       - name: build 
@@ -48,7 +48,7 @@ jobs:
         run: gcovr -r . --html --html-details -o build/temp/coverage/coverage.html
 
       - name: store results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: build/temp/coverage
@@ -82,7 +82,7 @@ jobs:
       run: mkdir build
 
     - name: CMake
-      run: cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_ASM_PROGRAM=ON ..
+      run: cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_ASM_PROGRAM=ON -DADD_SCRIPT_TOOLS=ON ..
       working-directory: ./build
 
     - name: build 
@@ -109,7 +109,7 @@ jobs:
       working-directory: ./build/lib_example_build
 
     - name: store results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: products
         path: build/product
