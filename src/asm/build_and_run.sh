@@ -22,10 +22,13 @@ if [ "$TARGET" = "Release" ]; then
 
     echo "build release"
 
-    gcc -o $BUILD_FOLDER/program program.s $LIB_C -nostartfiles -no-pie -lc
-    
+    gcc  -o $BUILD_FOLDER/program program.s $LIB_C -m64 -lc -O2 -nostartfiles
+    strip --strip-all $BUILD_FOLDER/program
+
     if [ "$RUN" = "run" ]; then
-        $BUILD_FOLDER/program
+        $BUILD_FOLDER/program a b c
+        return_code=$?
+        echo "Return code: $return_code"
     fi
 
 elif [ "$TARGET" = "Debug" ]; then
