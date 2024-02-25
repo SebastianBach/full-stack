@@ -136,7 +136,7 @@ To build and test everything:
 # build all C++ products
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON -DADD_RUST_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_JAVA_APP=ON -DADD_SCRIPT_TOOLS=ON -DADD_ASM_PROGRAM=ON ..
+cmake -DCMAKE_BUILD_TYPE=Release -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON -DADD_RUST_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_JAVA_APP=ON -DADD_SCRIPT_TOOLS=ON -DADD_ASSEMBLY_PROGRAM=ON ..
 cmake --build . -j --config Release
 ctest -C Release  -VV
 cmake --install .
@@ -172,7 +172,7 @@ CMake options are:
 - **ADD_RUST_APP**: To build the Rust command line tool (requires Rust).
 - **ADD_JAVA_APP**: To build the Java command line tool (requires Java).
 - **ADD_SCRIPT_TOOLS**: To build the script tools.
-- **ADD_ASM_PROGRAM**: To build the Assembly program.
+- **ADD_ASSEMBLY_PROGRAM**: To build the Assembly program.
 
 See also ```.github/workflows/build.yml```.
 
@@ -316,3 +316,14 @@ Make sure the ```libjava_text_conversion``` shared library can be found by Java.
 
 Start the Jupyter Notebook by simply running the ```start_notebook.sh``` script. It will start the notebook server with the notebook selected.
 
+## Assembly Command Line Tool
+
+The command line tool written in assembly is used like this:
+
+```shell
+title_case "this is a headline"
+
+# will print
+# Input:  this is a headline
+# Output: This Is a Headline
+```

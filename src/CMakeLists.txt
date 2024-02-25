@@ -12,7 +12,7 @@ add_subdirectory(lib_resources)
 add_subdirectory(test_lib)
 add_subdirectory(lib_c)
 
-if(ADD_ASM_PROGRAM)
+if(ADD_ASSEMBLY_PROGRAM)
     add_subdirectory(asm)
 endif()
 

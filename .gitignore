@@ -10,4 +10,4 @@ src/rust_cmdl/text_conversion/Cargo.lock
 src/py_doc/build
 src/py_ipynb/.ipynb_checkpoints
 src/asm/temp
-
+src/asm/linux_x86_64/temp
