@@ -3,88 +3,101 @@
 
 .section .data
 
-input: .string "Input: "
+input: .string "Input:  "
 input_len = . - input  
 
 output: .string "Output: "
 output_len = . - output  
 
 new_line: .string "\n"
-new_line_len = . - new_line  
+new_line_len = . - new_line 
+
+invalid_args: .string "Insufficient command line arguments\n"
+invalid_args_len = . - invalid_args
+
+empty_arg: .string "\nEmpty argument\n"
+empty_arg_len = . - empty_arg  
 
 .section .text
 
 .global _start
 
+# constants
+
+.set SYS_WRITE, 1
+.set SYS_EXIT, 60
+.set STDOUT, 1
+.set EXIT_FAILURE, 1
+
 _start:
-    # todo: exit if no second command line arg given
+ 
+    # check for at least 2 command line args
+
+    movq (%rsp), %rax                   # number for commmand line args
+    cmpq $2, %rax                       # check for 2
+    jl exit_failure_invalid_args        # exit failure if less than two
+
 
     # print "Input: "
     call print_input
 
-    # Load the address of argv[1] into rsi
+    # adress of argv[1] into rsi
     mov 16(%rsp), %rsi
 
-    # Calculate the length of argv[1], result in rax
+    # length of argv[1], result in rax
     call string_length
 
-    # todo: exit if length is zero
+    # check for non empty argument
+
+    cmpq $1, %rax               # check for at least one character
+    jl exit_failure_empty_arg   # exit failure
+
 
     # store length in preserved register
-    mov %rax, %r12
+    mov %rax, %rbx
+
+    # print input
 
     mov 16(%rsp), %rsi      # ptr to text
-    mov %rax, %rdx      # length of text
+    mov %rax, %rdx          # length of text
     call print_stdout
 
     call print_new_line
 
-    # Prepare the write syscall to print argv[1]
-    # mov $1, %rax        # syscall number for write
-    # mov $1, %rdi        # file descriptor 1 = stdout
-    # mov 16(%rsp), %rsi  
-    # rdx contains the length of the string
-    # syscall             # perform the write syscall
+    # format to title case
 
     mov 16(%rsp), %rdi          # address of the input
-    mov %r12, %rsi              # length of the input
+    mov %rbx, %rsi              # length of the input
     call text_conversion_c      # call
-
-
     
+    # print result
+
     call print_output
 
     mov 16(%rsp), %rsi      # ptr to text
-    mov %r12, %rdx          # length of text
+    mov %rbx, %rdx          # length of text
     call print_stdout
 
     call print_new_line
 
-    # mov $1, %rax        # syscall number for write
-    # mov $1, %rdi        # file descriptor 1 = stdout
+    # exit program
 
-    # syscall             # perform the write syscall
-
-   
-
-    # Exit the program
-    # mov $60, %rax       # syscall number for exit
     xor %rdi, %rdi      # exit code 0
-    #  syscall             # exit
     jmp exit
 
-# Function to calculate the length of a string
-# Input: rsi = pointer to string
-# Output: rax = length of the string
+# arguments are
+# rsi: pointer to string
+# return:
+# rax: length of the string
 string_length:
-    xor %rcx, %rcx    # Clear rcx, which will hold the length
-    xor %rax, %rax    # Clear rax, which will be used for the null terminator comparison
+    xor %rcx, %rcx    # clear rcx, which will hold the length
+    xor %rax, %rax    # clear rax, which will be used for the null terminator comparison
 
 .next_char:
-    cmpb $0, (%rsi, %rcx) # Compare the current byte to null terminator
-    je .done          # If we've hit the null terminator, we're done
-    inc %rcx          # Increment the length counter
-    jmp .next_char    # Go to the next character
+    cmpb $0, (%rsi, %rcx)   # compare to null terminator
+    je .done                # null terminator, we're done
+    inc %rcx                # increment the length counter
+    jmp .next_char          # the next character
 
 .done:
     mov %rcx, %rax    # Move the length into rax
@@ -106,18 +119,37 @@ print_output:
     mov $output_len, %rdx
     jmp print_stdout
 
+print_invalid_args:
+    lea invalid_args(%rip), %rsi
+    mov $invalid_args_len, %rdx
+    jmp print_stdout
+
+print_empty_arg:
+    lea empty_arg(%rip), %rsi
+    mov $empty_arg_len, %rdx
+    jmp print_stdout
+
 # arguments are
 # rsi: ptr to text
 # rdx: length of text
 print_stdout:
-    mov $1, %rax                # syscall number for sys_write
-    mov $1, %rdi                # stdout
+    mov $SYS_WRITE, %rax        # syscall number for sys_write
+    mov $STDOUT, %rdi           # stdout
     syscall                     # call
     ret
+
+exit_failure_invalid_args:
+    call print_invalid_args
+    mov $EXIT_FAILURE, %edi 
+    jmp exit
+
+exit_failure_empty_arg:
+    call print_empty_arg
+    mov $EXIT_FAILURE, %edi 
+    jmp exit
 
 # arguments are
 # rdi: return code
 exit:
-    mov $60, %rax       # syscall number for exit
-    syscall             # call
-
+    mov $SYS_EXIT, %rax         # syscall number for exit
+    syscall                     # call

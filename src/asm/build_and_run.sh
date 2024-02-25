@@ -21,38 +21,58 @@ echo ""
 
 
 if [ -d $BUILD_FOLDER ]; then
-    echo "build folder exists."
+    echo "-> build folder exists"
 else
     mkdir $BUILD_FOLDER
-    echo "build folder created."
+    echo "-> build folder created"
+fi
+
+
+if [ -f "$BUILD_FOLDER/$BINARY" ]; then
+  rm "$BUILD_FOLDER/$BINARY"
+  echo "-> file $BUILD_FOLDER/$BINARY deleted."
 fi
 
 
 if [ "$TARGET" = "Release" ]; then
 
-    echo "build release"
+    echo "-> build release"
     echo ""
 
     gcc  -o $BUILD_FOLDER/$BINARY $SOURCE_FILE $LIB_TITLE_CASE -m64 -lc -O2 -nostartfiles
     strip --strip-all $BUILD_FOLDER/$BINARY
 
     if [ "$RUN" = "run" ]; then
-        $BUILD_FOLDER/$BINARY "$TEST_ARG"
+
+        echo "-> run $BINARY";
+
+        if  [[ -z "$TEST_ARG" ]]; then
+            echo "-> no command line argument given"
+            echo "---------------------------------"
+            $BUILD_FOLDER/$BINARY
+        else
+            echo "-> command line argument: \"$TEST_ARG\""
+            echo "---------------------------------"
+            $BUILD_FOLDER/$BINARY "$TEST_ARG"
+        fi
+     
+        echo "---------------------------------"
+
         return_code=$?
         echo ""
-        echo "Return code: $return_code"
+        echo "-> return code: $return_code"
     fi
 
 elif [ "$TARGET" = "Debug" ]; then
 
-    echo "build debug and run gdb"
+    echo "-> build debug and run gdb"
 
     gcc -o $BUILD_FOLDER/$BINARY $SOURCE_FILE $LIB_TITLE_CASE -nostartfiles -no-pie  -g -lc -lstdc++
 
-    if [ "$RUN" = "run" ]; then
+    if [ "$RUN" = "r-> un" ]; then
         gdb --args $BUILD_FOLDER/$BINARY "$TEST_ARG"
     fi
 
 else
-    echo "no target given"
+    echo "-> no target given"
 fi
