@@ -1,4 +1,5 @@
 #include "lib.h"
+#include <cstdlib>
 #include <iostream>
 
 int main()
@@ -9,5 +10,5 @@ int main()
     title_case(text);
     std::cout << text << std::endl;
 
-    return 0;
+    return EXIT_SUCCESS;
 }

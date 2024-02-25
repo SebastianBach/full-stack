@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <script.h>
@@ -16,23 +17,14 @@ void print_info(const char* msg)
     std::cout << msg << std::endl;
 }
 
-int main(int argc, char* argv[])
+auto runtime(const char* arg)
 {
-    if (argc == 1)
-    {
-        print_error("Missing command line argument.");
-        return -1;
-    }
-
-    // todo: make option
-    std::cout << argv[1] << "\n";
-
-    std::ifstream source{argv[1]};
+    std::ifstream source{arg};
 
     if (!source.is_open())
     {
         print_error("Could not open file.");
-        return -1;
+        return false;
     }
 
     const std::vector<char> data(std::istreambuf_iterator<char>(source), {});
@@ -46,8 +38,25 @@ int main(int argc, char* argv[])
     if (!res.empty())
     {
         print_error(res.c_str());
+        return false;
+    }
+
+    return true;
+}
+
+int main(int argc, char* argv[])
+{
+    if (argc == 1)
+    {
+        print_error("Missing command line argument.");
         return -1;
     }
 
-    return 0;
+    // todo: make option
+    std::cout << argv[1] << "\n";
+
+    if (!runtime(argv[1]))
+        return EXIT_FAILURE;
+
+    return EXIT_SUCCESS;
 }

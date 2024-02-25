@@ -1,0 +1,152 @@
+name: builds
+
+on: [push]
+
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+
+  coverage:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: Check out the repository code
+
+      - name: dependencies
+        run: sudo apt-get update && sudo apt-get install -y build-essential cmake  
+
+      - name: py dev tools    
+        run: python3 -m pip install python-dev-tools gcovr
+
+      - name: build directory
+        run: mkdir build
+
+      - name: CMake
+        run: cmake -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DBUILD_COVERAGE=ON -DADD_SCRIPT_TOOLS=ON ..
+        working-directory: ./build
+
+      - name: build 
+        run: cmake --build .
+        working-directory: ./build
+
+      - name: tests
+        run: ctest
+        working-directory: ./build
+
+      - name: create report
+        run: gcovr -r . --html --html-details -o build/temp/coverage/coverage.html
+
+      - name: store results
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: build/temp/coverage
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './build/temp/coverage'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      name: Check out the repository code
+
+    - name: dependencies
+      run: sudo apt-get update && sudo apt-get install -y build-essential cmake doxygen qtcreator qtbase5-dev qt5-qmake python3-sphinx cppcheck
+
+    - name: py dev tools    
+      run: python3 -m pip install python-dev-tools
+
+    - name: build directory
+      run: mkdir build
+
+    - name: CMake
+      run: cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_PYTHON_MODULE=ON -DADD_RUST_APP=ON -DADD_QT_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_ASSEMBLY_PROGRAM=ON -DADD_SCRIPT_TOOLS=ON ..
+      working-directory: ./build
+
+    - name: build 
+      run: cmake --build . --config Release
+      working-directory: ./build
+
+    - name: cppcheck
+      run: cppcheck --project=compile_commands.json --cppcheck-build-dir=./temp/cppcheck
+      working-directory: ./build
+
+    - name: tests
+      run: ctest -C Release  -VV --output-on-failure
+      working-directory: ./build
+
+    - name: collect
+      run: cmake --install .
+      working-directory: ./build
+
+    - name: build lib examples
+      run: |
+        cmake  ../product/lib/example
+        cmake --build . --config Release
+        ctest -C Release  -VV
+      working-directory: ./build/lib_example_build
+
+    - name: store results
+      uses: actions/upload-artifact@v4
+      with:
+        name: products
+        path: build/product
+
+  build_asan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      name: Check out the repository code
+
+    - name: dependencies
+      run: sudo apt-get update && sudo apt-get install -y build-essential cmake cppcheck
+
+    - name: py dev tools    
+      run: python3 -m pip install python-dev-tools
+
+    - name: build directory
+      run: mkdir build
+
+    - name: CMake
+      run: cmake -DADD_SCRIPT_TOOLS=ON -DBUILD_ASAN=ON ..
+      working-directory: ./build
+
+    - name: build 
+      run: cmake --build . 
+      working-directory: ./build
+
+    - name: tests
+      run: ctest --output-on-failure
+      working-directory: ./build
+
+
+  build_container:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      name: Check out the repository code
+
+    - name: docker
+      run: docker build --tag title-case-web .

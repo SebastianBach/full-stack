@@ -22,6 +22,7 @@ fn setup() -> Result<(), &'static str> {
     println!("cargo:rustc-link-lib=static=text_conversion_c");
     println!("cargo:rustc-link-lib=stdc++");
     println!("cargo:rustc-link-lib=c");
+    println!("cargo:rustc-link-lib=gcov");
 
     Ok(())
 }

@@ -1,3 +1,7 @@
+[![builds](https://github.com/SebastianBach/full-stack/actions/workflows/build.yml/badge.svg)](https://github.com/SebastianBach/full-stack/actions/workflows/build.yml)
+
+Coverage: https://sebastianbach.github.io/full-stack/coverage.html
+
 # About
 
 You have a simple, nice, useful C++ function. How do you make it available to users?
@@ -26,6 +30,8 @@ The *full stack* contains:
 * A *Docker* container containing the above Flask web application.
 * A Python module implemented using the Python C API.
 * A unit test that tests this module.
+* A *Sphinx* documentation for this module.
+* A *Jupyter Notebook* showing how to use this module.
 * A Python UI application that uses this module.
 * A WebAssembly binary library and associated JavaScript code.
 * An HTML/JavaScript frontend that uses the above WebAssembly library.
@@ -37,9 +43,13 @@ The *full stack* contains:
 * A compiler that converts scripts in the custom scripting language into bytecode.
 * A runtime that executes this bytecode.
 * A converter that creates Python or C++ code based on a given script written in the custom scripting language.
-* A C-wrapper for the C++ function.
-* A unit test that tests this C-wrapper.
-* A *Rust* command line tool calling the C-wrapper function.
+* A C-wrapper library for the C++ function.
+* A unit test that tests this C-wrapper library.
+* A program written in Assembly language that utilizes this C-wrapper library.
+* A *Rust* command line tool calling the C-wrapper library function.
+* A Java Native Interface Library to extend Java.
+* A unit test for that library.
+* A *Java* command line tool using that library.
 
 ```mermaid
   flowchart LR;
@@ -53,11 +63,14 @@ The *full stack* contains:
     CLI1 --> PYAPP2[Python UI App]
 
     F --> LIB(Static Library)
+    
+    subgraph SDK
+    LIB --> DOXYGEN(Doxygen Documentation)
+    LIB --> LIBEX[Static Lib Example Project]
+    end
 
     LIB --> LIBTEST[Static Library Unit Test]
     LIB --> C(Conan Package)
-    LIB --> DOXYGEN(Doxygen Documentation)
-    LIB --> LIBEX[Static Lib Example Project]
 
     LIB --> QTCPP[C++ UI App]
 
@@ -75,13 +88,15 @@ The *full stack* contains:
     end
 
     PY --> PYTEST[Python Module Unit Test]
+    PY --> SPHINX(Sphinx Documentation)
+    PY --> NOTEBOOK[Jupyter Notebook] 
     PY --> PYAPP[Python UI App]
 
     F --> WASM(WebAssembly + JavaScript)
 
     WASM --> WASMF[Front End]
 
-    F --> SCRIPTLIB[Script Library]
+    F --> SCRIPTLIB(Script Library)
 
     SCRIPTLIB --> SCRIPT_TEST[Script Library Unit Test]
     SCRIPTLIB --> SCRIPT_CONSOLE[Console]
@@ -91,9 +106,14 @@ The *full stack* contains:
     SCRIPTLIB --> SCRIPT_RUNTIME[Runtime]
     SCRIPTLIB --> SCRIPT_CONVERT[Converter]
 
-    F --> CWRAPPER[C Wrapper Lib]
+    F --> CWRAPPER(C Wrapper Lib)
     CWRAPPER --> CWRAPPER_TEST[C Wrapper Unit Test]
     CWRAPPER --> RUST_APP[Rust Command Line Tool]  
+    CWRAPPER --> ASM[Assembly Program] 
+
+    F --> JAVA_LIB(Java Native Interface Library)
+    JAVA_LIB --> JAVA_UNIT_TEST[Java Unit Test]  
+    JAVA_LIB --> JAVA_APP[Java CLI Tool] 
 ```
 
 
@@ -105,6 +125,7 @@ The *full stack* contains:
 * *conan* to build the *conan* package.
 * *Qt5* to build the C++ Qt UI app.
 * *Rust* to build the Rust app.
+* *Java* to build Java command line tool.
 
 
 # Build
@@ -115,7 +136,7 @@ To build and test everything:
 # build all C++ products
 mkdir build
 cd build
-cmake -DADD_PYTHON_MODULE=ON  -DADD_QT_APP=ON -DADD_RUST_APP=ON ..
+cmake -DCMAKE_BUILD_TYPE=Release -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON -DADD_RUST_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_JAVA_APP=ON -DADD_SCRIPT_TOOLS=ON -DADD_ASSEMBLY_PROGRAM=ON ..
 cmake --build . -j --config Release
 ctest -C Release  -VV
 cmake --install .
@@ -127,13 +148,6 @@ cmake --build . --config Release
 ctest -C Release  -VV
 cd ..
 cd ..
-
-# static lib documentation
-doxygen build/doxyfile 
-
-# run Python unit tests
-python3 -m unittest discover src/test_py
-
 
 # build web app container
 docker build --tag title-case-web .
@@ -151,9 +165,16 @@ The collection of deliverables can be found in ```build/product```.
 
 CMake options are:
 
-- **ADD_PYTHON_MODULE**: To build the Python module (requires Python C API)
+- **ADD_PYTHON_MODULE**: To build the Python module (requires Python C API).
+- **ADD_PY_DOCS**: To build the Python documentation (requires Sphinx).
+- **ADD_LIB_DOCS**: To build the C++ library documentation (requires doxygen).
 - **ADD_QT_APP**: To build a Qt5 UI app (requires Qt5).
 - **ADD_RUST_APP**: To build the Rust command line tool (requires Rust).
+- **ADD_JAVA_APP**: To build the Java command line tool (requires Java).
+- **ADD_SCRIPT_TOOLS**: To build the script tools.
+- **ADD_ASSEMBLY_PROGRAM**: To build the Assembly program.
+
+See also ```.github/workflows/build.yml```.
 
 # Usage
 
@@ -176,7 +197,7 @@ Interactive command line tool. Enter the text to convert or "exit" to end the pr
 
 The first command line argument is the file to read the data from, the second is the file to save the result to.
 
-```
+```sh
 title_case_file source_file.txt target_file.txt
 ```
 
@@ -184,7 +205,7 @@ title_case_file source_file.txt target_file.txt
 
 Start the ```web.py``` script by providing the location of the resource files and the folder containing the ```title_case``` tool.
 
-```
+```sh
 python web.py C:\web\resources C:\build\product
 ```
 
@@ -194,7 +215,7 @@ Open ```localhost:5000``` for a synchronous web app. Open ```localhost:5000/inte
 
 Build the *docker* image with:
 
-```
+```sh
 docker build --tag title-case-web .
 ```
 
@@ -203,7 +224,7 @@ The multi-stage build process will build the ```title_case``` tool and copy all 
 
 To start the container, run:
 
-```
+```sh
 docker run --rm -it -p 5000:5000 title-case-web
 ```
 
@@ -214,7 +235,7 @@ Open ```localhost:5000``` for a synchronous web app. Open ```localhost:5000/inte
 
 WebAssembly requires to access the HTML document via a web server. A simple server can be started with Python:
 
-```
+```sh
 python -m http.server
 ```
 
@@ -227,11 +248,11 @@ The domain-specific scripting language is a simple language designed to perform 
 
 | Command | Operand (optional) | Description |
 | --- | --- | --- |
-| **text** | *text to load and store in memory* | Stores the given text in the program's memory. |
-| **process** | - | Processes the text in memory. |
-| **print** | - | Prints the text in memory to the screen. |
-| **load** | *path to text file* | Reads the specified text file and stores the text in memory. |
-| **save** | *path to text file* | Saves the text in memory to the specified text file. |
+| ```text``` | *text to load and store in memory* | Stores the given text in the program's memory. |
+| ```process``` | - | Processes the text in memory. |
+| ```print``` | - | Prints the text in memory to the screen. |
+| ```load``` | *path to text file* | Reads the specified text file and stores the text in memory. |
+| ```save``` | *path to text file* | Saves the text in memory to the specified text file. |
 
 An example program is:
 
@@ -243,35 +264,35 @@ print
 
 This will print ```This Is a Headline```.
 
-## Command Line Tool *console*
+### Command Line Tool *console*
 
 The scripting **console** allows to enter and execute code. The console application can be closed by entering ```exit``` or pressing ```CTRL+C```.
 
-## Command Line Tool *interpreter*
+### Command Line Tool *interpreter*
 
 The **interpreter** loads and executes a script stored in the specified source file.
 
-```
-interpreter C:\scripts\script.txt
+```sh
+interpreter script.txt
 ```
 
-## Command Line Tool *compiler* & *runtime*
+### Command Line Tool *compiler* & *runtime*
 
 The **compiler** loads a source file and generates byte-code, that can be executed by the **runtime**.
 
-```
-compiler C:\scripts\script.txt C:\result\bytecode.code
+```sh
+compiler script.txt bytecode.code
 
-runtime C:\result\bytecode.code
+runtime bytecode.code
 ```
 
-## Command Line Tool *converter*
+### Command Line Tool *converter*
 
 The **converter** loads a source file and generates equivalent C++ or Python source code.
 In Python the generated code uses the ```text_conversion``` module, in C++ the generated code uses the static library.
 
-```
-converter C:\scripts\script.txt C:\result\python_script.py py
+```sh
+converter script.txt python_script.py py
 ```
 
 The arguments are:
@@ -279,3 +300,30 @@ The arguments are:
 * Path to the script source file.
 * Path to the target file to create.
 * The target language, either ```py``` for Python or ```cpp``` for C++.
+
+
+## Java Command Line Tool
+
+Execute the command line tool (JAR) like this:
+
+```sh
+java -jar text_conversion.jar "this is a headline"
+```
+
+Make sure the ```libjava_text_conversion``` shared library can be found by Java. Set the command line argument ```java.library.path``` if needed.
+
+## Jupyter Notebook
+
+Start the Jupyter Notebook by simply running the ```start_notebook.sh``` script. It will start the notebook server with the notebook selected.
+
+## Assembly Command Line Tool
+
+The command line tool written in assembly is used like this:
+
+```shell
+title_case "this is a headline"
+
+# will print
+# Input:  this is a headline
+# Output: This Is a Headline
+```

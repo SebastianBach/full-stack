@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <text_conversion_constexpr.h>
@@ -20,5 +21,6 @@ int main()
     }
 
     std::cout << "end of program" << std::endl;
-    return 0;
+
+    return EXIT_SUCCESS;
 }

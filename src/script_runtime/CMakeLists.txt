@@ -8,9 +8,10 @@ install(TARGETS script_runtime RUNTIME DESTINATION product/script)
 
 set_target_properties(script_runtime PROPERTIES FOLDER "script")
 
+# tests
+
 set(SOURCE_FILE ${CMAKE_INSTALL_PREFIX}/script_compiler/bytecode.code)
 add_test(NAME script_runtime COMMAND script_runtime ${SOURCE_FILE})
-
 
 set(SOURCE_FILE_EMPTY ${PROJECT_SOURCE_DIR}/src/script_resources/empty.code)
 add_test(NAME script_runtime_empty COMMAND script_runtime ${SOURCE_FILE_EMPTY})
@@ -19,3 +20,9 @@ set_tests_properties(script_runtime_empty PROPERTIES WILL_FAIL TRUE)
 set(SOURCE_FILE_BAD ${PROJECT_SOURCE_DIR}/src/script_resources/bad.code)
 add_test(NAME script_runtime_bad COMMAND script_runtime ${SOURCE_FILE_BAD})
 set_tests_properties(script_runtime_bad PROPERTIES WILL_FAIL TRUE)
+
+add_test(NAME script_runtime_missing_arg COMMAND script_runtime)
+set_tests_properties(script_runtime_missing_arg PROPERTIES WILL_FAIL TRUE)
+
+add_test(NAME script_runtime_invalid_file COMMAND script_runtime "__invalid_file.txt")
+set_tests_properties(script_runtime_invalid_file PROPERTIES WILL_FAIL TRUE)

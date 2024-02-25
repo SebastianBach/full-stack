@@ -23,7 +23,7 @@ inline TARGET to_target(const char* arg)
     return TARGET::UKNOWN;
 }
 
-bool load_file(std::vector<std::string>& lines, const char* src)
+bool load_file(std::vector<std::string>& lines, const std::string& src)
 {
     std::ifstream source{src};
 
@@ -36,11 +36,13 @@ bool load_file(std::vector<std::string>& lines, const char* src)
     std::string line;
     while (std::getline(source, line))
     {
+        if (line.empty())
+            continue;
+
         if ((line.back() == '\r' || line.back() == '\n'))
             line.erase(line.size() - 1);
 
-        if (!line.empty())
-            lines.push_back(line);
+        lines.push_back(line);
     }
 
     source.close();

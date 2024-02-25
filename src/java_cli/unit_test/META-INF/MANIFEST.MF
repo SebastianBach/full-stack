@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: UnitTest
+Implementation-Title: Unit Test
+Implementation-Version: 1.0.0
+Implementation-Vendor: TestCompany

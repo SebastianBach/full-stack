@@ -75,12 +75,10 @@ std::string compile(const std::vector<std::string>& source,
 
     // merge
 
-    data.clear();
-
-    data.insert(data.begin(), header.begin(), header.end());
+    data = header;
 
     data.resize(data.size() + sizeof(size_t));
-    memcpy(data.data() + 5, &hash_value, sizeof(size_t));
+    memcpy(data.data() + header.size(), &hash_value, sizeof(size_t));
 
     data.insert(data.end(), payload.begin(), payload.end());
 

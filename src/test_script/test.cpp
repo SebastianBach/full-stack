@@ -1,4 +1,5 @@
 
+#include <cstdlib>
 #include <iostream>
 #include <script.h>
 #include <source_location>
@@ -12,13 +13,13 @@ inline void print_error(const char* msg, const std::source_location& location)
     std::cout << "\033[0m";
 }
 
-static int s_returnValue = 0;
+static int s_returnValue = EXIT_SUCCESS;
 
 #define CHECK(ARG)                                                             \
     if (!(ARG))                                                                \
     {                                                                          \
         print_error(#ARG, std::source_location::current());                    \
-        s_returnValue = -1;                                                    \
+        s_returnValue = EXIT_FAILURE;                                          \
     }
 
 void print(const char* msg)
@@ -62,26 +63,44 @@ int main()
         eng.run(script::command::PROCESS, "");
 
         CHECK(eng.get_memory() == "Test Text");
+
+        eng.run(script::command::SAVE, "_current_content.txt");
+
+        eng.run(script::command::TEXT, "nothing");
+
+        CHECK(eng.get_memory() == "nothing");
+
+        eng.run(script::command::LOAD, "_current_content.txt");
+
+        CHECK(eng.get_memory() == "Test Text");
+
+        const auto res = eng.run(script::command::LOAD, "_invalid_file.txt");
+
+        CHECK(!res.empty());
     }
 
     {
-        std::vector<std::string> lines;
-        lines.push_back("text this is a test headline");
-        lines.push_back("process");
-        lines.push_back("print");
-
         std::vector<char> data;
-        const auto        res = script::compile(lines, data);
 
-        CHECK(res.empty());
+        {
+            std::vector<std::string> lines;
+            lines.push_back("text this is a test headline");
+            lines.push_back("process");
+            lines.push_back("print");
 
-        CHECK(!data.empty());
+            const auto res = script::compile(lines, data);
 
-        CHECK(data.size() == 43);
+            CHECK(res.empty());
 
-        const auto res_runtime = script::runtime(data, print);
+            CHECK(!data.empty());
 
-        CHECK(res_runtime.empty());
+            CHECK(data.size() == 43);
+        }
+        {
+            const auto res_runtime = script::runtime(data, print);
+
+            CHECK(res_runtime.empty());
+        }
     }
 
     return s_returnValue;
