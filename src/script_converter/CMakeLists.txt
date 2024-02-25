@@ -1,7 +1,10 @@
 add_executable(script_converter)
 
 target_sources(script_converter PRIVATE main.cpp 
-                                        converter.cpp)
+                                        converter.cpp
+                                        target_cpp.cpp
+                                        target_py.cpp
+                                        target_linux_x86_64.cpp)
 
 target_include_directories(script_converter PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(script_converter PRIVATE script_lib)
@@ -54,4 +57,8 @@ add_test(NAME script_converter_py_compare COMMAND ${CMAKE_COMMAND}
     -DREFERENCE_FILE=${REFERENCE_FILE}
     -P ${PROJECT_SOURCE_DIR}/src/cmake/compare.cmake
 )
+
+set(OUTPUT_FILE ${PROJECT_SOURCE_DIR}/build/result_linux_x86_64.asm)
+
+add_test(NAME script_converter_linux_x86_64 COMMAND script_converter ${PROJECT_SOURCE_DIR}/src/script_resources/script_full.txt  ${OUTPUT_FILE} linux_x86_64)
 
