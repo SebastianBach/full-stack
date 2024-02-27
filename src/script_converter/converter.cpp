@@ -54,7 +54,7 @@ bool load_file(std::vector<std::string>& lines, const std::string& src)
     return true;
 }
 
-bool converter(int argc, char* argv[])
+bool converter(int argc, char* argv[], std::vector<issue>& issues)
 {
     if (argc != 4)
     {
@@ -83,7 +83,8 @@ bool converter(int argc, char* argv[])
     else if (target == TARGET::PY)
         return make_py(lines, argv[2]);
     else if (target == TARGET::LINUX_X86_64)
-        return make_linux_x86_64(lines, argv[2]);
+        make_linux_x86_64(lines, issues, argv[2]);
+
 
     return true;
 }
