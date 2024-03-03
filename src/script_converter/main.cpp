@@ -1,27 +1,42 @@
-#include "converter.h"
+
 #include <cstdlib>
-#include "targets.h"
+
+#include "converter2.h"
+#include "data.h"
+#include <iostream>
 
 int main(int argc, char* argv[])
 {
+    data data;
 
-    std::vector<issue> issues;
+    converter(data, argc, argv);
 
-    if (!converter(argc, argv, issues))
+    for (const auto& i : data.i)
     {
-        print_error("failure.");
-        return EXIT_FAILURE;
+        if (i.p == issue::phase::PARSING)
+            std::cout << "Parsing ";
+        else if (i.p == issue::phase::OPTIMIZAZION)
+            std::cout << "Optimization ";
+        else if (i.p == issue::phase::CODE_GENERATION)
+            std::cout << "Code Generation ";
+        else
+            std::cout << "Storing Result ";
+
+        if (i.t == issue::type::WARNING)
+            std::cout << "Warning: ";
+        else if (i.t == issue::type::INFO)
+            std::cout << "Info: ";
+        else
+            std::cout << "Error: ";
+
+        std::cout << i.msg << std::endl;
+
+        //if (i.number > 0)
+        std::cout << "Line " << i.number << ": " << i.line << std::endl;
     }
 
-    for (const auto& issue: issues){
-
-        if (issue.type == issue::TYPE::ERROR)
-            std::cout << "Error: " << issue.msg;
-        else
-            std::cout << "Warning: " << issue.msg;
-
-        std::cout << "\n"  << issue.lineNumber << ": " << issue.line << "\n";
-    } 
+    if (!data.success)
+        return EXIT_FAILURE;
 
     return EXIT_SUCCESS;
 }
