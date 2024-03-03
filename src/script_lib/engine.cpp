@@ -89,7 +89,7 @@ void set_commands(std::vector<engine_command>& cmds)
                         return;
                     }
 
-                    output_file << args.memory << std::endl;
+                    output_file << args.memory;
 
                     output_file.close();
                 });
