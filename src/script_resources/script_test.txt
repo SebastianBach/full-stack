@@ -1,0 +1,45 @@
+
+
+
+
+
+
+save new_file.txt
+
+text program start
+process
+print
+
+text process text and store to file
+print
+
+
+text this is a headline
+process
+process
+process
+print
+
+save new_file.txt
+
+text now loading file again
+load new_file.txt
+print
+
+text now save another text
+print
+text some text
+save next_file.txt
+
+text now load again
+print
+load next_file.txt
+process
+print
+
+text this is useless text
+
+text this is even more useless
+process
+
+

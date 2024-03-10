@@ -11,6 +11,7 @@ add_subdirectory(lib)
 add_subdirectory(lib_resources)
 add_subdirectory(test_lib)
 add_subdirectory(lib_c)
+add_subdirectory(test_lib_c)
 
 if(ADD_ASSEMBLY_PROGRAM)
     add_subdirectory(asm)
@@ -46,7 +47,6 @@ if(ADD_SCRIPT_TOOLS)
 endif()
 
 if(ADD_RUST_APP)
-    add_subdirectory(test_lib_c)
     add_subdirectory(rust_cmdl)
 endif()
 
