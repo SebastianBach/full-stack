@@ -19,19 +19,30 @@ install(TARGETS script_converter RUNTIME DESTINATION product/script)
 set_target_properties(script_converter PROPERTIES FOLDER "script")
 
 
-# tests
+# basic invalid args tests
 
-#add_test(NAME script_converter_no_args COMMAND script_converter)
-#set_tests_properties(script_converter_no_args PROPERTIES WILL_FAIL TRUE)
+add_test(NAME script_converter_no_args COMMAND script_converter)
+set_tests_properties(script_converter_no_args PROPERTIES WILL_FAIL TRUE)
 
-#add_test(NAME script_converter_one_arg COMMAND script_converter something)
-#set_tests_properties(script_converter_one_arg PROPERTIES WILL_FAIL TRUE)
+add_test(NAME script_converter_one_arg COMMAND script_converter something)
+set_tests_properties(script_converter_one_arg PROPERTIES WILL_FAIL TRUE)
 
-#add_test(NAME script_converter_two_args COMMAND script_converter something something)
-#set_tests_properties(script_converter_two_args PROPERTIES WILL_FAIL TRUE)
+add_test(NAME script_converter_two_args COMMAND script_converter something something)
+set_tests_properties(script_converter_two_args PROPERTIES WILL_FAIL TRUE)
 
-#add_test(NAME script_converter_invalid_target COMMAND script_converter something something abc)
-#set_tests_properties(script_converter_invalid_target PROPERTIES WILL_FAIL TRUE)
+add_test(NAME script_converter_invalid_target COMMAND script_converter something something abc)
+set_tests_properties(script_converter_invalid_target PROPERTIES WILL_FAIL TRUE)
+
+
+# basic tests
+
+set(COMPLEX_SOURCE_FILE ${PROJECT_SOURCE_DIR}/src/script_resources/script_test.txt)
+
+add_test(NAME script_converter_test_cpp COMMAND script_converter ${COMPLEX_SOURCE_FILE} basic.cpp cpp)
+add_test(NAME script_converter_test_py COMMAND script_converter ${COMPLEX_SOURCE_FILE} basic.py py)
+add_test(NAME script_converter_test_i COMMAND script_converter ${COMPLEX_SOURCE_FILE} basic.txt i)
+add_test(NAME script_converter_test_linux_x86_64 COMMAND script_converter ${COMPLEX_SOURCE_FILE} basic.s linux_x86_64)
+
 
 #add_test(NAME script_converter_invalid_source COMMAND script_converter no_source_file.txt result.py py)
 #set_tests_properties(script_converter_invalid_source PROPERTIES WILL_FAIL TRUE)
