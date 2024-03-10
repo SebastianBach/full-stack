@@ -75,7 +75,6 @@ inline void _print_new_line(asm_file& file)
 
 inline void add_new_line(asm_file& file)
 {
-
     file.data.push_back("new_line: .string \"\\n\"");
     file.data.push_back("new_line_length = . - new_line");
 }
@@ -106,15 +105,13 @@ inline void generate_linux_x86_64_asm(const intermediate& i, asm_file& file)
     {
         const auto [text_id, text_length] = get_new_text(file);
 
-        file.data.push_back(text_id + ": .string \"" + i.operand + "\"");
+        file.data.push_back(text_id + ": .string \"" + i.operand + "\\n\"");
         file.data.push_back(text_length + " = . - " + text_id);
 
         file.lines.push_back("lea " + text_id + "(%rip), %rsi");
         file.lines.push_back("mov $" + text_length + ", %rdx");
 
         _print_stdout(file);
-
-        _print_new_line(file);
 
         break;
     }
