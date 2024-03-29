@@ -1,0 +1,16 @@
+
+text load and process input.txt:
+print
+
+load input.txt
+print
+process
+print
+save output.txt
+
+text stored result to output.txt, check file:
+print
+
+# check
+load output.txt
+print

@@ -91,7 +91,6 @@ _start:
 # rax: length of the string
 string_length:
     xor %rcx, %rcx    # clear rcx, which will hold the length
-    xor %rax, %rax    # clear rax, which will be used for the null terminator comparison
 
 .next_char:
     cmpb $0, (%rsi, %rcx)   # compare to null terminator

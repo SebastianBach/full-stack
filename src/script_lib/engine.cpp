@@ -70,9 +70,9 @@ void set_commands(std::vector<engine_command>& cmds)
 
                     args.memory.clear();
 
-                    std::string line;
-                    while (std::getline(file, line))
-                        args.memory += line;
+                    std::stringstream buffer;
+                    buffer << file.rdbuf();
+                    args.memory = buffer.str();
 
                     file.close();
                 });
@@ -89,7 +89,7 @@ void set_commands(std::vector<engine_command>& cmds)
                         return;
                     }
 
-                    output_file << args.memory << std::endl;
+                    output_file << args.memory;
 
                     output_file.close();
                 });

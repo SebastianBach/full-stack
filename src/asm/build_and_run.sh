@@ -65,12 +65,16 @@ if [ "$TARGET" = "Release" ]; then
 
 elif [ "$TARGET" = "Debug" ]; then
 
-    echo "-> build debug and run gdb"
+    echo "-> build debug"
+    echo ""
 
     gcc -o $BUILD_FOLDER/$BINARY $SOURCE_FILE $LIB_TITLE_CASE -nostartfiles -no-pie  -g -lc -lstdc++
 
-    if [ "$RUN" = "r-> un" ]; then
+    if [ "$RUN" = "run" ]; then
+        echo "-> debug $BINARY";
+        echo "---------------------------------"
         gdb --args $BUILD_FOLDER/$BINARY "$TEST_ARG"
+        echo "---------------------------------"
     fi
 
 else
