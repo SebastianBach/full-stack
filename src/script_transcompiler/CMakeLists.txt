@@ -21,16 +21,16 @@ set_target_properties(script_transcompiler PROPERTIES FOLDER "script")
 
 # basic invalid args tests
 
-add_test(NAME script_transcompiler_no_args COMMAND script_converter)
+add_test(NAME script_transcompiler_no_args COMMAND script_transcompiler)
 set_tests_properties(script_transcompiler_no_args PROPERTIES WILL_FAIL TRUE)
 
-add_test(NAME script_transcompiler_one_arg COMMAND script_converter something)
+add_test(NAME script_transcompiler_one_arg COMMAND script_transcompiler something)
 set_tests_properties(script_transcompiler_one_arg PROPERTIES WILL_FAIL TRUE)
 
-add_test(NAME script_transcompiler_two_args COMMAND script_converter something something)
+add_test(NAME script_transcompiler_two_args COMMAND script_transcompiler something something)
 set_tests_properties(script_transcompiler_two_args PROPERTIES WILL_FAIL TRUE)
 
-add_test(NAME script_transcompiler_invalid_target COMMAND script_converter something something abc)
+add_test(NAME script_transcompiler_invalid_target COMMAND script_transcompiler something something abc)
 set_tests_properties(script_transcompiler_invalid_target PROPERTIES WILL_FAIL TRUE)
 
 
@@ -38,7 +38,7 @@ set_tests_properties(script_transcompiler_invalid_target PROPERTIES WILL_FAIL TR
 
 set(COMPLEX_SOURCE_FILE ${PROJECT_SOURCE_DIR}/src/script_resources/script_test.txt)
 
-add_test(NAME script_transcompiler_test_cpp COMMAND script_converter ${COMPLEX_SOURCE_FILE} basic.cpp cpp)
-add_test(NAME script_transcompiler_test_py COMMAND script_converter ${COMPLEX_SOURCE_FILE} basic.py py)
-add_test(NAME script_transcompiler_test_i COMMAND script_converter ${COMPLEX_SOURCE_FILE} basic.txt i)
-add_test(NAME script_transcompiler_test_linux_x86_64 COMMAND script_converter ${COMPLEX_SOURCE_FILE} basic.s linux_x86_64)
+add_test(NAME script_transcompiler_test_cpp COMMAND script_transcompiler ${COMPLEX_SOURCE_FILE} basic.cpp cpp)
+add_test(NAME script_transcompiler_test_py COMMAND script_transcompiler ${COMPLEX_SOURCE_FILE} basic.py py)
+add_test(NAME script_transcompiler_test_i COMMAND script_transcompiler ${COMPLEX_SOURCE_FILE} basic.txt i)
+add_test(NAME script_transcompiler_test_linux_x86_64 COMMAND script_transcompiler ${COMPLEX_SOURCE_FILE} basic.s linux_x86_64)
