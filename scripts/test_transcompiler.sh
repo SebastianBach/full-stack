@@ -48,7 +48,9 @@ cd ..
 mkdir linux_x86_64
 cd linux_x86_64
 
-./../../../src/script_transcompiler/transcompiler "../../../../src/script_resources/work.txt" "result.s" "linux_x86_64"
+echo build linux_x86_64
+
+./../../../src/script_transcompiler/transcompiler "../../../../src/script_resources/script_test.txt" "result.s" "linux_x86_64"
 
 gcc  -o result result.s ../../../product/rust/libtext_conversion_c.a -m64 -lc -nostartfiles
 
