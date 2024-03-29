@@ -42,7 +42,7 @@ The *full stack* contains:
 * A Python-based IDE front-end for this script interpreter.
 * A compiler that converts scripts in the custom scripting language into bytecode.
 * A runtime that executes this bytecode.
-* A converter that creates Python or C++ code based on a given script written in the custom scripting language.
+* A transcompiler that creates Python or C++ code based on a given script written in the custom scripting language.
 * A C-wrapper library for the C++ function.
 * A unit test that tests this C-wrapper library.
 * A program written in Assembly language that utilizes this C-wrapper library.
@@ -104,7 +104,7 @@ The *full stack* contains:
     SCRIPT_INTERPRETER --> SCRIPT_IDE[IDE]
     SCRIPTLIB --> SCRIPT_COMPILER[Compiler]
     SCRIPTLIB --> SCRIPT_RUNTIME[Runtime]
-    SCRIPTLIB --> SCRIPT_CONVERT[Converter]
+    SCRIPTLIB --> SCRIPT_CONVERT[Transcompiler]
 
     F --> CWRAPPER(C Wrapper Lib)
     CWRAPPER --> CWRAPPER_TEST[C Wrapper Unit Test]
