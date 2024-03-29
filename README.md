@@ -286,21 +286,27 @@ compiler script.txt bytecode.code
 runtime bytecode.code
 ```
 
-### Command Line Tool *converter*
+### Command Line Tool *transcompiler*
 
-The **converter** loads a source file and generates equivalent C++ or Python source code.
+The **transcompiler** loads a source file and generates equivalent code in another programming language.
 In Python the generated code uses the ```text_conversion``` module, in C++ the generated code uses the static library.
 
 ```sh
-converter script.txt python_script.py py
+transcompiler script.txt python_script.py py
 ```
 
 The arguments are:
 
 * Path to the script source file.
 * Path to the target file to create.
-* The target language, either ```py``` for Python or ```cpp``` for C++.
+* The target language. 
 
+Supported targets are:
+
+* ```py```: Python using the ```text_conversion``` module.
+* ```cpp```: C++ using the C++ library.
+* ```linux_x86_64```:Linux x86 64 assembly using the C library.
+* ```i```: The intermediate representation.
 
 ## Java Command Line Tool
 

@@ -3,6 +3,6 @@
 
 #include "data.h"
 
-void converter(data& data, int argc, char* argv[]);
+void transcompiler(data& data, int argc, char* argv[]);
 
 #endif

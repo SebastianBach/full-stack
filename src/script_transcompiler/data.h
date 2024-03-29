@@ -58,15 +58,6 @@ struct intermediate
 
         print_text, // directly print text
         save_text   // directy save text to file
-
-        // optimizations for separate sub-programs
-        // block must include also output, otherwise block does nothing
-        // block wiht only text or load does nothing
-
-        // - print_text
-        // - copy_file
-        // - text_to_file
-        // block_start, block-end
     };
 
     cmd          command;

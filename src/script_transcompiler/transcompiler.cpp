@@ -1,4 +1,4 @@
-#include "converter2.h"
+#include "transcompiler.h"
 #include "backend.h"
 #include "frontend.h"
 #include "optimization.h"
@@ -45,7 +45,7 @@ void write_to_file(data& data, const std::string& dst)
     file_stream.close();
 }
 
-void converter(data& data, int argc, char* argv[])
+void transcompiler(data& data, int argc, char* argv[])
 {
     if (argc != 4)
     {

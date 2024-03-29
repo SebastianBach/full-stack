@@ -42,7 +42,7 @@ if(ADD_SCRIPT_TOOLS)
     add_subdirectory(script_interpreter)
     add_subdirectory(script_compiler)
     add_subdirectory(script_runtime)
-    add_subdirectory(script_converter)
+    add_subdirectory(script_transcompiler)
     add_subdirectory(script_ide)
 endif()
 

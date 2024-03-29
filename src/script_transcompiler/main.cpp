@@ -1,7 +1,7 @@
 
 #include <cstdlib>
 
-#include "converter2.h"
+#include "transcompiler.h"
 #include "data.h"
 #include <iostream>
 
@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 {
     data data;
 
-    converter(data, argc, argv);
+    transcompiler(data, argc, argv);
 
     for (const auto& i : data.i)
     {

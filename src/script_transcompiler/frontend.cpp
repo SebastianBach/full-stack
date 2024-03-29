@@ -1,6 +1,5 @@
 #include "frontend.h"
 #include "script.h"
-#include "targets.h"
 #include <cstring>
 #include <fstream>
 
