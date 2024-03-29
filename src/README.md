@@ -22,7 +22,7 @@
 - ```rust_cmdl```: A Rust command line tool.
 - ```script_compiler```: Compiler that converts a script written in the custom language to bytecode that can be executed by the runtime.
 - ```script_console```: Interactive console that allows users to enter and execute scripts in the custom language.
-- ```script_converter```: Command line tool to generate Phython code or C++ code from a given custom language script.
+- ```script_transcompiler```: Command line tool to generate Phython code or C++ code from a given custom language script.
 - ```script_ide```: Integrated development environment for the script interpreter.
 - ```script_interpreter```: Interpreter that reads and executes script files written in the custom language.
 - ```script_lib```: Static library that provides definitions for the custom programming language, such as data types, functions, and other language constructs.
