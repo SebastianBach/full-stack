@@ -1,22 +1,20 @@
 
 message(STATUS "Add Linux x86_64 Assembly Tool")
 
-add_custom_target(asm_program ALL 
+enable_language(ASM)
 
-        COMMAND bash -c "echo 'build Assembly tool'; \
-                        ../build_and_run.sh 'tool.s' 'title_case' '$<TARGET_FILE:lib_c>' '${CMAKE_BUILD_TYPE}' '${CMAKE_BINARY_DIR}/temp/asm'" 
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} 
-        VERBATIM)
-
-add_dependencies(asm_program lib_c)
+add_executable(asm_program tool.s)
+set_target_properties(asm_program PROPERTIES LINK_FLAGS "-nostartfiles")
+set_target_properties(asm_program PROPERTIES OUTPUT_NAME "title_case") 
+target_link_libraries(asm_program PRIVATE lib_c)
 
 
-add_test(asm_test "${CMAKE_BINARY_DIR}/temp/asm/title_case" "this is some headline")
+add_test(NAME asm_test COMMAND asm_program "this is the headline")
 
-add_test(asm_test_failure_no_args "${CMAKE_BINARY_DIR}/temp/asm/title_case")
+add_test(NAME asm_test_failure_no_args COMMAND asm_program)
 set_tests_properties(asm_test_failure_no_args PROPERTIES WILL_FAIL TRUE)
 
-add_test(asm_test_failure_empty_arg "${CMAKE_BINARY_DIR}/temp/asm/title_case" "")
+add_test(NAME asm_test_failure_empty_arg COMMAND asm_program "")
 set_tests_properties(asm_test_failure_empty_arg PROPERTIES WILL_FAIL TRUE)
 
-install(CODE " file(INSTALL \"${CMAKE_BINARY_DIR}/temp/asm/title_case\" DESTINATION \"${CMAKE_INSTALL_PREFIX}/product/asm\")" )
+install(TARGETS asm_program RUNTIME DESTINATION product/asm)
