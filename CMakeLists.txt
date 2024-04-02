@@ -12,6 +12,10 @@ option(ADD_QT_APP "Include the Qt UI App." OFF)
 option(ADD_SCRIPT_TOOLS "Include script tools." OFF)
 option(ADD_ASSEMBLY_PROGRAM "Include ASM program." OFF)
 
+if(WIN32)
+    option(ADD_WIN_TOOLS "Include Windows Utilities" OFF)
+endif()
+
 project(full_stack CXX)
 enable_testing()
 
@@ -36,6 +40,11 @@ file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/lib/example)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/tools)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/dynamic_lib)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/web)
+
+if(ADD_WIN_TOOLS)
+    file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/product/win)
+endif()
+
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/wasm)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp/cppcheck)

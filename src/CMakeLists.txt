@@ -56,3 +56,7 @@ if(ADD_JAVA_APP)
 endif()
 
 add_subdirectory(web)
+
+if(WIN32 AND ADD_WIN_TOOLS)
+    add_subdirectory(win_tray)
+endif()

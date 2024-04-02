@@ -50,6 +50,7 @@ The *full stack* contains:
 * A Java Native Interface Library to extend Java.
 * A unit test for that library.
 * A *Java* command line tool using that library.
+* A *Windows* system tray app.
 
 ```mermaid
   flowchart LR;
@@ -114,6 +115,8 @@ The *full stack* contains:
     F --> JAVA_LIB(Java Native Interface Library)
     JAVA_LIB --> JAVA_UNIT_TEST[Java Unit Test]  
     JAVA_LIB --> JAVA_APP[Java CLI Tool] 
+
+    F --> WIN_TRAY[Windows System Tray Tool]
 ```
 
 
@@ -136,7 +139,7 @@ To build and test everything:
 # build all C++ products
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON -DADD_RUST_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_JAVA_APP=ON -DADD_SCRIPT_TOOLS=ON -DADD_ASSEMBLY_PROGRAM=ON ..
+cmake -DCMAKE_BUILD_TYPE=Release -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON -DADD_RUST_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_JAVA_APP=ON -DADD_SCRIPT_TOOLS=ON -DADD_ASSEMBLY_PROGRAM=ON -DADD_WIN_TOOLS=ON ..
 cmake --build . -j --config Release
 ctest -C Release  -VV
 cmake --install .
@@ -173,6 +176,7 @@ CMake options are:
 - **ADD_JAVA_APP**: To build the Java command line tool (requires Java).
 - **ADD_SCRIPT_TOOLS**: To build the script tools.
 - **ADD_ASSEMBLY_PROGRAM**: To build the Assembly program.
+- **ADD_WIN_TOOLS**: To build Windows utilities.
 
 See also ```.github/workflows/build.yml```.
 
