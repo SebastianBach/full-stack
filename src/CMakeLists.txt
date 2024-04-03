@@ -21,6 +21,7 @@ if(ADD_PYTHON_MODULE)
     add_subdirectory(py)
     add_subdirectory(app_py)
     add_subdirectory(py_ipynb)
+    add_subdirectory(py_marimo)
 endif()
 
 if(ADD_PY_DOCS)

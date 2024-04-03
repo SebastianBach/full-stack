@@ -32,6 +32,7 @@ The *full stack* contains:
 * A unit test that tests this module.
 * A *Sphinx* documentation for this module.
 * A *Jupyter Notebook* showing how to use this module.
+* a *marimo* notbook using this module.
 * A Python UI application that uses this module.
 * A WebAssembly binary library and associated JavaScript code.
 * An HTML/JavaScript frontend that uses the above WebAssembly library.
@@ -91,6 +92,7 @@ The *full stack* contains:
     PY --> PYTEST[Python Module Unit Test]
     PY --> SPHINX(Sphinx Documentation)
     PY --> NOTEBOOK[Jupyter Notebook] 
+    PY --> MARIMO[Marimo Notebook]  
     PY --> PYAPP[Python UI App]
 
     F --> WASM(WebAssembly + JavaScript)
