@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.view.View;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 
 import com.example.titlecase.databinding.ActivityMainBinding;
 
@@ -33,11 +36,22 @@ public class MainActivity extends AppCompatActivity {
                 String text = binding.editText.getText().toString();
 
 
-                binding.editText.setText(editFromJNI(text));
+                binding.editText.setText(titleCase(text));
+            }
+        });
+
+        binding.copyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager) MainActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
+
+                String text = binding.editText.getText().toString();
+                ClipData clip = ClipData.newPlainText("label", text);
+
+                clipboard.setPrimaryClip(clip);
             }
         });
     }
-    
-    public native String stringFromJNI();
-    public native String editFromJNI(String input);
+
+    public native String titleCase(String input);
 }
