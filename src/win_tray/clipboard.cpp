@@ -8,7 +8,7 @@ namespace clipboard
 
 using text = std::vector<wchar_t>;
 
-static void get_text(text& text)
+void get_text(text& text)
 {
     if (!IsClipboardFormatAvailable(CF_UNICODETEXT))
         return;
@@ -39,7 +39,7 @@ static void get_text(text& text)
     CloseClipboard();
 }
 
-static void set_text(const text& text)
+void set_text(const text& text)
 {
     if (!OpenClipboard(nullptr))
         return;
@@ -52,7 +52,7 @@ static void set_text(const text& text)
 
     if (hGlob != nullptr)
     {
-        void* pGlob = GlobalLock(hGlob);
+        auto* pGlob = GlobalLock(hGlob);
 
         if (pGlob)
             memcpy(pGlob, text.data(), len * sizeof(wchar_t));
@@ -62,6 +62,7 @@ static void set_text(const text& text)
         SetClipboardData(CF_UNICODETEXT, hGlob);
     }
 
+    GlobalFree(hGlob);
     CloseClipboard();
 }
 
