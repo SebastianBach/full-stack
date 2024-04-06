@@ -52,6 +52,7 @@ The *full stack* contains:
 * A unit test for that library.
 * A *Java* command line tool using that library.
 * A *Windows* system tray app.
+* An *Android* app.
 
 ```mermaid
   flowchart LR;
@@ -119,6 +120,8 @@ The *full stack* contains:
     JAVA_LIB --> JAVA_APP[Java CLI Tool] 
 
     F --> WIN_TRAY[Windows System Tray Tool]
+
+    F --> ANDROID[Android App] 
 ```
 
 

@@ -1,6 +1,7 @@
 #include <jni.h>
 #include <string>
-#include "c_wrapper.h"
+#include "text_conversion_constexpr.h"
+
 
 extern "C" JNIEXPORT
 
@@ -12,9 +13,6 @@ Java_com_example_titlecase_MainActivity_titleCase(
     const char* cStr = env->GetStringUTFChars(input, nullptr);
     std::string cppStr(cStr);
     env->ReleaseStringUTFChars(input, cStr);
-
-    text_conversion_c(cppStr.data(), cppStr.length());
-
+    text_conversion_constexpr::convert_to_title_case(cppStr);
     return env->NewStringUTF(cppStr.c_str());
 }
-
