@@ -7,6 +7,6 @@ project("titlecase")
 
 add_library(${CMAKE_PROJECT_NAME} SHARED native-lib.cpp)
 
-target_link_libraries(${CMAKE_PROJECT_NAME}
-                                            android
-                                            log)
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ../../../../../header)
+
+target_link_libraries(${CMAKE_PROJECT_NAME} android log)
