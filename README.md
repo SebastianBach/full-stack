@@ -144,7 +144,15 @@ To build and test everything:
 # build all C++ products
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON -DADD_RUST_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_JAVA_APP=ON -DADD_SCRIPT_TOOLS=ON -DADD_ASSEMBLY_PROGRAM=ON -DADD_WIN_TOOLS=ON ..
+cmake -DCMAKE_BUILD_TYPE=Release    -DADD_BASIC_TOOLS=ON\
+                                    -DADD_SDK=ON\
+                                    -DADD_PYTHON_MODULE=ON\
+                                    -DADD_QT_APP=ON\
+                                    -DADD_RUST_APP=ON\
+                                    -DADD_PY_DOCS=ON\
+                                    -DADD_LIB_DOCS=ON\
+                                    -DADD_SCRIPT_TOOLS=ON\
+                                    -DADD_ASSEMBLY_PROGRAM=ON ..
 cmake --build . -j --config Release
 ctest -C Release  -VV
 cmake --install .
@@ -173,6 +181,8 @@ The collection of deliverables can be found in ```build/product```.
 
 CMake options are:
 
+- **ADD_BASIC_TOOLS**: To build the basic command line tools.
+- **ADD_SDK**: To build the static library and documentation.
 - **ADD_PYTHON_MODULE**: To build the Python module (requires Python C API).
 - **ADD_PY_DOCS**: To build the Python documentation (requires Sphinx).
 - **ADD_LIB_DOCS**: To build the C++ library documentation (requires doxygen).

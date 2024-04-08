@@ -1,15 +1,19 @@
 add_subdirectory(header)
 add_subdirectory(test_header)
 
-add_subdirectory(cmdl)
-add_subdirectory(cmdl_interactive)
-add_subdirectory(cmdl_file)
+if(ADD_BASIC_TOOLS)
+    add_subdirectory(cmdl)
+    add_subdirectory(cmdl_interactive)
+    add_subdirectory(cmdl_file)
+    add_subdirectory(app_py_cmdl)
+endif()
 
-add_subdirectory(app_py_cmdl)
+if(ADD_SDK)
+    add_subdirectory(lib)
+    add_subdirectory(lib_resources)
+    add_subdirectory(test_lib)
+endif()
 
-add_subdirectory(lib)
-add_subdirectory(lib_resources)
-add_subdirectory(test_lib)
 add_subdirectory(lib_c)
 add_subdirectory(test_lib_c)
 
@@ -28,7 +32,7 @@ if(ADD_PY_DOCS)
     add_subdirectory(py_doc)
 endif()
 
-if(ADD_QT_APP)
+if(ADD_QT_APP AND ADD_SDK)
     add_subdirectory(app_cpp)
 endif()
 
