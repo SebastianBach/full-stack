@@ -1,6 +1,7 @@
 # see https://docs.docker.com/build/building/multi-stage/
 
-FROM gcc:12.2.0 AS builder
+# https://hub.docker.com/_/gcc
+FROM gcc:13.2.0 AS builder
 
 RUN apt-get update && apt-get -y install cmake protobuf-compiler
 
