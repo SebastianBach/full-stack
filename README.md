@@ -146,6 +146,8 @@ mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release    -DADD_BASIC_TOOLS=ON\
                                     -DADD_SDK=ON\
+                                    -DADD_C_LIB=ON\
+                                    -DADD_DYNAMIC_LIB=ON\
                                     -DADD_PYTHON_MODULE=ON\
                                     -DADD_QT_APP=ON\
                                     -DADD_RUST_APP=ON\
@@ -183,6 +185,8 @@ CMake options are:
 
 - **ADD_BASIC_TOOLS**: To build the basic command line tools.
 - **ADD_SDK**: To build the static library and documentation.
+- **ADD_C_LIB**: To build a static library with C interface.
+- **ADD_DYNAMIC_LIB**: To build a dynamic library.
 - **ADD_PYTHON_MODULE**: To build the Python module (requires Python C API).
 - **ADD_PY_DOCS**: To build the Python documentation (requires Sphinx).
 - **ADD_LIB_DOCS**: To build the C++ library documentation (requires doxygen).

@@ -13,6 +13,8 @@ cd build
 
 cmake -DCMAKE_BUILD_TYPE=Release    -DADD_BASIC_TOOLS=ON\
                                     -DADD_SDK=ON\
+                                    -DADD_C_LIB=ON\
+                                    -DADD_DYNAMIC_LIB=ON\
                                     -DADD_PYTHON_MODULE=ON\
                                     -DADD_QT_APP=ON\
                                     -DADD_RUST_APP=ON\
