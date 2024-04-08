@@ -19,7 +19,7 @@ if(ADD_C_LIB)
     add_subdirectory(test_lib_c)
 endif()
 
-if(ADD_ASSEMBLY_PROGRAM)
+if(ADD_ASSEMBLY_PROGRAM AND ADD_C_LIB)
     add_subdirectory(asm)
 endif()
 
