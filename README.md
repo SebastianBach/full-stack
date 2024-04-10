@@ -51,7 +51,9 @@ The *full stack* contains:
 * A Java Native Interface Library to extend Java.
 * A unit test for that library.
 * A *Java* command line tool using that library.
-* A *Windows* system tray app.
+* A *Windows* utility library.
+* A unit test for this utility library.
+* A *Windows* system tray app using the utility library.
 * An *Android* app.
 
 ```mermaid
@@ -119,7 +121,9 @@ The *full stack* contains:
     JAVA_LIB --> JAVA_UNIT_TEST[Java Unit Test]  
     JAVA_LIB --> JAVA_APP[Java CLI Tool] 
 
-    F --> WIN_TRAY[Windows System Tray Tool]
+    F --> WIN_LIB(Windows Utility Library)
+    WIN_LIB --> WIN_LIB_TEST[Library Unit Test]
+    WIN_LIB --> WIN_TRAY[Windows System Tray Tool]
 
     F --> ANDROID[Android App] 
 ```
