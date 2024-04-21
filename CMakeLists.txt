@@ -141,6 +141,17 @@ if(CMAKE_COMPILER_IS_GNUCXX)
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pg")
     endif()
 
+
+    option(BUILD_VALGRIND "Valgrind Testing" OFF)
+
+    if(BUILD_VALGRIND)
+        message(STATUS "build for Valgrind testing")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+        set(MEMORYCHECK_COMMAND "/usr/bin/valgrind")
+        set(MEMORYCHECK_COMMAND_OPTIONS "--leak-check=full --show-leak-kinds=all --track-origins=yes")
+        include(CTest)
+    endif()
+
 endif()
 
 add_subdirectory(src)
