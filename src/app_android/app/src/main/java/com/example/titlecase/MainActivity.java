@@ -52,9 +52,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * A native method that is implemented by the 'titlecase' native library,
-     * which is packaged with this application.
-     */
     public native String titleCase(String input);
 }
