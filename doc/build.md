@@ -12,7 +12,7 @@ Build instructions
 * *Java* to build Java command line tool.
 
 
-# Build
+# Build Overview
 
 To build and test everything:
 
@@ -74,3 +74,24 @@ CMake options are:
 - **ADD_WIN_TOOLS**: To build Windows utilities.
 
 See also ```.github/workflows/build.yml```.
+
+# Building the Basic Command Line Tools
+
+
+# Building the Scripting Tools
+
+
+# Building the SDK
+
+
+# Building the QT UI Application
+
+
+# Building the Rust Command Line Tool
+
+
+# Building the Assembly Command Line Tool
+
+
+# Building the WebAssembly Web Application
+
