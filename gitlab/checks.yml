@@ -1,0 +1,28 @@
+
+check-cppcheck:
+  stage: check
+  script:
+    - echo "cppcheck"
+    - mkdir build
+    - cd build
+    - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_BASIC_TOOLS=ON -DADD_SDK=ON -DADD_C_LIB=ON -DADD_DYNAMIC_LIB=ON -DADD_PYTHON_MODULE=ON -DADD_SCRIPT_TOOLS=ON -DADD_ASSEMBLY_PROGRAM=ON ..
+    - cppcheck --project=compile_commands.json --cppcheck-build-dir=./temp/cppcheck
+  tags:
+    - os:linux
+    - os:x86_64
+
+check-valgrind:
+  stage: check
+  script:
+    - echo "valgrind"
+    - mkdir build
+    - cd build
+    - cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_VALGRIND=ON -DADD_BASIC_TOOLS=ON -DADD_SDK=ON -DADD_C_LIB=ON -DADD_DYNAMIC_LIB=ON -DADD_SCRIPT_TOOLS=ON -DADD_ASSEMBLY_PROGRAM=ON ..
+    - cmake --build .
+    - ctest -T memcheck 
+  artifacts:
+    paths:
+    - build/Testing/Temporary/
+  tags:
+    - os:linux
+    - os:x86_64

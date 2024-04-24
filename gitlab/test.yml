@@ -1,0 +1,14 @@
+test_all_linux_x86_64:
+  stage: test
+  needs: ["build_all_linux_x86_64"]
+  script:
+    - echo "test all"
+    - cd build
+    - ctest -C Release  -VV
+    - cmake --install .
+  artifacts:
+    paths:
+    - build/product
+  tags:
+    - os:linux
+    - os:x86_64
