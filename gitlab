@@ -1,0 +1,18 @@
+sudo gitlab-ctl stop
+
+sudo gitlab-ctl restart
+
+sudo gitlab-ctl start
+
+sudo gitlab-ctl status
+
+https://about.gitlab.com/install/#ubuntu
+
+n /etc/gitlab/initial_root_password. Use this password with username root to login.
+
+
+root
+
+rraa§$58
+
+iy0jLPNjwxJhOqyeul9rJZEV9Ww19oYp1Zdg/YiH1Bk=

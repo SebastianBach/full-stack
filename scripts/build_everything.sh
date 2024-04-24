@@ -1,5 +1,7 @@
 trap 'echo "Error: Command failed"; exit 1' ERR
 
+cd ..
+
 if [ ! -d "build" ]; then
     echo "make build folder"
     mkdir build
