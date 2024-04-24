@@ -1,0 +1,47 @@
+
+build-all:
+  stage: build
+  script:
+    - echo "build all"
+    - mkdir build
+    - cd build
+    - cmake -DCMAKE_BUILD_TYPE=Release -DADD_BASIC_TOOLS=ON -DADD_SDK=ON -DADD_C_LIB=ON -DADD_DYNAMIC_LIB=ON -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON  -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_SCRIPT_TOOLS=ON -DADD_ASSEMBLY_PROGRAM=ON  ..
+    - cmake --build . -j --config Release
+    - ctest -C Release  -VV
+    - cmake --install .
+
+  artifacts:
+    paths:
+    - build/product
+  tags:
+    - os:linux
+
+
+check-cppcheck:
+  stage: build
+  script:
+    - echo "cppcheck"
+    - mkdir build
+    - cd build
+    - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DADD_BASIC_TOOLS=ON -DADD_SDK=ON -DADD_C_LIB=ON -DADD_DYNAMIC_LIB=ON -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON  -DADD_SCRIPT_TOOLS=ON -DADD_ASSEMBLY_PROGRAM=ON ..
+    - cmake --build . -j --config Release
+    - cppcheck --project=compile_commands.json --cppcheck-build-dir=./temp/cppcheck
+  tags:
+    - os:linux
+
+
+check-valigrind:
+  stage: build
+  script:
+    - echo "valgrind"
+    - mkdir build
+    - cd build
+    - cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_VALGRIND=ON -DADD_BASIC_TOOLS=ON -DADD_SDK=ON -DADD_C_LIB=ON -DADD_DYNAMIC_LIB=ON -DADD_SCRIPT_TOOLS=ON -DADD_ASSEMBLY_PROGRAM=ON ..
+    - cmake --build .
+    - ctest -T memcheck 
+  artifacts:
+    paths:
+    - build/Testing/Temporary/
+  tags:
+    - os:linux
+
