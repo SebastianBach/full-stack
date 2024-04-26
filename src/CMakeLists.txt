@@ -6,6 +6,7 @@ if(ADD_BASIC_TOOLS)
     add_subdirectory(cmdl_interactive)
     add_subdirectory(cmdl_file)
     add_subdirectory(app_py_cmdl)
+    add_subdirectory(web)
 endif()
 
 if(ADD_SDK)
@@ -63,8 +64,6 @@ if(ADD_JAVA_APP)
     add_subdirectory(java_lib)
     add_subdirectory(java_cli)
 endif()
-
-add_subdirectory(web)
 
 if(WIN32 AND ADD_WIN_TOOLS)
     add_subdirectory(win_tray)
