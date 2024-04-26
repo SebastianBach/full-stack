@@ -19,9 +19,9 @@ cmake -DCMAKE_BUILD_TYPE=Release    -DADD_BASIC_TOOLS=ON\
                                     -DADD_QT_APP=ON\
                                     -DADD_RUST_APP=ON\
                                     -DADD_PY_DOCS=ON\
-                                    -DADD_LIB_DOCS=ON\
+                                    -DADD_SDK_DOCS=ON\
                                     -DADD_SCRIPT_TOOLS=ON\
                                     -DADD_ASSEMBLY_PROGRAM=ON ..
-cmake --build . -j --config Release
-ctest -C Release  -VV
+cmake --build . -j 
+ctest
 cmake --install .

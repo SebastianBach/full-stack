@@ -36,7 +36,7 @@ endif()
 
 # doxygen documentation
 
-if(ADD_LIB_DOCS)
+if(ADD_SDK_DOCS)
 
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxyfile
     ${CMAKE_BINARY_DIR}/temp/doxygen/doxyfile
