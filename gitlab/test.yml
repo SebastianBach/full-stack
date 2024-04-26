@@ -4,11 +4,14 @@ test_all_linux_x86_64:
   script:
     - echo "test all"
     - cd build
-    - ctest -C Release  -VV
+    - ctest --output-junit test_results.xml
     - cmake --install .
   artifacts:
     paths:
-    - build/product
+      - build/product
+    reports:
+      junit: build/test_results.xml
+    expire_in: 1 week
   tags:
     - os:linux
     - os:x86_64
