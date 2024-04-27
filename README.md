@@ -31,8 +31,8 @@ The *full stack* contains:
 * A Python module implemented using the Python C API.
 * A unit test that tests this module.
 * A *Sphinx* documentation for this module.
-* A *Jupyter Notebook* showing how to use this module.
-* A *marimo* notbook using this module.
+* A *Jupyter notebook* showing how to use this module.
+* A *marimo* notebook using this module.
 * A Python UI application that uses this module.
 * A WebAssembly binary library and associated JavaScript code.
 * An HTML/JavaScript frontend that uses the above WebAssembly library.
