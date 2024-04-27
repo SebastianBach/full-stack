@@ -1,7 +1,7 @@
 
 # Basic Command Line Tools
 
-## Command Line Tool *title_case*
+## Command Line Tool ```title_case```
 
 This command line tool takes the given command line argument, converts the data, and prints the result to ```std::cout```.
 
@@ -12,11 +12,11 @@ title_case "this is some text"
 This is Some Text
 ```
 
-## Command Line Tool *title_case_console*
+## Command Line Tool ```title_case_console```
 
 Interactive command line tool. Enter the text to convert or "exit" to end the program.
 
-## Command Line Tool *title_case_files*
+## Command Line Tool ```title_case_files```
 
 The first command line argument is the file to read the data from, the second is the file to save the result to.
 
@@ -89,11 +89,11 @@ print
 
 This will print ```This Is a Headline```.
 
-## Command Line Tool *console*
+## Command Line Tool ```console```
 
 The scripting **console** allows to enter and execute code. The console application can be closed by entering ```exit``` or pressing ```CTRL+C```.
 
-## Command Line Tool *interpreter*
+## Command Line Tool ```interpreter```
 
 The **interpreter** loads and executes a script stored in the specified source file.
 
@@ -101,7 +101,7 @@ The **interpreter** loads and executes a script stored in the specified source f
 interpreter script.txt
 ```
 
-## Command Line Tool *compiler* & *runtime*
+## Command Line Tool ```compiler``` & ```runtime```
 
 The **compiler** loads a source file and generates byte-code, that can be executed by the **runtime**.
 
@@ -111,7 +111,7 @@ compiler script.txt bytecode.code
 runtime bytecode.code
 ```
 
-## Command Line Tool *transcompiler*
+## Command Line Tool ```transcompiler```
 
 The **transcompiler** loads a source file and generates equivalent code in another programming language.
 It also performs code optimisations.

@@ -1,8 +1,15 @@
 #pragma once
 
-#include <array>
-#include <concepts>
+#ifdef __cpp_lib_ranges
+#ifdef __cpp_lib_concepts
 #include <ranges>
+#include <concepts>
+#define USE_RANGES
+#endif
+#endif
+
+#include <array>
+
 
 namespace text_conversion_constexpr
 {
@@ -33,7 +40,9 @@ struct short_word
  * @param[in,out] data      The text to convert
  */
 template <typename DATA>
-    requires std::ranges::sized_range<DATA>
+#ifdef USE_RANGES
+requires std::ranges::sized_range<DATA>
+#endif
 constexpr void convert_to_title_case(DATA& data)
 {
     if (data.empty())

@@ -36,14 +36,14 @@ endif()
 
 # doxygen documentation
 
-if(ADD_LIB_DOCS)
+if(ADD_SDK_DOCS)
 
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxyfile
-    ${CMAKE_INSTALL_PREFIX}/temp/doxygen/doxyfile
+    ${CMAKE_BINARY_DIR}/temp/doxygen/doxyfile
     @ONLY)
 
     message(STATUS "Building C++ library documentation.")
 
-    add_custom_target(lib_docs ALL COMMAND bash -c "doxygen ${CMAKE_INSTALL_PREFIX}/temp/doxygen/doxyfile")
+    add_custom_target(lib_docs ALL COMMAND bash -c "doxygen ${CMAKE_BINARY_DIR}/temp/doxygen/doxyfile")
     add_dependencies(lib_docs text_conversion_lib)
 endif()

@@ -1,0 +1,9 @@
+stages:
+  - check
+  - build
+  - test
+
+include:
+  - 'gitlab/checks.yml'
+  - 'gitlab/build.yml'
+  - 'gitlab/test.yml'

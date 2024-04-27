@@ -31,7 +31,8 @@ The *full stack* contains:
 * A Python module implemented using the Python C API.
 * A unit test that tests this module.
 * A *Sphinx* documentation for this module.
-* A *Jupyter Notebook* showing how to use this module.
+* A *Jupyter notebook* showing how to use this module.
+* A *marimo* notebook using this module.
 * A Python UI application that uses this module.
 * A WebAssembly binary library and associated JavaScript code.
 * An HTML/JavaScript frontend that uses the above WebAssembly library.
@@ -42,7 +43,7 @@ The *full stack* contains:
 * A Python-based IDE front-end for this script interpreter.
 * A compiler that converts scripts in the custom scripting language into bytecode.
 * A runtime that executes this bytecode.
-* A converter that creates Python or C++ code based on a given script written in the custom scripting language.
+* A transcompiler that creates Python or C++ code based on a given script written in the custom scripting language.
 * A C-wrapper library for the C++ function.
 * A unit test that tests this C-wrapper library.
 * A program written in Assembly language that utilizes this C-wrapper library.
@@ -50,6 +51,10 @@ The *full stack* contains:
 * A Java Native Interface Library to extend Java.
 * A unit test for that library.
 * A *Java* command line tool using that library.
+* A *Windows* utility library.
+* A unit test for this utility library.
+* A *Windows* system tray app using the utility library.
+* An *Android* app.
 
 ```mermaid
   flowchart LR;
@@ -90,6 +95,7 @@ The *full stack* contains:
     PY --> PYTEST[Python Module Unit Test]
     PY --> SPHINX(Sphinx Documentation)
     PY --> NOTEBOOK[Jupyter Notebook] 
+    PY --> MARIMO[Marimo Notebook]  
     PY --> PYAPP[Python UI App]
 
     F --> WASM(WebAssembly + JavaScript)
@@ -104,7 +110,7 @@ The *full stack* contains:
     SCRIPT_INTERPRETER --> SCRIPT_IDE[IDE]
     SCRIPTLIB --> SCRIPT_COMPILER[Compiler]
     SCRIPTLIB --> SCRIPT_RUNTIME[Runtime]
-    SCRIPTLIB --> SCRIPT_CONVERT[Converter]
+    SCRIPTLIB --> SCRIPT_CONVERT[Transcompiler]
 
     F --> CWRAPPER(C Wrapper Lib)
     CWRAPPER --> CWRAPPER_TEST[C Wrapper Unit Test]
@@ -114,68 +120,18 @@ The *full stack* contains:
     F --> JAVA_LIB(Java Native Interface Library)
     JAVA_LIB --> JAVA_UNIT_TEST[Java Unit Test]  
     JAVA_LIB --> JAVA_APP[Java CLI Tool] 
+
+    F --> WIN_LIB(Windows Utility Library)
+    WIN_LIB --> WIN_LIB_TEST[Library Unit Test]
+    WIN_LIB --> WIN_TRAY[Windows System Tray Tool]
+
+    F --> ANDROID[Android App] 
 ```
-
-
-# Dependencies
-
-* Native execution of the web app and other Python apps requires requires Python 3.8+.
-* Python module creation requires Python installation with Python C API dependencies.
-* *docker* to containerize the web app and to build the WebAssembly library.
-* *conan* to build the *conan* package.
-* *Qt5* to build the C++ Qt UI app.
-* *Rust* to build the Rust app.
-* *Java* to build Java command line tool.
-
 
 # Build
 
-To build and test everything:
-
-```
-# build all C++ products
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DADD_PYTHON_MODULE=ON -DADD_QT_APP=ON -DADD_RUST_APP=ON -DADD_PY_DOCS=ON -DADD_LIB_DOCS=ON -DADD_JAVA_APP=ON -DADD_SCRIPT_TOOLS=ON -DADD_ASSEMBLY_PROGRAM=ON ..
-cmake --build . -j --config Release
-ctest -C Release  -VV
-cmake --install .
-
-# test lib example project
-cd lib_example_build
-cmake  ../product/lib/example
-cmake --build . --config Release
-ctest -C Release  -VV
-cd ..
-cd ..
-
-# build web app container
-docker build --tag title-case-web .
-
-# build and test conan package
-conan export-pkg . 
-conan list text_conversion
-conan test ./src/test_package text_conversion/0.1.1
-
-# build WebAssembly library
-./build_wasm.sh
-```
-
-The collection of deliverables can be found in ```build/product```.
-
-CMake options are:
-
-- **ADD_PYTHON_MODULE**: To build the Python module (requires Python C API).
-- **ADD_PY_DOCS**: To build the Python documentation (requires Sphinx).
-- **ADD_LIB_DOCS**: To build the C++ library documentation (requires doxygen).
-- **ADD_QT_APP**: To build a Qt5 UI app (requires Qt5).
-- **ADD_RUST_APP**: To build the Rust command line tool (requires Rust).
-- **ADD_JAVA_APP**: To build the Java command line tool (requires Java).
-- **ADD_SCRIPT_TOOLS**: To build the script tools.
-- **ADD_ASSEMBLY_PROGRAM**: To build the Assembly program.
-
-See also ```.github/workflows/build.yml```.
+See the [build instructions](doc/build.md) on how to build the included software.
 
 # Usage
 
-See the [user guide](user_guide.md) on how to use the included software.
+See the [user guide](doc/user_guide.md) on how to use the included software.
