@@ -2,20 +2,20 @@
 
 #ifdef __cpp_lib_ranges
 #ifdef __cpp_lib_concepts
-#include <ranges>
 #include <concepts>
+#include <ranges>
 #define USE_RANGES
 #endif
 #endif
 
 #include <array>
-
+#include <string>
 
 namespace text_conversion_constexpr
 {
 inline const char* version()
 {
-    return "0.1.2";
+    return "0.1.3";
 }
 
 namespace intern
@@ -30,6 +30,19 @@ struct short_word
     const char*        word;
     const unsigned int length;
 };
+
+constexpr auto is_alpha(auto c)
+{
+    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+}
+
+constexpr auto is_lower(auto c)
+{
+    return (c >= 'a' && c <= 'z');
+}
+
+constexpr static auto uppercase = 'a' - 'A';
+
 } // namespace intern
 
 /*
@@ -37,11 +50,11 @@ struct short_word
  *
  * https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case
  *
- * @param[in,out] data      The text to convert
+ * @param[in,out] data      The text to convert.
  */
 template <typename DATA>
 #ifdef USE_RANGES
-requires std::ranges::sized_range<DATA>
+    requires std::ranges::sized_range<DATA>
 #endif
 constexpr void convert_to_title_case(DATA& data)
 {
@@ -50,44 +63,34 @@ constexpr void convert_to_title_case(DATA& data)
 
     auto is_letter = [&](const auto& letter)
     {
-        return (letter >= 65 && letter <= 90) ||
-               (letter >= 97 && letter <= 122) || letter == 39;
-    };
-
-    auto comp_str = [](const char* word_a, const auto* d, auto length)
-    {
-        for (auto i = 0u; i < length; ++i)
-            if (word_a[i] != d[i])
-                return false;
-        return true;
+        // 39 is '
+        return intern::is_alpha(letter) || letter == 39;
     };
 
     auto make_upper_case = [&](auto offset)
     {
         auto& letter = data[offset];
         // check if lower case letter
-        if (letter >= 97 && letter <= 122)
-            letter -= 32;
+        if (intern::is_lower(letter))
+            letter -= intern::uppercase;
     };
 
-    auto check_if_short_word =
-        [&](const auto* word, auto word_length, const auto& short_words)
+    auto check_if_short_word = [&](const auto& word, const auto& short_words)
     {
-        if (word_length >= 4)
+        if (word.size() >= 4)
             return false;
 
         for (const auto& short_word : short_words)
-            if (short_word.length == word_length)
-                if (comp_str(short_word.word, word, word_length))
-                    return true;
+            if (short_word == word)
+                return true;
 
         return false;
     };
 
-    const std::array<intern::short_word, 23> short_words{
-        "a",   "an",  "the", "and", "as", "but", "for", "if",
-        "nor", "or",  "so",  "yet", "at", "by",  "for", "in",
-        "of",  "off", "on",  "per", "to", "up",  "via"};
+    const std::array<std::string_view, 22> short_words{
+        "a",   "an", "the", "and", "as", "but", "for", "if",
+        "nor", "or", "so",  "yet", "at", "by",  "in",  "of",
+        "off", "on", "per", "to",  "up", "via"};
 
     auto word_length = 0u;
     auto start_index = 0u;
@@ -95,7 +98,10 @@ constexpr void convert_to_title_case(DATA& data)
     // first letter
     make_upper_case(0);
 
-    const auto size = data.size();
+    const auto size            = data.size();
+    const auto last_letter_idx = size - 1u;
+
+    auto first_word = true;
 
     for (auto i = 0u; i < size; ++i)
     {
@@ -108,15 +114,17 @@ constexpr void convert_to_title_case(DATA& data)
             word_length++;
         }
 
-        if ((!letter && word_length > 0u) || i == size - 1u)
+        if ((!letter && word_length > 0u) || i == last_letter_idx)
         {
-            const auto to_upper = !check_if_short_word(
-                &data[start_index], word_length, short_words);
+            const std::string_view word(&data[start_index], word_length);
 
-            if (to_upper)
+            const auto to_upper = !check_if_short_word(word, short_words);
+
+            if (to_upper || first_word)
                 make_upper_case(start_index);
 
             word_length = 0u;
+            first_word = false;
         }
     }
 }
