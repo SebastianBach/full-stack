@@ -63,8 +63,7 @@ constexpr void convert_to_title_case(DATA& data)
 
     auto is_letter = [&](const auto& letter)
     {
-        // 39 is '
-        return intern::is_alpha(letter) || letter == 39;
+        return intern::is_alpha(letter) || letter == '\'';
     };
 
     auto make_upper_case = [&](auto offset)
