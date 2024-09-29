@@ -1,11 +1,12 @@
 #ifndef CLIPBOARD_H_
 #define CLIPBOARD_H_
 
-#include <vector>
+
+#include <string>
 
 namespace clipboard
 {
-using text = std::vector<char>;
+using text = std::string;
 
 void clear();
 void format_text();

@@ -20,14 +20,11 @@ constexpr static test_result test_success = {};
         return EXIT_FAILURE;                                                   \
     }
 
-clipboard::text operator"" _text(const char* str, size_t)
-{
-    return clipboard::text{str, str + strlen(str) + 1};
-}
+
 
 test_result test_clipboard_clear()
 {
-    const clipboard::text input_text = "abc"_text;
+    const clipboard::text input_text = "abc";
 
     clipboard::set_text(input_text);
 
@@ -54,7 +51,7 @@ test_result test_clipboard_clear()
 
 test_result test_clipboard_format()
 {
-    const clipboard::text input_text = "this is a test"_text;
+    const clipboard::text input_text = "this is a test";
 
     clipboard::set_text(input_text);
 
@@ -75,7 +72,7 @@ test_result test_clipboard_format()
 
         EXPECT(!check.empty());
 
-        const clipboard::text expected = "This Is a Test"_text;
+        const clipboard::text expected = "This Is a Test";
 
         EXPECT(check == expected);
     }

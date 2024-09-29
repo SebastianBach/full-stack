@@ -14,14 +14,13 @@ enum ACTIONS
 
 HINSTANCE      hInst;
 NOTIFYICONDATA nid;
-HMENU          hPopupMenu;
 
 LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam,
                                  LPARAM lParam);
 
 void create_system_tray_icon(HWND hwnd);
 
-void show_conetxt_menu(HWND hwnd, POINT pt);
+void show_context_menu(HWND hwnd, POINT pt);
 
 void close()
 {
@@ -40,10 +39,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
     wc.lpszClassName = CLASS_NAME;
 
     RegisterClass(&wc);
-    auto hwnd =
-        CreateWindowEx(0, CLASS_NAME, "Sample Tray App", WS_OVERLAPPEDWINDOW,
-                       CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-                       CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
+    auto hwnd = CreateWindowEx(0, CLASS_NAME, NULL, 0, 0, 0, 0, 0, HWND_MESSAGE,
+                               NULL, hInstance, NULL);
 
     if (hwnd == NULL)
         return 0;
@@ -65,6 +62,11 @@ LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam,
 {
     switch (uMsg)
     {
+    case WM_CLOSE:
+        DestroyWindow(hwnd);
+        break;
+    case WM_QUERYENDSESSION:
+        break;
     case WM_DESTROY:
         close();
         break;
@@ -88,7 +90,11 @@ LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam,
         {
             POINT pt;
             GetCursorPos(&pt);
-            show_conetxt_menu(hwnd, pt);
+            show_context_menu(hwnd, pt);
+        }
+        else if (lParam == WM_LBUTTONUP)
+        {
+            // what do do here?
         }
         break;
     default:
@@ -109,9 +115,9 @@ void create_system_tray_icon(HWND hwnd)
     Shell_NotifyIcon(NIM_ADD, &nid);
 }
 
-void show_conetxt_menu(HWND hwnd, POINT pt)
+void show_context_menu(HWND hwnd, POINT pt)
 {
-    hPopupMenu = CreatePopupMenu();
+    auto hPopupMenu = CreatePopupMenu();
 
     InsertMenu(hPopupMenu, 0, MF_BYPOSITION | MF_STRING,
                ACTIONS::CONVERT_CLIPBOARD, "Convert Text in Clipboard");
@@ -125,4 +131,6 @@ void show_conetxt_menu(HWND hwnd, POINT pt)
 
     TrackPopupMenu(hPopupMenu, TPM_BOTTOMALIGN | TPM_LEFTALIGN, pt.x, pt.y, 0,
                    hwnd, NULL);
+
+    DestroyMenu(hPopupMenu);
 }
