@@ -5,30 +5,27 @@
 
 namespace clipboard
 {
-
-using text = std::vector<wchar_t>;
-
 void get_text(text& text)
 {
-    if (!IsClipboardFormatAvailable(CF_UNICODETEXT))
+    if (!IsClipboardFormatAvailable(CF_TEXT))
         return;
 
     if (!OpenClipboard(nullptr))
         return;
 
-    auto hData = GetClipboardData(CF_UNICODETEXT);
+    auto hData = GetClipboardData(CF_TEXT);
 
     if (hData != nullptr)
     {
-        auto* clipboard_text = static_cast<wchar_t*>(GlobalLock(hData));
+        auto* clipboard_text = static_cast<char*>(GlobalLock(hData));
 
         if (clipboard_text != nullptr)
         {
-            auto textLen = wcslen(clipboard_text);
+            auto textLen = strlen(clipboard_text);
 
             text.resize(textLen + 1);
 
-            memcpy(text.data(), clipboard_text, textLen * sizeof(wchar_t));
+            memcpy(text.data(), clipboard_text, textLen * sizeof(char));
 
             text[textLen] = L'\0';
 
@@ -48,18 +45,18 @@ void set_text(const text& text)
 
     const auto len = text.size();
 
-    auto hGlob = GlobalAlloc(GMEM_MOVEABLE, len * sizeof(wchar_t));
+    auto hGlob = GlobalAlloc(GMEM_MOVEABLE, len * sizeof(char));
 
     if (hGlob != nullptr)
     {
         auto* pGlob = GlobalLock(hGlob);
 
         if (pGlob)
-            memcpy(pGlob, text.data(), len * sizeof(wchar_t));
+            memcpy(pGlob, text.data(), len * sizeof(char));
 
         GlobalUnlock(hGlob);
 
-        SetClipboardData(CF_UNICODETEXT, hGlob);
+        SetClipboardData(CF_TEXT, hGlob);
     }
 
     GlobalFree(hGlob);
@@ -77,16 +74,16 @@ void clear()
 
 void format_text()
 {
-    std::vector<wchar_t> text;
+    text text_to_convert;
 
-    get_text(text);
+    get_text(text_to_convert);
 
-    if (text.empty())
+    if (text_to_convert.empty())
         return;
 
-    text_conversion_constexpr::convert_to_title_case(text);
+    text_conversion_constexpr::convert_to_title_case(text_to_convert);
 
-    set_text(text);
+    set_text(text_to_convert);
 }
 
 } // namespace clipboard

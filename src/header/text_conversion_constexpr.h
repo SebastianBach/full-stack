@@ -20,17 +20,6 @@ inline const char* version()
 
 namespace intern
 {
-struct short_word
-{
-    template <auto N>
-    constexpr short_word(const char (&input)[N]) : word(input), length(N - 1)
-    {
-    }
-
-    const char*        word;
-    const unsigned int length;
-};
-
 constexpr auto is_alpha(auto c)
 {
     return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');

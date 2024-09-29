@@ -5,7 +5,7 @@
 
 namespace clipboard
 {
-using text = std::vector<wchar_t>;
+using text = std::vector<char>;
 
 void clear();
 void format_text();
