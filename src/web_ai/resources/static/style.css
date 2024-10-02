@@ -1,0 +1,121 @@
+/* Style the body to center content and set background color */
+body {
+    background-color: #f9f9f9; /* Light grey background for elegance */
+    font-family: 'Georgia', serif; /* Elegant serif font */
+    color: #333;
+    text-align: center; /* Center all text */
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the main heading */
+h1 {
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    font-size: 3em;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+/* Center and set the same width for #result and form */
+#result, form {
+    width: 60%;
+    margin: 0 auto 20px auto; /* Center horizontally and add bottom margin */
+    display: block; /* Ensure they are block elements */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+}
+
+/* Style the result display */
+#result {
+    background-color: #e0e0e0;
+    font-weight: bold;
+    font-size: 2em;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* Style the form */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: left; /* Align text inside the form to the left */
+}
+
+/* Style the label */
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Style the textarea */
+textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 15pt;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    font-family: 'Times New Roman', Times, serif;
+    border-style: none;
+    text-align: justify;
+}
+
+/* Style the submit button */
+button {
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    font-size: 1em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Change button appearance on hover */
+button:hover {
+    background-color: #45a049;
+}
+
+
+/* Full-screen overlay */
+#loading-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 1000; /* Make sure it is on top of other elements */
+    text-align: center;
+    color: white;
+}
+
+/* Center content inside overlay */
+#loading-overlay .spinner {
+    margin: 20% auto;
+    border: 8px solid rgba(255, 255, 255, 0.3); /* Light border */
+    border-top: 8px solid white; /* Darker border to create a spinning effect */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+#loading-overlay p {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Spinner keyframe animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+

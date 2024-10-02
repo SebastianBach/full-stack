@@ -4,7 +4,7 @@
 - ```app_cpp```: C++ Qt5 UI app.
 - ```app_py```: Python UI app utilizing the custom Python module.
 - ```app_py_cmdl```: Python UI app utilizing the command line tool.
-- ```asm``: Assembly command line tool.
+- ```asm```: Assembly command line tool.
 - ```cmake```: CMake utilities.
 - ```cmdl```: Command line tool *title_case*.
 - ```cmdl_file```: Command line tool *title_case_files*.
@@ -40,5 +40,6 @@
 - ```test_py```: Unit test for the Python module.
 - ```test_script```: Collection of unit tests for the script library.
 - ```web```: Web app source and resources.
+- ```web_ai```: AI Web app source and resources.
 - ```webassembly```: WebAssembly source and resources.
 - ```win_tray```: Windows system tray application.

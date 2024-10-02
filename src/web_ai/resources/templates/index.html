@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Headline Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <h1>Headline Generator</h1>
+    <span id="result"></span>
+    <form>
+        <label for="text-field">Article:</label>
+        <textarea id="text-field" name="text" rows="20" cols="50" placeholder="Enter your article here..."></textarea>
+        <button type="submit" id="submit-button">Create Headline</button>
+    </form>
+
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <p>Generating your headline...</p>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

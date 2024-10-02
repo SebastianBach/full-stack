@@ -34,6 +34,7 @@ The *full stack* contains:
 * A *Jupyter notebook* showing how to use this module.
 * A *marimo* notebook using this module.
 * A Python UI application that uses this module.
+* A Python based web app using AI to generate a headline and formatting it with this module.
 * A WebAssembly binary library and associated JavaScript code.
 * An HTML/JavaScript frontend that uses the above WebAssembly library.
 * A static library that implements a custom scripting language.
@@ -97,6 +98,7 @@ The *full stack* contains:
     PY --> NOTEBOOK[Jupyter Notebook] 
     PY --> MARIMO[Marimo Notebook]  
     PY --> PYAPP[Python UI App]
+    PY --> WEBAI[AI Web App]  
 
     F --> WASM(WebAssembly + JavaScript)
 

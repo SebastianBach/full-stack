@@ -66,6 +66,24 @@ python -m http.server
 
 Open ```http://localhost:8000/``` to start the WebAssembly app.
 
+## AI Web App
+
+* using the **OpenAI** require the *openai* Python module and an OpenAI API key.
+
+```sh
+
+# install dependencies if needed
+pip install openai
+pip install flask
+
+
+export OPENAI_API_KEY=.....
+
+python3 app.py ./resources
+```
+
+open `localhost:5000`.
+
 
 # Scripting Language
 
