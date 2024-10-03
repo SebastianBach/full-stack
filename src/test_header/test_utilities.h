@@ -1,5 +1,6 @@
 #pragma once
 #include "text_conversion_constexpr.h"
+#include <algorithm>
 #include <string>
 
 namespace test
