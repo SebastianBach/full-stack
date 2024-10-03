@@ -25,6 +25,10 @@ static_folder = os.path.join(resources_folder, "static")
 
 app = Flask(__name__, template_folder=templates_folder, static_folder=static_folder)
 
+sys.path.append(sys.argv[2])
+
+import text_conversion
+
 
 @app.route('/')
 def index():
@@ -57,7 +61,9 @@ def post_data():
             ]
         )
 
-        response = {'result': completion.choices[0].message.content}
+        headline_formatted = text_conversion.title_case(completion.choices[0].message.content)
+
+        response = {'result': headline_formatted}
 
         return jsonify(response), 200
 

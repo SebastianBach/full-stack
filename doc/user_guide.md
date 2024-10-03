@@ -79,7 +79,7 @@ pip install flask
 
 export OPENAI_API_KEY=.....
 
-python3 app.py ./resources
+python3 app.py ./resources ../../path/to/python_module
 ```
 
 open `localhost:5000`.

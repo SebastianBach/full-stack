@@ -1,46 +1,55 @@
-/* Style the body to center content and set background color */
+/* Style the body to center content and set a newspaper-like background */
 body {
-    background-color: #f9f9f9; /* Light grey background for elegance */
-    font-family: 'Georgia', serif; /* Elegant serif font */
+    background-color: #ffffff; /* White background for a clean look */
+    font-family: 'Times New Roman', Times, serif; /* Classic serif font common in newspapers */
     color: #333;
     text-align: center; /* Center all text */
     margin: 0;
     padding: 0;
+    line-height: 1.6; /* Improve readability */
 }
 
-/* Style the main heading */
+/* Style the main heading like a newspaper headline */
 h1 {
-    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-    font-size: 3em;
-    margin-top: 50px;
+    font-family: 'Georgia', serif; /* Classic serif for the headline */
+    font-size: 3.5em;
+    margin-top: 30px;
     margin-bottom: 20px;
+    text-transform: uppercase; /* All caps for newspaper headline style */
+    letter-spacing: 2px; /* Spacing for a more dramatic look */
+    border-bottom: 3px solid #333; /* Underline to separate headline */
+    padding-bottom: 10px;
 }
 
 /* Center and set the same width for #result and form */
 #result, form {
-    width: 60%;
-    margin: 0 auto 20px auto; /* Center horizontally and add bottom margin */
+    width: 70%; /* Increase width to mimic newspaper column layout */
+    margin: 0 auto 30px auto; /* Center horizontally and add bottom margin */
     display: block; /* Ensure they are block elements */
     box-sizing: border-box; /* Include padding and border in the element's total width */
 }
 
 /* Style the result display */
 #result {
-    background-color: #e0e0e0;
+    background-color: #f2f2f2;
     font-weight: bold;
-    font-size: 2em;
-    padding: 10px;
-    border-radius: 5px;
-    font-family: 'Times New Roman', Times, serif;
+    font-size: 2.2em;
+    padding: 20px;
+    border-radius: 0; /* Remove rounded corners */
+    font-family: 'Georgia', serif; /* Classic serif for the headline */
+    border: 1px solid #ccc; /* Thin border around the result */
+    text-align: left; /* Align text like a news article */
+    margin-bottom: 30px;
 }
 
 /* Style the form */
 form {
-    background-color: #fff;
-    padding: 20px;
+    background-color: #ffffff;
+    padding: 25px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 0; /* Remove rounded corners */
     text-align: left; /* Align text inside the form to the left */
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); /* Slight shadow for a printed feel */
 }
 
 /* Style the label */
@@ -48,39 +57,43 @@ label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
+    font-size: 1.1em;
+    font-family: 'Georgia', serif;
 }
 
 /* Style the textarea */
 textarea {
     width: 100%;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 15px;
     margin-bottom: 15px;
-    font-size: 15pt;
+    font-size: 1em;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 0; /* Remove rounded corners */
     resize: vertical;
     font-family: 'Times New Roman', Times, serif;
-    border-style: none;
+    line-height: 1.5;
     text-align: justify;
 }
 
 /* Style the submit button */
 button {
-    background-color: #4CAF50; /* Green background */
+    background-color: #333; /* Darker background for a more serious tone */
     color: white;
-    font-size: 1em;
-    padding: 10px 20px;
+    font-size: 1.1em;
+    padding: 12px 30px;
     border: none;
-    border-radius: 5px;
+    border-radius: 0; /* Remove rounded corners */
     cursor: pointer;
+    font-family: 'Georgia', serif;
+    text-transform: uppercase; /* Make the button text all caps */
+    letter-spacing: 1px; /* Slight letter spacing */
 }
 
 /* Change button appearance on hover */
 button:hover {
-    background-color: #45a049;
+    background-color: #555;
 }
-
 
 /* Full-screen overlay */
 #loading-overlay {
@@ -90,27 +103,28 @@ button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.6); /* Darker semi-transparent background */
     z-index: 1000; /* Make sure it is on top of other elements */
     text-align: center;
     color: white;
+    font-family: 'Georgia', serif;
 }
 
 /* Center content inside overlay */
 #loading-overlay .spinner {
     margin: 20% auto;
-    border: 8px solid rgba(255, 255, 255, 0.3); /* Light border */
-    border-top: 8px solid white; /* Darker border to create a spinning effect */
+    border: 8px solid rgba(255, 255, 255, 0.2); /* Light border */
+    border-top: 8px solid white; /* White for the spinning effect */
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     animation: spin 1s linear infinite;
 }
 
 #loading-overlay p {
     margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 /* Spinner keyframe animation */
@@ -118,4 +132,3 @@ button:hover {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
