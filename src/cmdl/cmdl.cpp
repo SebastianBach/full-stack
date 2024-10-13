@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 {
     if (argc != 2)
     {
-        std::cout << "Invalid command line arguments." << std::endl;
+        std::cerr << "Invalid command line arguments. Expected a single input string." << std::endl;
         return EXIT_FAILURE;
     }
 

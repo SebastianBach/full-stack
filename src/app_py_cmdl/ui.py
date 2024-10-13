@@ -6,9 +6,10 @@ import sys
 from PyQt5.QtWidgets import (QApplication, QLabel, QLineEdit, QMessageBox,
                              QPushButton, QVBoxLayout, QWidget)
 
-executable = {}
-executable["Windows"] = "title_case.exe"
-executable["Linux"] = "./title_case"
+executable = {
+    "Windows": "title_case.exe",
+    "Linux": "./title_case"
+}
 
 cmdl_path = executable[platform.system()]
 

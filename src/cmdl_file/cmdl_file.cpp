@@ -21,7 +21,7 @@ auto process(const char* input, const char* output)
 
     if (!input_file.is_open())
     {
-        std::cerr << "Failed to open input file." << std::endl;
+        std::cerr << "Failed to open input file:" << input << std::endl;
         return false;
     }
 
@@ -29,7 +29,7 @@ auto process(const char* input, const char* output)
 
     if (!output_file.is_open())
     {
-        std::cerr << "Failed to open output file" << std::endl;
+        std::cerr << "Failed to open output file:" << output << std::endl;
         return false;
     }
 
@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
 {
     if (argc != 3)
     {
-        std::cerr << "Invalid command line arguments." << std::endl;
+        std::cerr << "Invalid command line arguments. Expected two file paths." << std::endl;
         return EXIT_FAILURE;
     }
 

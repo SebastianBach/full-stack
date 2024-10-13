@@ -68,14 +68,11 @@ Open ```http://localhost:8000/``` to start the WebAssembly app.
 
 ## AI Web App
 
-* using the **OpenAI** require the *openai* Python module and an OpenAI API key.
+* using the **OpenAI** API requires the *openai* Python module and an OpenAI API key.
 
 ```sh
-
 # install dependencies if needed
-pip install openai
-pip install flask
-
+pip install openai flask transformers torch
 
 export OPENAI_API_KEY=.....
 

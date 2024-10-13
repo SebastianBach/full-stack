@@ -39,7 +39,8 @@ constexpr static auto uppercase = 'a' - 'A';
  *
  * https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case
  *
- * @param[in,out] data      The text to convert.
+ * @param[in,out] data  The text to convert, modified in place.
+ *                      Must support character indexing and `size()`.
  */
 template <typename DATA>
 #ifdef USE_RANGES
