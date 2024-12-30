@@ -43,6 +43,9 @@ auto run_interpreter(const std::string& arg)
     std::string line;
     while (std::getline(file, line))
     {
+        if (line.empty())
+            continue;
+
         if ((line.back() == '\r' || line.back() == '\n'))
             line.erase(line.size() - 1);
 
