@@ -1,6 +1,9 @@
 add_subdirectory(header)
 add_subdirectory(test_header)
 
+add_subdirectory(cpp_shared)
+add_subdirectory(test_cpp_shared)
+
 if(ADD_BASIC_TOOLS)
     add_subdirectory(cmdl)
     add_subdirectory(cmdl_interactive)

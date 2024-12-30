@@ -2,6 +2,7 @@ add_executable(script_test)
 
 target_sources(script_test PRIVATE test.cpp)
 target_link_libraries(script_test PRIVATE script_lib)
+target_link_libraries(script_test PRIVATE cpp_shared)
 
 add_test(NAME script_test COMMAND script_test)
 
