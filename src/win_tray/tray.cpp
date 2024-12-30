@@ -57,6 +57,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
     return 0;
 }
 
+void show_bubble(const char* msg)
+{
+    nid.uFlags = NIF_INFO;
+    strcpy_s(nid.szInfo, msg);
+    strcpy_s(nid.szInfoTitle, "Text Conversion Tool");
+    nid.dwInfoFlags = NIIF_INFO;
+    Shell_NotifyIcon(NIM_MODIFY, &nid);
+}
+
 LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam,
                                  LPARAM lParam)
 {
@@ -75,10 +84,11 @@ LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam,
         {
         case ACTIONS::CONVERT_CLIPBOARD:
             clipboard::format_text();
+            show_bubble("Clipboard text converted.");
             break;
         case ACTIONS::CLEAR_CLIPBOARD:
             clipboard::clear();
-            MessageBox(hwnd, "Clipboard Cleared", "Info", MB_OK);
+            show_bubble("Clipboard Cleared.");
             break;
         case ACTIONS::EXIT:
             close();
